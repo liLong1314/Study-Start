@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="BuildingCataLog">
+  <result-map name="buildingCataLog" class="com.sunyard.hgam.persistence.dao.beans.arm.BuildingCataLog">
+    <property name="cataId" column="CATA_ID" />
+    <property name="cataBeginDate" column="CATA_BEGINDATE" />
+    <property name="cataOrder" column="CATA_ORDER" />
+    <property name="cataCardNum" column="CATA_CARDNUM" />
+    <property name="cataAdress" column="CATA_ADDRESS" />
+    <property name="cataArea" column="CATA_AREA" />
+    <property name="cataArkNum" column="CATA_ARKNUM" />
+    <property name="cataUnit" column="CATA_UNIT" />
+    <property name="cataItem" column="CATA_ITEM" />
+    <property name="cataMapNum" column="CATA_MAPNUM" />
+    <property name="cataLevel" column="CATA_LEVEL" />
+    <property name="cataStruts" column="CATA_STRUTS" />
+    <property name="cataEndData" column="CATA_ENDDATE" />
+    <property name="remark" column="REMARK" />
+  </result-map>
+<mapped-statement name="getAllBuildingCataLog" result-map="buildingCataLog">
+   <![CDATA[
+     SELECT
+       CATA_ID,
+        TO_CHAR(CATA_BEGINDATE,'YYYY-MM-DD') AS CATA_BEGINDATE,
+       CATA_ORDER,
+       CATA_CARDNUM,
+       CATA_ADDRESS,
+       CATA_AREA,
+       CATA_ARKNUM,
+       CATA_UNIT,
+       CATA_ITEM,
+       CATA_MAPNUM,
+       CATA_LEVEL,
+       CATA_STRUTS,
+       TO_CHAR(CATA_ENDDATE,'YYYY-MM-DD') AS CATA_ENDDATE,
+       REMARK
+     FROM
+       BUILDING_CATALOG
+   ]]>
+  </mapped-statement>
+<mapped-statement name="getBuildingCataLogByID" result-map="buildingCataLog">
+   <![CDATA[
+     SELECT
+       CATA_ID,
+       TO_CHAR(CATA_BEGINDATE,'YYYY-MM-DD') AS CATA_BEGINDATE,
+       CATA_ORDER,
+       CATA_CARDNUM,
+       CATA_ADDRESS,
+       CATA_AREA,
+       CATA_ARKNUM,
+       CATA_UNIT,
+       CATA_ITEM,
+       CATA_MAPNUM,
+       CATA_LEVEL,
+       CATA_STRUTS,
+       TO_CHAR(CATA_ENDDATE,'YYYY-MM-DD') AS CATA_ENDDATE,
+       REMARK
+     FROM
+       BUILDING_CATALOG
+     WHERE
+      CATA_ID=#value#
+   ]]>
+  </mapped-statement>
+<mapped-statement name="addBuildingCataLog">
+   <![CDATA[
+    INSERT INTO BUILDING_CATALOG(CATA_ID,
+                                 CATA_BEGINDATE,
+                                 CATA_ORDER,
+                                 CATA_CARDNUM,
+                                 CATA_ADDRESS,
+                                 CATA_AREA,
+                                 CATA_ARKNUM,
+                                 CATA_UNIT,
+                                 CATA_ITEM,
+                                 CATA_MAPNUM,
+                                 CATA_LEVEL,
+                                 CATA_STRUTS,
+                                 CATA_ENDDATE,
+                                 REMARK)
+       VALUES ((SELECT NVL(MAX(NVL(CATA_ID,0))+1,1) FROM BUILDING_CATALOG),
+                TO_DATE(#cataBeginDate#,'YYYY-MM-DD'),
+                #cataOrder#,
+                #cataCardNum#,
+               #cataAdress#,
+               #cataArea#,
+               #cataArkNum#,
+               #cataUnit#,
+               #cataItem#,
+              #cataMapNum#,
+              #cataLevel#,
+              #cataStruts#,
+              TO_DATE(#cataEndData#,'YYYY-MM-DD'),
+              #remark#)
+   ]]>
+   </mapped-statement>
+   <mapped-statement name="updateBuildingCataLog">
+  <![CDATA[
+    UPDATE BUILDING_CATALOG SET
+      CATA_BEGINDATE=TO_DATE(#cataBeginDate#,'YYYY-MM-DD'),
+      CATA_ORDER=#cataOrder#,
+      CATA_CARDNUM=#cataCardNum#,
+      CATA_ADDRESS=#cataAdress#,
+      CATA_AREA=#cataArea#,
+      CATA_ARKNUM=#cataArkNum#,
+      CATA_UNIT=#cataUnit#,
+      CATA_ITEM=#cataItem#,
+      CATA_MAPNUM=#cataMapNum#,
+      CATA_LEVEL=#cataLevel#,
+      CATA_STRUTS=#cataStruts#,
+      CATA_ENDDATE=TO_DATE(#cataEndData#,'YYYY-MM-DD'),
+      REMARK=#remark#
+      WHERE CATA_ID=#cataId#
+   ]]>
+  </mapped-statement>
+   <mapped-statement name="deleteBuildingCataLog">
+   <![CDATA[
+    	DELETE BUILDING_CATALOG
+    	WHERE CATA_ID=#cataId#
+   ]]>
+  </mapped-statement>
+<dynamic-mapped-statement name="queryBuildingCataLogList" result-map="buildingCataLog">
+  SELECT
+       CATA_ID,
+       TO_CHAR(CATA_BEGINDATE,'YYYY-MM-DD') AS CATA_BEGINDATE,
+       CATA_ORDER,
+       CATA_CARDNUM,
+       CATA_ADDRESS,
+       CATA_AREA,
+       CATA_ARKNUM,
+       CATA_UNIT,
+       CATA_ITEM,
+       CATA_MAPNUM,
+       CATA_LEVEL,
+       CATA_STRUTS,
+       TO_CHAR(CATA_ENDDATE,'YYYY-MM-DD') AS CATA_ENDDATE,
+       REMARK
+     FROM
+       BUILDING_CATALOG
+       <dynamic prepend="WHERE">
+       <isNotEmpty prepend="AND" property="cataCardNum">
+           CATA_CARDNUM like '%' || #cataCardNum# || '%'
+       </isNotEmpty>
+       <isNotEmpty prepend="AND" property="cataUnit">
+           CATA_UNIT like '%' || #cataUnit# || '%'
+       </isNotEmpty>
+       <isNotEmpty prepend="AND" property="cataItem">
+           CATA_ITEM like '%' || #cataItem# || '%'
+       </isNotEmpty>
+       </dynamic>
+
+</dynamic-mapped-statement>
+</sql-map>
+
+

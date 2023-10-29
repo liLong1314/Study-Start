@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="WatchExamineDenote">
+  <result-map name="watchExamineDenote" class="com.sunyard.hgam.persistence.dao.beans.arm.WatchExamineDenote">
+    <property name="watchId" column="WATCH_ID" />
+    <property name="denoteId" column="DENOTE_ID" />
+    <property name="denoteTitle" column="DENOTE_TITLE" />
+    <property name="denoteContent" column="DENOTE_CONTENT" />
+    <property name="denoteSuperinrtendent" column="DENOTE_SUPERINRTENDENT" />
+    <property name="leadshiperSignature" column="LEADSHIPER_SIGNATURE" />
+    <property name="denoteDate" column="DENOTE_DATE" />
+  </result-map>
+  <mapped-statement name="getWatchExamineDenoteByID" result-map="watchExamineDenote">
+   <![CDATA[
+     SELECT
+       DENOTE_ID,
+       WATCH_ID,
+       DENOTE_TITLE,
+       DENOTE_CONTENT,
+       DENOTE_SUPERINRTENDENT,
+       LEADSHIPER_SIGNATURE,
+       TO_CHAR(DENOTE_DATE,'YYYY-MM-DD') AS DENOTE_DATE
+     FROM
+       WATCHEXAMINE_DENOTE
+     WHERE
+      WATCH_ID=#value#
+   ]]>
+  </mapped-statement>
+<mapped-statement name="addWatchExamineDenote">
+   <![CDATA[
+    INSERT INTO WATCHEXAMINE_DENOTE(DENOTE_ID,
+                                 WATCH_ID,
+                                 DENOTE_TITLE,
+                                 DENOTE_CONTENT,
+                                 DENOTE_SUPERINRTENDENT,
+                                 LEADSHIPER_SIGNATURE,
+                                 DENOTE_DATE)
+       VALUES ((SELECT NVL(MAX(NVL(DENOTE_ID,0))+1,1) FROM WATCHEXAMINE_DENOTE),
+                #watchId#,
+                #denoteTitle#,
+               #denoteContent#,
+               #denoteSuperinrtendent#,
+               #leadshiperSignature#,
+               TO_DATE(#denoteDate#,'YYYY-MM-DD'))
+   ]]>
+   </mapped-statement>
+   </sql-map>

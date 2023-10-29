@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="Eform">
+   <result-map name="eformDefine" class="com.sunyard.hgam.persistence.dao.beans.adc.EformDefine">
+    <property name="eform_id" 		column="EFORM_ID"/>
+    <property name="eform_name" 	column="EFORM_NAME"/>
+    <property name="eform_version" 	column="EFORM_VERSION"/>
+    <property name="eform_begin_date" 	column="EFORM_BEGIN_DATE"/>
+    <property name="eform_end_date" 	column="EFORM_END_DATE"/>
+    <property name="entry_id" 		column="ENTRY_ID"/>
+    <property name="remark" 		column="REMARK"/>
+   </result-map>
+   <result-map name="eformFieldDefine" class="com.sunyard.hgam.persistence.dao.beans.adc.EformFieldDefine">
+    <property name="eform_id" 		column="EFORM_ID"/>
+    <property name="field_id" 		column="FIELD_ID"/>
+    <property name="field_type_id" 	column="FIELD_TYPE_ID"/>
+    <property name="field_seq" 		column="FIELD_SEQ"/>
+    <property name="field_isEdit" 	column="FIELD_ISEDIT"/>
+    <property name="field_cname" 	column="FIELD_CNAME"/>
+    <property name="field_ename" 	column="FIELD_ENAME"/>
+    <property name="field_len" 		column="FIELD_LEN"/>
+    <property name="field_isNull" 	column="FIELD_ISNULL"/>
+    <property name="field_isBrief" 	column="FIELD_ISBRIEF"/>
+   </result-map>
+   <result-map name="eformFieldValue" class="com.sunyard.hgam.persistence.dao.beans.adc.EformFieldValue">
+    <property name="value_id" 		column="VALUE_ID"/>
+    <property name="file_id" 		column="FILE_ID"/>
+    <property name="field_id" 		column="FIELD_ID"/>
+    <property name="field_value" 	column="FIELD_VALUE"/>
+   </result-map>
+   <result-map name="eformFieldValueInfo" class="com.sunyard.hgam.persistence.dao.beans.adc.EformFieldValue">
+    <property name="file_id" 		column="FILE_ID"/>
+    <property name="eform_id" 		column="EFORM_ID"/>
+    <property name="field_id" 		column="FIELD_ID"/>
+    <property name="field_type_id" 	column="FIELD_TYPE_ID"/>
+    <property name="field_cname" 	column="FIELD_CNAME"/>
+    <property name="field_ename" 	column="FIELD_ENAME"/>
+    <property name="field_len" 		column="FIELD_LEN"/>
+    <property name="field_isNull" 	column="FIELD_ISNULL"/>
+    <property name="field_isBrief" 	column="FIELD_ISBRIEF"/>
+    <property name="field_seq" 		column="FIELD_SEQ"/>
+    <property name="field_isEdit" 	column="FIELD_ISEDIT"/>
+    <property name="field_value" 	column="FIELD_VALUE"/>
+   </result-map>
+   <result-map name="printInfo" class="com.sunyard.hgam.persistence.dao.beans.adc.EformFieldValue">
+    <property name="field_id" 		column="FIELD_ID"/>
+    <property name="field_cname" 	column="FIELD_CNAME"/>
+    <property name="field_value" 	column="FIELD_VALUE"/>
+   </result-map>
+
+   <result-map name="projectPhase" class="com.sunyard.hgam.persistence.dao.beans.adc.ProjectPhase">
+    <property name="phase_id" 		column="PHASE_ID"/>
+    <property name="phase_name" 	column="PHASE_NAME"/>
+    <property name="remark" 		column="REMARK"/>
+   </result-map>
+   <result-map name="fieldType" class="com.sunyard.hgam.persistence.dao.beans.adc.FieldType">
+    <property name="field_type_id" 	column="FIELD_TYPE_ID"/>
+    <property name="field_type_ename" 	column="FIELD_TYPE_ENAME"/>
+    <property name="field_type_cname" 	column="FIELD_TYPE_CNAME"/>
+   </result-map>
+   <result-map name="projBrief" class="com.sunyard.hgam.persistence.dao.beans.adc.EformFieldValue">
+    <property name="field_id" 		column="FIELD_ID"/>
+    <property name="field_cname" 	column="FIELD_CNAME"/>
+    <property name="field_value" 	column="FIELD_VALUE"/>
+   </result-map>
+
+   <mapped-statement name="addEformFieldValue">
+   <![CDATA[
+	INSERT INTO FIELD_VALUE
+        (VALUE_ID,
+	 FILE_ID,
+	 FIELD_ID,
+	 FIELD_VALUE
+	)
+	SELECT
+         NVL(MAX(NVL(VALUE_ID,0)),0)+1,
+	 #file_id#,
+	 #field_id#,
+	 #field_value#
+	FROM FIELD_VALUE
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getEformFieldValueInfoByFileId" result-map="eformFieldValueInfo">
+   <![CDATA[
+	SELECT DISTINCT
+    	  BB.FILE_ID,
+    	  AA.EFORM_ID,
+	  AA.FIELD_ID,
+	  AA.FIELD_TYPE_ID,
+	  AA.FIELD_CNAME,
+	  AA.FIELD_ENAME,
+	  AA.FIELD_LEN,
+	  AA.FIELD_ISNULL,
+	  AA.FIELD_ISBRIEF,
+	  AA.FIELD_SEQ,
+	  AA.FIELD_ISEDIT,
+	  BB.FIELD_VALUE
+	FROM (
+       		SELECT B.EFORM_ID,
+              	  A.FIELD_ID,
+              	  A.FIELD_TYPE_ID,
+              	  A.FIELD_CNAME,
+              	  A.FIELD_ENAME,A.FIELD_LEN,A.FIELD_ISNULL,A.FIELD_ISBRIEF,B.FIELD_SEQ,B.FIELD_ISEDIT
+       		FROM FIELD_DEFINE A,EFORM_FIELD B
+       		WHERE  B.FIELD_ID=A.FIELD_ID AND B.EFORM_ID IN
+		(SELECT DISTINCT EFORM_ID FROM ARCHIVES_FILE WHERE FILE_ID=#value#)
+       		)AA,
+       		(
+       		SELECT C.FILE_ID,C.FIELD_ID,C.FIELD_VALUE
+       		FROM FIELD_VALUE C
+       		WHERE C.FILE_ID=#value#) BB
+	WHERE AA.FIELD_ID=BB.FIELD_ID(+)
+	ORDER BY AA.FIELD_SEQ,AA.FIELD_ID
+   ]]>
+   </mapped-statement>
+
+   <!--注意：由于其他类目有扩展，这里只取出ENTRY_ID为NULL的电子表单-->
+   <mapped-statement name="getAllEformDefine" result-map="eformDefine">
+   <![CDATA[
+	SELECT
+	  EFORM_ID,
+	  EFORM_NAME,
+	  EFORM_VERSION,
+	  EFORM_BEGIN_DATE,
+	  EFORM_END_DATE,
+	  ENTRY_ID,
+	  REMARK
+	FROM EFORM_DEFINE
+	WHERE ENTRY_ID IS NULL
+	ORDER BY EFORM_ID
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getEformFieldDefineByEformId" result-map="eformFieldDefine">
+   <![CDATA[
+	SELECT DISTINCT
+	  B.EFORM_ID 		AS EFORM_ID,
+	  A.FIELD_ID 		AS FIELD_ID,
+	  A.FIELD_TYPE_ID	AS FIELD_TYPE_ID,
+	  A.FIELD_CNAME		AS FIELD_CNAME,
+	  A.FIELD_ENAME		AS FIELD_ENAME,
+	  A.FIELD_LEN		AS FIELD_LEN,
+	  A.FIELD_ISNULL	AS FIELD_ISNULL,
+	  A.FIELD_ISBRIEF	AS FIELD_ISBRIEF,
+	  B.FIELD_SEQ		AS FIELD_SEQ,
+	  B.FIELD_ISEDIT	AS FIELD_ISEDIT
+	FROM FIELD_DEFINE A,EFORM_FIELD B
+	WHERE  A.FIELD_ID=B.FIELD_ID
+	   AND B.EFORM_ID=#value#
+	ORDER BY FIELD_SEQ,FIELD_ID
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getProjectPhaseList" result-map="projectPhase">
+   <![CDATA[
+	SELECT
+	  PHASE_ID,
+	  PHASE_NAME,
+	  REMARK
+	FROM PROJECT_PHASE
+	ORDER BY PHASE_ID
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getFieldTypeList" result-map="fieldType">
+   <![CDATA[
+	SELECT
+	  FIELD_TYPE_ID,
+	  FIELD_TYPE_ENAME,
+	  FIELD_TYPE_CNAME
+	FROM FIELD_TYPE
+	ORDER BY FIELD_TYPE_ID
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="deleteEformFieldValueByFileId">
+   <![CDATA[
+	DELETE FROM FIELD_VALUE
+        WHERE FILE_ID = #value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getProjBriefByProjId" result-map="projBrief">
+   <![CDATA[
+	SELECT MM.FIELD_ID,MM.FIELD_CNAME,GG.FIELD_VALUE
+	FROM
+	(
+	  SELECT DISTINCT A.FIELD_ID,A.FIELD_CNAME
+	  FROM FIELD_DEFINE A,EFORM_FIELD B
+	  WHERE A.FIELD_ID=B.FIELD_ID
+	        AND A.FIELD_ISBRIEF='1'
+	        AND B.EFORM_ID IN
+	        (SELECT EFORM_ID FROM ARCHIVES_FILE WHERE PROJ_ID=#projId#)
+	) MM,
+	(
+	  SELECT DISTINCT A.FIELD_ID,A.FIELD_VALUE
+	  FROM FIELD_VALUE A
+	  WHERE A.FILE_ID IN
+	  (SELECT FILE_ID FROM ARCHIVES_FILE WHERE PROJ_ID=#projId#)
+	) GG
+	WHERE MM.FIELD_ID=GG.FIELD_ID(+)
+   ]]>
+   </mapped-statement>
+
+   <!--注意要排除其他非规划审批类的扩展-->
+   <mapped-statement name="getProjBriefFields" result-map="projBrief">
+   <![CDATA[
+	SELECT DISTINCT '' AS FIELD_ID,A.FIELD_CNAME,'' AS FIELD_VALUE
+	FROM FIELD_DEFINE A
+	WHERE A.FIELD_ISBRIEF='1'
+	      AND A.FIELD_ID IN
+		(SELECT FIELD_ID FROM EFORM_FIELD WHERE EFORM_ID IN
+			(SELECT EFORM_ID FROM EFORM_DEFINE WHERE ENTRY_ID IS NULL)
+		)
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getPrintFieldValue" result-map="printInfo">
+   <![CDATA[
+	SELECT DISTINCT A1.FIELD_ID,A1.FIELD_CNAME,A3.FIELD_VALUE
+ 	FROM FIELD_DEFINE A1,EFORM_FIELD A2,FIELD_VALUE A3
+ 	WHERE A1.FIELD_ID=A2.FIELD_ID
+       	  AND A1.FIELD_ID=A3.FIELD_ID
+          AND A1.FIELD_CNAME IN ('建筑许可证号','征地许可证号','用地编号')
+       	  AND A2.EFORM_ID IN (SELECT EFORM_ID FROM ARCHIVES_FILE WHERE ARCHIVES_ID=#value#)
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getEformDefineByEntryId" result-map="eformDefine">
+   <![CDATA[
+	SELECT
+	  EFORM_ID,
+	  EFORM_NAME,
+	  EFORM_VERSION,
+	  EFORM_BEGIN_DATE,
+	  EFORM_END_DATE,
+	  ENTRY_ID,
+	  REMARK
+ 	FROM EFORM_DEFINE
+ 	WHERE ENTRY_ID=#value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getEformFieldsByEntryId" result-map="projBrief">
+   <![CDATA[
+	SELECT DISTINCT A.FIELD_ID,A.FIELD_CNAME,'' AS FIELD_VALUE
+	FROM FIELD_DEFINE A
+	WHERE A.FIELD_ISBRIEF='1'
+	      AND A.FIELD_ID IN
+		(SELECT FIELD_ID FROM EFORM_FIELD WHERE EFORM_ID IN
+			(SELECT EFORM_ID FROM EFORM_DEFINE WHERE ENTRY_ID=#value#)
+		)
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getEformFieldsByFirstEntryId" result-map="projBrief">
+   <![CDATA[
+	SELECT DISTINCT A.FIELD_ID,A.FIELD_CNAME,'' AS FIELD_VALUE
+	FROM FIELD_DEFINE A
+	WHERE A.FIELD_ISBRIEF='1'
+	      AND A.FIELD_ID IN
+		(SELECT FIELD_ID FROM EFORM_FIELD WHERE EFORM_ID IN
+			(SELECT EFORM_ID FROM EFORM_DEFINE WHERE ENTRY_ID IN
+			 (SELECT ENTRY_ID FROM ENTRY WHERE FATHER_ENTRY_ID=#value#)
+                        )
+		)
+   ]]>
+   </mapped-statement>
+
+   <!--查询电子表单列表-->
+   <dynamic-mapped-statement name="queryEformDefineList" result-map="eformDefine">
+	SELECT
+	  EFORM_ID,
+	  EFORM_NAME,
+	  EFORM_VERSION,
+	  TO_CHAR(EFORM_BEGIN_DATE,'YYYY-MM-DD') AS EFORM_BEGIN_DATE,
+	  TO_CHAR(EFORM_END_DATE,'YYYY-MM-DD') AS EFORM_END_DATE,
+	  ENTRY_ID,
+	  REMARK
+	FROM EFORM_DEFINE
+	<dynamic prepend="WHERE">
+            <isNotEmpty prepend="AND" property="eform_name">
+              EFORM_NAME  like '%' || #eform_name# || '%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="entry_id">
+		<isEqual property="entry_id" compareValue="0">
+                ENTRY_ID IS NULL
+		</isEqual>
+		<isNotEqual property="entry_id" compareValue="0">
+                ENTRY_ID = #entry_id#
+		</isNotEqual>
+            </isNotEmpty>
+            <isEmpty prepend="AND" property="entry_id">
+                ENTRY_ID IS NULL
+            </isEmpty>
+	</dynamic>
+    	ORDER BY EFORM_ID
+   </dynamic-mapped-statement>
+
+   <!--取得指定电子表单的信息-->
+   <mapped-statement name="getEformDefineByEformId" result-map="eformDefine">
+	SELECT
+	  EFORM_ID,
+	  EFORM_NAME,
+	  EFORM_VERSION,
+	  TO_CHAR(EFORM_BEGIN_DATE,'YYYY-MM-DD') AS EFORM_BEGIN_DATE,
+	  TO_CHAR(EFORM_END_DATE,'YYYY-MM-DD') AS EFORM_END_DATE,
+	  ENTRY_ID,
+	  REMARK
+	FROM EFORM_DEFINE
+	WHERE EFORM_ID=#value#
+   </mapped-statement>
+
+   <!--更新指定电子表单的信息-->
+   <dynamic-mapped-statement name="updateEformDefine">
+	UPDATE EFORM_DEFINE
+        SET EFORM_ID = #eform_id#
+	  <dynamic>
+            <isPropertyAvailable prepend="," property="eform_name">
+              EFORM_NAME = #eform_name#
+            </isPropertyAvailable>
+            <isPropertyAvailable prepend="," property="eform_version">
+              EFORM_VERSION = #eform_version#
+            </isPropertyAvailable>
+            <isPropertyAvailable prepend="," property="eform_begin_date">
+              EFORM_BEGIN_DATE = TO_DATE(#eform_begin_date#,'YYYY-MM-DD')
+            </isPropertyAvailable>
+            <isPropertyAvailable prepend="," property="eform_end_date">
+              EFORM_END_DATE = TO_DATE(#eform_end_date#,'YYYY-MM-DD')
+            </isPropertyAvailable>
+            <isPropertyAvailable prepend="," property="remark">
+              REMARK = #remark#
+            </isPropertyAvailable>
+	  </dynamic>
+	WHERE EFORM_ID = #eform_id#
+   </dynamic-mapped-statement>
+
+   <!--增加电子表单信息-->
+   <dynamic-mapped-statement name="addEformDefine">
+	INSERT INTO EFORM_DEFINE
+        (EFORM_ID
+	 <dynamic>
+            <isNotEmpty prepend="," property="eform_name">
+              EFORM_NAME
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="eform_version">
+              EFORM_VERSION
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="eform_begin_date">
+              EFORM_BEGIN_DATE
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="eform_end_date">
+              EFORM_END_DATE
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="remark">
+              REMARK
+            </isNotEmpty>
+         </dynamic>
+	)
+	SELECT
+         NVL(MAX(EFORM_ID),0)+1
+	 <dynamic>
+            <isNotEmpty prepend="," property="eform_name">
+              #eform_name#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="eform_version">
+              #eform_version#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="eform_begin_date">
+              TO_DATE(#eform_begin_date#,'YYYY-MM-DD')
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="eform_end_date">
+              TO_DATE(#eform_end_date#,'YYYY-MM-DD')
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="remark">
+              #remark#
+            </isNotEmpty>
+         </dynamic>
+	FROM EFORM_DEFINE
+   	<![CDATA[
+	WHERE EFORM_ID<100000000
+   	]]>
+   </dynamic-mapped-statement>
+
+   <!--删除电子表单信息-->
+   <mapped-statement name="deleteEformDefine">
+	DELETE FROM EFORM_DEFINE
+	WHERE EFORM_ID=#value#
+   </mapped-statement>
+
+   <!--取得表单对应的字段列表:getEformFieldDefineByEformId-->
+
+   <!--取得表单对应字段外的字段列表备选:getFieldDefineListForSelectByEformId-->
+   <dynamic-mapped-statement name="getFieldDefineListForSelectByEformId" result-map="eformFieldDefine">
+	SELECT DISTINCT
+	  '' 			AS EFORM_ID,
+	  A.FIELD_ID 		AS FIELD_ID,
+	  A.FIELD_TYPE_ID	AS FIELD_TYPE_ID,
+	  A.FIELD_CNAME		AS FIELD_CNAME,
+	  A.FIELD_ENAME		AS FIELD_ENAME,
+	  A.FIELD_LEN		AS FIELD_LEN,
+	  A.FIELD_ISNULL	AS FIELD_ISNULL,
+	  A.FIELD_ISBRIEF	AS FIELD_ISBRIEF,
+	  ''			AS FIELD_SEQ,
+	  ''			AS FIELD_ISEDIT
+	FROM FIELD_DEFINE A,FIELD_TYPE B
+	WHERE  A.FIELD_TYPE_ID=B.FIELD_TYPE_ID(+)
+           AND A.FIELD_ID NOT IN
+		(SELECT FIELD_ID
+		 FROM EFORM_FIELD
+		 WHERE EFORM_ID=#eform_id#
+		)
+	<dynamic>
+            <isNotEmpty prepend="AND" property="field_cname">
+              FIELD_CNAME  like '%' || #field_cname# || '%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="field_isBrief">
+              FIELD_ISBRIEF = #field_isBrief#
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="field_isNull">
+              FIELD_ISNULL = #field_isNull#
+            </isNotEmpty>
+	</dynamic>
+	ORDER BY FIELD_ID
+   </dynamic-mapped-statement>
+
+   <!--查询表单字段列表-->
+   <dynamic-mapped-statement name="queryFieldDefineList" result-map="eformFieldDefine">
+	SELECT DISTINCT
+	  '' 			AS EFORM_ID,
+	  A.FIELD_ID 		AS FIELD_ID,
+	  B.FIELD_TYPE_CNAME	AS FIELD_TYPE_ID,
+	  A.FIELD_CNAME		AS FIELD_CNAME,
+	  A.FIELD_ENAME		AS FIELD_ENAME,
+	  A.FIELD_LEN		AS FIELD_LEN,
+	  A.FIELD_ISNULL	AS FIELD_ISNULL,
+	  A.FIELD_ISBRIEF	AS FIELD_ISBRIEF,
+	  ''			AS FIELD_SEQ,
+	  ''			AS FIELD_ISEDIT
+	FROM FIELD_DEFINE A,FIELD_TYPE B
+	WHERE  A.FIELD_TYPE_ID=B.FIELD_TYPE_ID(+)
+	<dynamic>
+            <isNotEmpty prepend="AND" property="field_cname">
+              FIELD_CNAME  like '%' || #field_cname# || '%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="field_isBrief">
+              FIELD_ISBRIEF = #field_isBrief#
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="field_isNull">
+              FIELD_ISNULL = #field_isNull#
+            </isNotEmpty>
+	</dynamic>
+	ORDER BY FIELD_ID
+   </dynamic-mapped-statement>
+
+   <!--取得指定字段的信息-->
+   <mapped-statement name="getFieldDefineByFieldId" result-map="eformFieldDefine">
+	SELECT DISTINCT
+	  '' 			AS EFORM_ID,
+	  A.FIELD_ID 		AS FIELD_ID,
+	  A.FIELD_TYPE_ID	AS FIELD_TYPE_ID,
+	  A.FIELD_CNAME		AS FIELD_CNAME,
+	  A.FIELD_ENAME		AS FIELD_ENAME,
+	  A.FIELD_LEN		AS FIELD_LEN,
+	  A.FIELD_ISNULL	AS FIELD_ISNULL,
+	  A.FIELD_ISBRIEF	AS FIELD_ISBRIEF,
+	  ''			AS FIELD_SEQ,
+	  ''			AS FIELD_ISEDIT
+	FROM FIELD_DEFINE A,FIELD_TYPE B
+	WHERE  A.FIELD_TYPE_ID=B.FIELD_TYPE_ID(+)
+		AND A.FIELD_ID=#value#
+   </mapped-statement>
+
+   <!--更新指定字段的信息-->
+   <dynamic-mapped-statement name="updateFieldDefine">
+	UPDATE FIELD_DEFINE
+        SET FIELD_ID = #field_id#
+	  <dynamic>
+            <isNotEmpty prepend="," property="field_type_id">
+              FIELD_TYPE_ID = #field_type_id#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="field_cname">
+              FIELD_CNAME = #field_cname#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="field_ename">
+              FIELD_ENAME = #field_ename#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="field_len">
+              FIELD_LEN = #field_len#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="field_isNull">
+              FIELD_ISNULL = #field_isNull#
+            </isNotEmpty>
+            <isEmpty prepend="," property="field_isNull">
+              FIELD_ISNULL = '0'
+            </isEmpty>
+            <isNotEmpty prepend="," property="field_isBrief">
+              FIELD_ISBRIEF = #field_isBrief#
+            </isNotEmpty>
+            <isEmpty prepend="," property="field_isBrief">
+              FIELD_ISBRIEF = '0'
+            </isEmpty>
+	  </dynamic>
+	WHERE FIELD_ID = #field_id#
+   </dynamic-mapped-statement>
+
+   <!--增加电子表单信息-->
+   <dynamic-mapped-statement name="addFieldDefine">
+	INSERT INTO FIELD_DEFINE
+        (FIELD_ID
+	 <dynamic>
+            <isNotEmpty prepend="," property="field_type_id">
+              FIELD_TYPE_ID
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="field_cname">
+              FIELD_CNAME
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="field_ename">
+              FIELD_ENAME
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="field_len">
+              FIELD_LEN
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="field_isNull">
+              FIELD_ISNULL
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="field_isBrief">
+              FIELD_ISBRIEF
+            </isNotEmpty>
+         </dynamic>
+	)
+	SELECT
+         NVL(MAX(FIELD_ID),0)+1
+	 <dynamic>
+            <isNotEmpty prepend="," property="field_type_id">
+              #field_type_id#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="field_cname">
+              #field_cname#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="field_ename">
+              #field_ename#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="field_len">
+              #field_len#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="field_isNull">
+              #field_isNull#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="field_isBrief">
+              #field_isBrief#
+            </isNotEmpty>
+         </dynamic>
+	FROM FIELD_DEFINE
+   	<![CDATA[
+	WHERE FIELD_ID<100000000
+   	]]>
+   </dynamic-mapped-statement>
+
+   <!--删除电子表单信息-->
+   <mapped-statement name="deleteFieldDefine">
+	DELETE FROM FIELD_DEFINE
+	WHERE FIELD_ID=#value#
+   </mapped-statement>
+
+   <!--删除电子表单指定的字段-->
+   <mapped-statement name="deleteEformField">
+	DELETE FROM EFORM_FIELD
+	WHERE EFORM_ID=#eform_id#
+        	AND FIELD_ID=#field_id#
+   </mapped-statement>
+
+   <!--更新电子表单指定的字段（字段顺序）-->
+   <dynamic-mapped-statement name="updateEformField">
+	UPDATE EFORM_FIELD
+	SET EFORM_ID=#eform_id#
+	 <dynamic>
+            <isNotEmpty prepend="," property="field_seq">
+              FIELD_SEQ = #field_seq#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="field_isEdit">
+              FIELD_ISEDIT = #field_isEdit#
+            </isNotEmpty>
+	  </dynamic>
+	WHERE EFORM_ID=#eform_id#
+		AND FIELD_ID=#field_id#
+   </dynamic-mapped-statement>
+
+   <!--选择指定的字段给电子表单-->
+   <mapped-statement name="addEformField">
+	INSERT INTO EFORM_FIELD
+	(
+	 EFORM_ID,
+	 FIELD_ID,
+	 FIELD_SEQ,
+	 FIELD_ISEDIT
+	)
+	SELECT
+	 #eform_id#,
+	 #field_id#,
+	 NVL(MAX(FIELD_SEQ),0)+1,
+	 '1'
+	FROM EFORM_FIELD
+	WHERE EFORM_ID=#eform_id#
+   </mapped-statement>
+
+   <!--查询字段对应的电子表单列表-->
+   <mapped-statement name="queryFieldEformList" result-map="eformDefine">
+	SELECT
+	  EFORM_ID,
+	  EFORM_NAME,
+	  EFORM_VERSION,
+	  TO_CHAR(EFORM_BEGIN_DATE,'YYYY-MM-DD') AS EFORM_BEGIN_DATE,
+	  TO_CHAR(EFORM_END_DATE,'YYYY-MM-DD') AS EFORM_END_DATE,
+	  ENTRY_ID,
+	  REMARK
+	FROM EFORM_DEFINE
+	WHERE EFORM_ID IN (SELECT EFORM_ID FROM EFORM_FIELD WHERE FIELD_ID=#value#)
+    	ORDER BY EFORM_ID
+   </mapped-statement>
+
+</sql-map>

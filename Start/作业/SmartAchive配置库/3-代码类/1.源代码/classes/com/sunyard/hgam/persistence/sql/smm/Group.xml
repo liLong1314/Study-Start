@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="Group">
+  <result-map name="GROUP" class="com.sunyard.hgam.persistence.dao.beans.smm.Group">
+    <property name="groupID" column="ID"/>
+    <property name="groupName" column="NAME"/>
+    <property name="description" column="DESCRIPTION"/>
+    <property name="creationDate" column="GROUP_CREATE_DATE"/>
+    <property name="modifiedDate" column="GROUP_MODIFIED_DATE"/>
+  </result-map>
+
+  <dynamic-mapped-statement name="getGroups" result-map="GROUP">
+	select ID,NAME,DESCRIPTION,GROUP_CREATE_DATE,GROUP_MODIFIED_DATE
+	from "GROUP"
+    <dynamic prepend="WHERE">
+        <isNotEmpty prepend="and" property="groupName">
+           NAME LIKE #groupName#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="description">
+           DESCRIPTION LIKE #description#
+        </isNotEmpty>
+	</dynamic>
+    order by ID,NAME
+  </dynamic-mapped-statement>
+
+  <mapped-statement name="getGroupByGroupName" result-class="java.lang.String">
+    SELECT
+      "GROUP".ID AS ID
+    FROM
+      "GROUP"
+    WHERE
+      "GROUP".NAME=#value#
+  </mapped-statement>
+
+  <mapped-statement name="getGroupByGroupID" result-map="GROUP">
+    SELECT ID,NAME,DESCRIPTION,GROUP_CREATE_DATE,GROUP_MODIFIED_DATE
+    FROM
+      "GROUP"
+    WHERE
+      "GROUP".ID=#value#
+  </mapped-statement>
+
+  <mapped-statement name="insertGroup">
+     insert into
+     "GROUP" (ID,NAME,DESCRIPTION,GROUP_CREATE_DATE)
+     values ((SELECT NVL(MAX(NVL(ID,0))+1,1) FROM "GROUP"),#groupName#,#description#,TO_DATE(#creationDate#,'YYYY-MM-DD HH24:MI:SS'))
+  </mapped-statement>
+
+  <mapped-statement name="updateGroup">
+     update "GROUP" set DESCRIPTION=#description#,GROUP_MODIFIED_DATE=TO_DATE(#modifiedDate#,'YYYY-MM-DD HH24:MI:SS')
+     where ID=#groupID#
+  </mapped-statement>
+
+  <mapped-statement name="updateGroupMD">
+    UPDATE "GROUP" SET GROUP_MODIFIED_DATE=TO_DATE(#modifiedDate#,'YYYY-MM-DD HH24:MI:SS') where ID=#groupID#
+  </mapped-statement>
+
+  <mapped-statement name="deleteGroup">
+    delete from "GROUP" where ID=#value#
+  </mapped-statement>
+
+</sql-map>

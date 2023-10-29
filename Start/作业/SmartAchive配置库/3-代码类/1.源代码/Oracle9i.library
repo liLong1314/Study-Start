@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <!--JBuilder Library Definition File-->
+  <fullname>Oracle9i</fullname>
+  <class>
+    <path>[lib/oracle9i/classes12.jar]</path>
+  </class>
+  <lastmodsaved>1070507304577</lastmodsaved>
+</library>

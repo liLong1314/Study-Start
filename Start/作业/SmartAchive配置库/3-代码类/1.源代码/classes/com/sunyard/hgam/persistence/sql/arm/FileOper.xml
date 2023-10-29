@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="FileOper">
+  <result-map name="fileoper" class="com.sunyard.hgam.persistence.dao.beans.arm.FileOper">
+    <property name="fileId" column="FILE_ID"/>
+    <property name="archivesId" column="ARCHIVES_ID"/>
+    <property name="fileNum" column="FILE_NUM"/>
+    <property name="fileTitle" column="FILE_TITLE"/>
+    <property name="fileDuty" column="FILE_DUTY"/>
+    <property name="fileDate" column="FILE_DATE"/>
+    <property name="isIdentify" column="IS_IDENTIFY"/>
+    <property name="identifyResult" column="IDENTIFY_RESULT"/>
+    <property name="isDestroy" column="IS_DESTROY"/>
+   </result-map>
+
+   <!--档案校验,EDIT BY ZXQ(0217)-->
+   <mapped-statement name="getFiles" result-map="fileoper">
+   <![CDATA[
+    SELECT
+	FILE_ID,
+	ARCHIVES_ID,
+	FILE_NUM,
+	FILE_TITLE,
+	FILE_DUTY,
+	FILE_DATE,
+	IS_IDENTIFY,
+	IDENTIFY_RESULT,
+	IS_DESTROY
+    FROM
+	ARCHIVES_FILE
+    WHERE
+	FILE_STATUS>='0'
+	AND ARCHIVES_ID=#value#
+   ]]>
+   </mapped-statement>
+
+   <dynamic-mapped-statement name="queryFiles" result-map="fileoper">
+    SELECT
+	FILE_ID,
+	ARCHIVES_ID,
+	FILE_NUM,
+	FILE_TITLE,
+	FILE_DUTY,
+	FILE_DATE,
+	IS_IDENTIFY,
+	IDENTIFY_RESULT,
+	IS_DESTROY
+    FROM
+	ARCHIVES_FILE
+    <dynamic prepend="WHERE">
+	IS_IDENTIFY='0'
+      <isNotEmpty prepend="AND" property="archivesId">
+      	ARCHIVES_ID=#archivesId#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="fileNum">
+      	FILE_NUM=#fileNum#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="fileTitle">
+      	FILE_TITLE like '%' || #fileTitle# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="fileDuty">
+      	FILE_DUTY like '%' || #fileDuty# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="fileDate">
+      	FILE_DATE=#fileDate#
+      </isNotEmpty>
+    </dynamic>
+  </dynamic-mapped-statement>
+
+  <!--鉴定管理,EDIT BY ZXQ(0217)-->
+   <mapped-statement name="getIdentFiles" result-map="fileoper">
+   <![CDATA[
+    SELECT
+	FILE_ID,
+	ARCHIVES_ID,
+	FILE_NUM,
+	FILE_TITLE,
+	FILE_DUTY,
+	FILE_DATE,
+	IS_IDENTIFY,
+	IDENTIFY_RESULT,
+	IS_DESTROY
+    FROM
+	ARCHIVES_FILE
+    WHERE
+	FILE_STATUS>='0'
+	AND ARCHIVES_ID=#value#
+   ]]>
+   </mapped-statement>
+
+   <!--鉴定管理,EDIT BY ZXQ(0217)-->
+   <mapped-statement name="getDestroyFiles" result-map="fileoper">
+   <![CDATA[
+    SELECT
+	FILE_ID,
+	ARCHIVES_ID,
+	FILE_NUM,
+	FILE_TITLE,
+	FILE_DUTY,
+	FILE_DATE,
+	IS_IDENTIFY,
+	IDENTIFY_RESULT,
+	IS_DESTROY
+    FROM
+	ARCHIVES_FILE
+    WHERE
+	FILE_STATUS='-1'
+    	AND ARCHIVES_ID=#value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getFileByID" result-map="archoper">
+   <![CDATA[
+    SELECT
+	FILE_ID,
+	ARCHIVES_ID,
+	FILE_NUM,
+	FILE_TITLE,
+	FILE_DUTY,
+	FILE_DATE,
+	IS_IDENTIFY,
+	IDENTIFY_RESULT,
+	IS_DESTROY
+    FROM
+	ARCHIVES_FILE
+    WHERE
+	FILE_ID=#value#
+   ]]>
+   </mapped-statement>
+
+
+   <mapped-statement name="addIdentifyCheck">
+   <![CDATA[
+    INSERT INTO CHECKUP(
+	CHECKUP_ID,
+	FILE_ID,
+	CHECKUP_OPERATOR,
+	CHECKUP_SITUATION,
+	CHECKUP_DATE,
+	REMARK
+	)
+       VALUES (
+	(SELECT NVL(MAX(NVL(CHECKUP_ID,0))+1,1) FROM CHECKUP),
+	#fileId#,
+	#checkupOperator#,
+	#checkupSituation#,
+	TO_DATE(#checkupDate#,'YYYY-MM-DD'),
+	#remark#
+	)
+   ]]>
+   </mapped-statement>
+
+  <dynamic-mapped-statement name="updateIdentFile">
+     UPDATE ARCHIVES_FILE SET
+	IS_IDENTIFY=#isIdentify#,
+	IDENTIFY_RESULT=#identifyResult#
+      <dynamic>
+      <isNotEmpty property="identifyResult">
+        <isEqual prepend="," property="identifyResult" compareValue="0">
+          FILE_STATUS='-1'
+        </isEqual>
+      </isNotEmpty>
+      </dynamic>
+      WHERE FILE_ID=#fileId#
+  </dynamic-mapped-statement>
+
+<!-- 无价值的记录需要判断所在的档案是否都无价值，如果是则需要更新档案为待销毁状态"-1" -->
+  <mapped-statement name="updateIdentArv">
+  <![CDATA[
+    UPDATE ARCHIVES SET
+	ARCHIVES_STATUS='-1'
+      WHERE ARCHIVES_ID=(SELECT ARCHIVES_ID FROM ARCHIVES_FILE WHERE FILE_ID=#fileId#)
+        AND (SELECT COUNT(*) FROM ARCHIVES_FILE  WHERE  ARCHIVES_ID=
+                (SELECT ARCHIVES_ID FROM ARCHIVES_FILE WHERE FILE_ID=#fileId#)
+                AND IDENTIFY_RESULT='0' AND IS_IDENTIFY='1')=
+            (SELECT COUNT(*) FROM ARCHIVES_FILE
+     WHERE  ARCHIVES_ID=(SELECT ARCHIVES_ID FROM ARCHIVES_FILE WHERE FILE_ID=#fileId#) )
+   ]]>
+  </mapped-statement>
+
+  <mapped-statement name="updateDestroyFile">
+  <![CDATA[
+    UPDATE ARCHIVES_FILE SET
+	IS_DESTROY=#isDestroy#,
+	FILE_STATUS='-2'
+      WHERE FILE_ID=#fileId# AND IDENTIFY_RESULT='0' AND IS_IDENTIFY='1'
+   ]]>
+  </mapped-statement>
+
+<!-- 销毁档案的所有文件已经销毁的档案-->
+  <mapped-statement name="updateDestroyArv">
+  <![CDATA[
+    UPDATE ARCHIVES SET
+	ARCHIVES_STATUS='-2'
+      WHERE ARCHIVES_ID=(SELECT ARCHIVES_ID FROM ARCHIVES_FILE WHERE FILE_ID=#fileId#)
+        AND (SELECT COUNT(*) FROM ARCHIVES_FILE
+             WHERE  ARCHIVES_ID=(SELECT ARCHIVES_ID FROM ARCHIVES_FILE WHERE FILE_ID=#fileId#)
+                                    AND FILE_STATUS='-2' AND IS_IDENTIFY='1')
+          =(SELECT COUNT(*) FROM ARCHIVES_FILE  WHERE  ARCHIVES_ID=(SELECT ARCHIVES_ID FROM ARCHIVES_FILE WHERE FILE_ID=#fileId#) )
+   ]]>
+  </mapped-statement>
+
+</sql-map>

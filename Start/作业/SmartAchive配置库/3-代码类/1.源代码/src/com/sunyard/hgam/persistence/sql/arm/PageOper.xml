@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="PageOper">
+  <result-map name="pageoper" class="com.sunyard.hgam.persistence.dao.beans.arm.PageOper">
+    <property name="pageId" column="PAGE_ID"/>
+    <property name="fileId" column="FILE_ID"/>
+    <property name="pageType" column="PAGE_TYPE"/>
+    <property name="pageSize" column="PAGE_SIZE"/>
+    <property name="pageNum" column="PAGE_NUM"/>
+    <property name="pageDate" column="PAGE_DATE"/>
+    <property name="pageOperate" column="PAGE_OPERATE"/>
+    <property name="pageStatus" column="PAGE_STATUS"/>
+    <property name="pagePathName" column="PAGE_PATHNAME"/>
+    <property name="remark" column="REMARK"/>
+    <property name="pageStatus" column="PAGE_AREA"/>
+   </result-map>
+
+   <mapped-statement name="getPages" result-map="pageoper">
+   <![CDATA[
+    SELECT
+	PAGE_ID,
+	FILE_ID,
+	PAGE_TYPE,
+	PAGE_SIZE,
+	PAGE_NUM,
+	TO_CHAR(PAGE_DATE,'YYYY-MM-DD') AS PAGE_DATE,
+	PAGE_OPERATE,
+	PAGE_STATUS,
+	PAGE_PATHNAME,
+	REMARK,
+	PAGE_AREA
+    FROM
+	ARCHIVES_PAGE
+    WHERE
+	FILE_ID=#value#
+   ]]>
+   </mapped-statement>
+
+   <dynamic-mapped-statement name="queryPages" result-map="pageoper">
+    SELECT
+	PAGE_ID,
+	FILE_ID,
+	PAGE_TYPE,
+	PAGE_SIZE,
+	PAGE_NUM,
+	TO_CHAR(PAGE_DATE,'YYYY-MM-DD') AS PAGE_DATE,
+	PAGE_OPERATE,
+	PAGE_STATUS,
+	PAGE_PATHNAME,
+	REMARK,
+	PAGE_AREA
+    FROM
+	ARCHIVES_PAGE
+    <dynamic prepend="WHERE">
+      <isNotEmpty prepend="AND" property="fileId">
+      	FILE_ID like '%' || #fileId# || %'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="pageNum">
+      	PAGE_NUM like '%' || #pageNum# || %'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="pageType">
+      	PAGE_TYPE like '%' || #pageType# || %'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="pageSize">
+      	PAGE_SIZE=#pageSize#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="pageDate">
+      	PAGE_DATE=TO_DATE(#pageDate#,'YYYY-MM-DD')
+      </isNotEmpty>
+    </dynamic>
+  </dynamic-mapped-statement>
+
+   <mapped-statement name="getPageByID" result-map="pageoper">
+   <![CDATA[
+    SELECT
+	PAGE_ID,
+	FILE_ID,
+	PAGE_TYPE,
+	PAGE_SIZE,
+	PAGE_NUM,
+	TO_CHAR(PAGE_DATE,'YYYY-MM-DD') AS PAGE_DATE,
+	PAGE_OPERATE,
+	PAGE_STATUS,
+	PAGE_PATHNAME,
+	REMARK,
+	PAGE_AREA
+    FROM
+	ARCHIVES_PAGE
+    WHERE
+	PAGE_ID=#value#
+   ]]>
+   </mapped-statement>
+
+  <mapped-statement name="updatePage">
+  <![CDATA[
+    UPDATE ARCHIVES_PAGE SET
+	PAGE_STATUS=#pageStatus#
+      WHERE PAGE_ID=#pageId#
+   ]]>
+  </mapped-statement>
+</sql-map>

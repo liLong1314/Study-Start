@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>无标题文档</title>
+<link href="../common/css/sunhoo.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+body {
+	background-image: url(../image/2_mainpagebg_01.gif);
+}
+-->
+</style>
+<link href="aaa.css" rel="stylesheet" type="text/css">
+<script language="JavaScript">
+
+//显示初始化扫描页
+function initPage() {
+	WebScan1.TabPageSet(0);
+}
+
+//显示扫描页
+function scanPage() {
+	WebScan1.ViewModeSet(1);
+	WebScan1.TabPageSet(2);
+}
+
+//显示单页属性设置页面
+function paramSetPage1() {
+	WebScan1.TabPageSet(3);
+}
+
+//显示批量属性设置页面
+function paramSetPage2() {
+	WebScan1.TabPageSet(4);
+}
+
+
+    function init(ftprooturl)
+    {
+        //下载配置文件
+
+        if(!UploadCtrl1.ConnectServer('server',21,'anonymous','abc@abc.com'))
+        {
+            alert("连接FTP服务器失败，下载初始化文件失败！");
+            return;
+        }
+        var dateString=document.BeforScanForm.resultXMLPath.value;
+        var serverdir=ftprooturl+'/'+dateString;
+
+        if(!UploadCtrl1.GetFile(serverdir,'FolderStruct.xml','C:\Program Files\Sunyard\SVII','FolderStruct.xml'))
+        {
+            alert("下载初始化文件失败！");
+            return;
+        }
+
+        if(!UploadCtrl1.GetFile(serverdir,'Folder.zip','C:\Program Files\Sunyard\SVII','Folder.zip'))
+        {
+            alert("下载图像文件失败！");
+            return;
+        }
+        /*
+        if(!UploadCtrl1.deleteDirectory(serverdir))
+        {
+            alert("删除服务器中临时目录出错！");
+            return;
+        }
+        */
+        UploadCtrl1.DisconnectServer();
+
+        //根据配置文件初始化扫描控件
+        toInitFolder();
+}
+
+function toSubmit(dateString) {
+
+  var strScanResultXML;
+  if(confirm("请需要提交此次扫描的资料吗？")==false)
+    return;
+  //提取扫描图象文件及xml文件
+   strScanResultXML=WebScan1.FileSubmit();
+   if(strScanResultXML=="")
+   {
+     var errinfo=WebScan1.LastErrorGet();
+     window.alert(errinfo);
+   }
+   else
+   {
+       //压缩影像文件
+       document.BeforScanForm.resultXMLPath.value=dateString;
+       //alert(dateString);
+       //var zipfilepath=WebScan1.FileZip("");
+       var zipfile="C:\\Program Files\\Sunyard\\SVII\\Folder.zip";
+       var zipfilepath=WebScan1.FileZipWithName('',zipfile);
+       document.BeforScanForm.resultZipPath.value=zipfile;
+
+       //上传扫描文件及配置文件
+      if(!UploadCtrl1.ConnectServer('<%=servername%>',21,'<%=username%>','<%=password%>'))
+      {
+          alert("连接FTP服务器失败，本次保存失败！");
+          return;
+      }
+
+      if(!UploadCtrl1.CreateDirectory('<%=ftprooturl+"/"+dateString%>'))
+      {
+          alert("在ftp服务器上建临时目录时出错！本次保存失败");
+          return;
+      }
+      if(!UploadCtrl1.PutFile('<%=ftprooturl+"/"+dateString%>','SubmitTemp.xml','<%=localdir%>','SubmitTemp.xml'))
+      {
+          alert("上传扫描信息文件时出错，本次保存失败！");
+          return;
+      }
+      if(!UploadCtrl1.PutFile('<%=ftprooturl+"/"+dateString%>','Folder.zip','<%=localdir%>','Folder.zip'))
+      {
+          alert("上传扫描信息文件时出错，本次保存失败！");
+          return;
+      }
+      UploadCtrl1.DisconnectServer();
+      //提交保存
+     document.BeforScanForm.submit();
+
+    }
+
+}
+
+
+function toInitFolder() {
+    WebScan1.FileDelete('');
+    var breturn1=WebScan1.FileUnzip('C:\\ImgTemp','C:\\Program Files\\Sunyard\\SVII\\Folder.zip');
+    //window.alert(breturn1);
+    var breturn2=WebScan1.FolderSet('C:\\Program Files\\Sunyard\\SVII\\FolderStruct.xml',true);
+    //if(breturn!="1");
+    //{
+    //  var errinfo=WebScan1.LastErrorGet();
+    //  window.alert(errinfo);
+      //window.alert("提交时出错");
+    //  return ;
+  // }
+  //  window.alert("init finished");
+}
+
+</script>
+</head>
+
+<body leftmargin="0" topmargin="0" onload="javascript:init('<%=ftprooturl%>')">
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="100%" valign="top" background="images/bgcolor.gif"> <table width="90%" height="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="21">
+              <div align="right"></div>
+              <br>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+              <tr> 
+                <td width="4%"><img src="../image/2_table_l_t.gif" width="32"></td>
+                <td width="94%" background="../image/2_table_c_t.gif"><table width="237" border="0" cellspacing="0" cellpadding="0">
+                    <tr align="center"> 
+                      <td width="25" align="right" background="../image/2_table_c_t.gif" bgcolor="#FFFFFF"><img src="../image/dot01.gif" width="8"></td>
+                      <td width="212"><table width="200" border="0" cellpadding="2" cellspacing="1" bgcolor="#99CC00">
+                          <tr> 
+                            <td align="center" bgcolor="#F2F9E6" class="tishi">档案信息</td>
+                          </tr>
+                        </table></td>
+                    </tr>
+                  </table></td>
+                <td width="2%"><img src="../image/2_table_r_t.gif" width="26" height="22"></td>
+              </tr>
+              <tr> 
+                <td background="../image/2_table_c_r.gif">&nbsp;</td>
+                <td align="center" bgcolor="#FFFFFF"> <table width="100%"  border="0" cellpadding="2" cellspacing="1" bgcolor="#CCCCCC">
+                    <tr bgcolor="#FFFFFF"> 
+                      <td width="25%" nowrap>档案号</td>
+                      <td width="27%" nowrap>&nbsp; </td>
+                      <td width="17%" nowrap>档案题名</td>
+                      <td width="31%" nowrap>&nbsp; </td>
+                    </tr>
+                    <tr bgcolor="#FFFFFF"> 
+                      <td nowrap>文件题名</td>
+                      <td colspan="3" nowrap><select name="select">
+                          <option selected>国家建设用地申报表</option>
+                          <option>建设项目报建预审单</option>
+                        </select></td>
+                    </tr>
+                    <tr align="center" bgcolor="#FFFFFF"> 
+                      <td colspan="4" nowrap> <p>
+                          <input name="button2" type="button" onclick="" value="保存">
+                          <input type="button" name="Submit3" value="返回" onclick="window.history.go(-1)">
+                        </p>
+                        <p>
+                <input name="button" type="button" onclick="initPage()" value="初始化页面">
+                <input name="button" type="button" onclick="paramSetPage1()" value="设置单页参数">
+                <input name="button" type="button" onclick="paramSetPage2()" value="设置批量参数">
+                <input name="button22" type="button" onclick="scanPage()" value="扫描页面">                        </p></td>
+                    </tr>
+                  </table></td>
+                <td background="../image/2_table_c_l.gif">&nbsp;</td>
+              </tr>
+              <tr> 
+                <td><img src="../image/2_table_r_b.gif" width="32" height="20"></td>
+                <td background="../image/2_table_c_b.gif"><img src="../image/2_table_c_b.gif" width="115" height="20"></td>
+                <td><img src="../image/2_table_l_b.gif" width="26" height="20"></td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td height="100%" valign="top"> <object classid="clsid:B66669B1-BEA5-4176-A9A2-3D4410157C37" id="WebScan1" data="DATA:application/x-oleobject;BASE64,sWlmtqW+dkGpoj1EEBV8NwADAADYEwAA2BMAAA==" width="100%" height="100%">
+            </object> </td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+
+<object classid="clsid:32019071-CB2B-421D-928B-F485FA051451" id="UploadCtrl1" width="14" height="14">
+  <param name="_ExtentX" value="370">
+  <param name="_ExtentY" value="370">
+</object>
+
+<html:form action="ScanImgChktodo.do?parameter=after">
+
+<html:hidden property="resultXMLPath"/>
+<html:hidden property="resultZipPath"/>
+</html:form>
+</body>
+</html:html>

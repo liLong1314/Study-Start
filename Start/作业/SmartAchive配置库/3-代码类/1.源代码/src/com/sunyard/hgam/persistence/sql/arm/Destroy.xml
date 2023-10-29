@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="Destroy">
+  <result-map name="destroy" class="com.sunyard.hgam.persistence.dao.beans.arm.Destroy">
+    <property name="destroyId" column="DESTORY_ID"/>
+    <property name="fileId" column="FILE_ID"/>
+    <property name="destroyOperator" column="DESTORY_OPERATOR"/>
+    <property name="destroySupervisor" column="DESTORY_SUPERVISOR"/>
+    <property name="destroySituation" column="DESTORY_SITUATION"/>
+    <property name="destroyDate" column="DESTORY_DATE"/>
+    <property name="destroyPlace" column="DESTORY_PLACE"/>
+    <property name="remark" column="REMARK"/>
+   </result-map>
+
+   <mapped-statement name="getAllDestroy" result-map="destroy">
+   <![CDATA[
+    SELECT
+	DESTORY_ID,
+	FILE_ID,
+	DESTORY_OPERATOR,
+	DESTORY_SUPERVISOR,
+	DESTORY_SITUATION,
+	TO_CHAR(DESTORY_DATE,'YYYY-MM-DD') AS DESTORY_DATE,
+	DESTORY_PLACE,
+	REMARK
+    FROM
+	DESTORY
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getDestroyByID" result-map="destroy">
+   <![CDATA[
+    SELECT
+	DESTORY_ID,
+	FILE_ID,
+	DESTORY_OPERATOR,
+	DESTORY_SUPERVISOR,
+	DESTORY_SITUATION,
+	TO_CHAR(DESTORY_DATE,'YYYY-MM-DD') AS DESTORY_DATE,
+	DESTORY_PLACE,
+	REMARK
+    FROM
+	DESTORY
+    WHERE
+	DESTORY_ID=#value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="addDestroy">
+   <![CDATA[
+    INSERT INTO DESTORY(
+	DESTORY_ID,
+	FILE_ID,
+	DESTORY_OPERATOR,
+	DESTORY_SUPERVISOR,
+	DESTORY_SITUATION,
+	DESTORY_DATE,
+	DESTORY_PLACE,
+	REMARK
+	)
+       VALUES (
+	(SELECT NVL(MAX(NVL(DESTORY_ID,0))+1,1) FROM DESTORY),
+	#fileId#,
+	#destroyOperator#,
+	#destroySupervisor#,
+	#destroySituation#,
+	TO_DATE(#destroyDate#,'YYYY-MM-DD'),
+	#destroyPlace#,
+	#remark#
+	)
+   ]]>
+   </mapped-statement>
+
+  <mapped-statement name="deleteDestroyByID">
+  <![CDATA[
+    DELETE FROM DESTORY WHERE DESTORY_ID=#value#
+   ]]>
+  </mapped-statement>
+  <dynamic-mapped-statement name="queryDestroyList" result-map="destroy">
+    SELECT
+      DESTORY_ID,
+	FILE_ID,
+	DESTORY_OPERATOR,
+	DESTORY_SUPERVISOR,
+	DESTORY_SITUATION,
+	TO_CHAR(DESTORY_DATE,'YYYY-MM-DD') AS DESTORY_DATE,
+	DESTORY_PLACE,
+	REMARK
+    FROM
+      DESTORY
+    <dynamic prepend="WHERE">
+      <isNotEmpty prepend="AND" property="destroyOperator">
+      	DESTORY_OPERATOR like '%' || #destroyOperator# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="destroySituation">
+      	DESTORY_SITUATION=#destroySituation#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="destroyDateFrom">
+      <isNotEmpty property="destroyDateTo">
+      	DESTORY_DATE between to_date(#destroyDateFrom#,'YYYY-MM-DD') and to_date(#destroyDateTo#,'YYYY-MM-DD')
+      </isNotEmpty>
+      </isNotEmpty>
+    </dynamic>
+  </dynamic-mapped-statement>
+
+</sql-map>

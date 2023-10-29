@@ -1,0 +1,252 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<script src="alai_tree.js"></script>
+<script src="alai_tree_win2k.js"></script>
+<title>类目树</title>
+<style>
+body{font-size:9pt;}
+</style>
+</head>
+<body background="../image/2_mainpagebg_01.gif">
+<hr>
+<table border="0">
+    <tr>
+      <td><div id="divTree"></div></td>
+    </tr>
+</table>
+
+<script>
+/*
+//win2k风格模板
+var tree=new alai_tree_win2k(divTree)
+tree.pathParse(pathlist.innerText.replace(/\s/g,""),true)
+tree.expandToTier(2)
+*/
+</script>
+<script>
+/*开始构建目录树*/
+var tree1=new alai_tree_win2k(divTree)
+/********************************************
+ 以下代码演示灵活地使用各种添加目录节点的方法
+*********************************************/
+var root=tree1.root
+
+var 	n13=root.add("党群工作类")
+		//1
+		n131=n13.add("党务")
+		n131.onclick="doClick('../main/t_right_1_1.htm')"
+		//2
+		n132=n13.add("工会")
+		n132.onclick="doClick('../main/t_right_1_1.htm')"
+		//3
+		n133=n13.add("共青团")
+		n133.onclick="doClick('../main/t_right_1_1.htm')"
+		//4
+		n134=n13.add("学会协会")
+		n134.onclick="doClick('../main/t_right_1_1.htm')"
+		
+		n14=root.add("行政管理类")
+		//1
+		n141=n14.add("政务")
+		n141.onclick="doClick('../main/t_right_1_1.htm')"
+		//2
+		n142=n14.add("事务")
+		n142.onclick="doClick('../main/t_right_1_1.htm')"
+		//3
+		n143=n14.add("人事")
+		n143.onclick="doClick('../main/t_right_1_1.htm')"
+		//4
+		n144=n14.add("财务")
+		n144.onclick="doClick('../main/t_right_1_1.htm')"
+		//5
+		n145=n14.add("提案信访")
+		n145.onclick="doClick('../main/t_right_1_1.htm')"
+		
+		
+		n15=root.add("规划业务管理类")
+		//1
+		n151=n15.add("规划编审设计")
+		n151.onclick="doClick('../main/t_right_1_1.htm')"
+		//2
+		n152=n15.add("建筑、用地")
+		n152.onclick="doClick('../main/t_right_1_1.htm')"
+		//3
+		n153=n15.add("工程管线")
+		n153.onclick="doClick('../main/t_right_1_1.htm')"
+		//4
+		n154=n15.add("法规监察")
+		n154.onclick="doClick('../main/t_right_1_1.htm')"
+		//5
+		n155=n15.add("测绘管理")
+		n155.onclick="doClick('../main/t_right_1_1.htm')"
+		//6
+		n156=n15.add("信息系统")
+		n156.onclick="doClick('../main/t_right_1_1.htm')"
+		
+		
+		
+
+
+		n11=root.add("规划审批类")
+		n113=n11.add("许可证存根")
+		n113.onclick="doClick('../main/c_right_1_2_1.htm')"
+		//1
+		n112=n11.add("规划用地审批")
+		n112.onclick="doClick('../main/c_right_1_2_2.htm')"
+
+		n111=n11.add("建筑工程审批")
+		n111.onclick="doClick('../main/c_right_1_2_3.htm')"
+		//2
+		//3
+		//4
+		n114=n11.add("杂项工程审批")
+		n114.onclick="doClick('../main/c_right_1_2_4.htm')"
+		//5
+		n117=n11.add("市政工程审批")
+		n117.onclick="doClick('../main/c_right_1_2_5.htm')"
+		
+		n115=n11.add("临时工程审批")
+		n115.onclick="doClick('../main/c_right_1_2_6.htm')"
+		//6
+		n116=n11.add("竣工验收审批")
+		n116.onclick="doClick('../main/c_right_1_2_7.htm')"
+		
+		
+		
+		n16=root.add("会计类")
+		//1
+		n161=n16.add("会计凭证")
+		n161.onclick="doClick('../main/t_right_1_1.htm')"
+		//2
+		n162=n16.add("会计帐簿")
+		n162.onclick="doClick('../main/t_right_1_1.htm')"
+		//3
+		n163=n16.add("财务报告")
+		n163.onclick="doClick('../main/t_right_1_1.htm')"
+		//4
+		n164=n16.add("其他")
+		n164.onclick="doClick('../main/t_right_1_1.htm')"
+
+		
+		
+		n12=root.add("测绘类")
+		//1
+		n121=n12.add("测绘综合成果")
+		n121.onclick="doClick('../main/t_right_1_1.htm')"
+		//2
+		n122=n12.add("地形图原图、二底图")
+		n122.onclick="doClick('../main/t_right_1_1.htm')"
+		//3
+		n123=n12.add("彩图")
+		n123.onclick="doClick('../main/t_right_1_1.htm')"
+		//4
+		n124=n12.add("测量标志")
+		n124.onclick="doClick('../main/t_right_1_1.htm')"
+		//5
+		n125=n12.add("像控片（调绘片）")
+		n125.onclick="doClick('../main/t_right_1_1.htm')"
+		//6
+		n126=n12.add("航摄底片")
+		n126.onclick="doClick('../main/t_right_1_1.htm')"
+		n126=n12.add("涤纶片")
+		n126.onclick="doClick('../main/t_right_1_1.htm')"
+
+		n17=root.add("规划监察类")
+		//1
+		n171=n17.add("案件查处")
+		n171.onclick="doClick('../main/t_right_1_1.htm')"
+		
+
+
+
+		n18=root.add("特种载体类")
+		//1
+		n181=n18.add("照片")
+		n181.onclick="doClick('../main/t_right_1_1.htm')"
+		//2
+		n182=n18.add("录像系统")
+		n182.onclick="doClick('../main/t_right_1_1.htm')"
+		//3
+		n183=n18.add("光盘软盘")
+		n183.onclick="doClick('../main/t_right_1_1.htm')"
+		//4
+		n184=n18.add("实物")
+		n184.onclick="doClick('../main/t_right_1_1.htm')"
+
+
+
+		n19=root.add("设备档案类")
+		//1
+		n191=n19.add("仪器说明书")
+		n191.onclick="doClick('../main/t_right_1_1.htm')"
+		//2
+		n192=n19.add("图纸")
+		n192.onclick="doClick('../main/t_right_1_1.htm')"
+		//3
+		n193=n19.add("维修")
+		n193.onclick="doClick('../main/t_right_1_1.htm')"
+		//4
+		n194=n19.add("保修")
+		n194.onclick="doClick('../main/t_right_1_1.htm')"
+
+
+
+		n110=root.add("基建档案类")
+		//1
+		n1101=n110.add("基建图纸")
+		n1101.onclick="doClick('../main/t_right_1_1.htm')"
+
+
+
+		n111=root.add("科研项目类")
+		//1
+		n1111=n111.add("项目招标")
+		n1111.onclick="doClick('../main/t_right_1_1.htm')"
+		//2
+		n1112=n111.add("项目计划")
+		n1112.onclick="doClick('../main/t_right_1_1.htm')"
+		//3
+		n1113=n111.add("项目实施")
+		n1113.onclick="doClick('../main/t_right_1_1.htm')"
+
+
+		n111=root.add("规划设计成果")
+		//1
+		n1111=n111.add("分区规划")
+		n1111.onclick="doClick('../main/t_right_1_1.htm')"
+		//2
+		n1112=n111.add("详细规划")
+		n1112.onclick="doClick('../main/t_right_1_1.htm')"
+		//3
+		n1113=n111.add("控制性规划")
+		n1113.onclick="doClick('../main/t_right_1_1.htm')"
+
+
+
+
+
+
+
+tree1.target="-blank"
+/*收缩目录树*/
+tree1.expandToTier(1)
+
+/*简单的目录树事件处理*/
+tree1.onmouseover=function(node)
+{
+	node.label.style.textDecoration="underline"
+}
+tree1.onmouseout=function(node)
+{
+	node.label.style.textDecoration="none"
+}
+
+function doClick(url){
+	//window.parent.abc.location=url;
+	window.parent.hmain.location=url;
+}
+</script>
+<hr>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="ArchivesPage">
+   <result-map name="archivesPage" class="com.sunyard.hgam.persistence.dao.beans.adc.ArchivesPage">
+    <property name="page_id" column="PAGE_ID"/>
+    <property name="file_id" column="FILE_ID"/>
+    <property name="page_type" column="PAGE_TYPE"/>
+    <property name="page_size" column="PAGE_SIZE"/>
+    <property name="page_area" column="PAGE_AREA"/>
+    <property name="page_num" column="PAGE_NUM"/>
+    <property name="page_date" column="PAGE_DATE"/>
+    <property name="page_pathName" column="PAGE_PATHNAME"/>
+    <property name="page_operate" column="PAGE_OPERATE"/>
+    <property name="page_status" column="PAGE_STATUS"/>
+    <property name="data_file_id" column="DATA_FILE_ID"/>
+    <property name="remark" column="REMARK"/>
+   </result-map>
+
+   <!-- 增加部分 -->
+   <mapped-statement name="addArchivesPage">
+   <![CDATA[
+	INSERT INTO ARCHIVES_PAGE
+         (PAGE_ID, FILE_ID,
+	  PAGE_TYPE, PAGE_SIZE, PAGE_NUM, PAGE_DATE, PAGE_OPERATE, PAGE_STATUS,
+	  PAGE_AREA, PAGE_PATHNAME, REMARK)
+	VALUES
+         (#page_id#, #file_id#,
+	  #page_type#, #page_size#, #page_num#, TO_DATE(#page_date#, 'YYYY-MM-DD'), #page_operate#, #page_status#,
+	  #page_area#, #page_pathName#, #remark#)
+   ]]>
+   </mapped-statement>
+
+   <!-- 修改部分 -->
+   <mapped-statement name="updateArchivesPage">
+   <![CDATA[
+	UPDATE ARCHIVES_PAGE
+	SET
+          FILE_ID = #file_id#,
+	  PAGE_NUM= #page_num#,
+	  PAGE_OPERATE= #page_operate#,
+	  PAGE_SIZE= #page_size#,
+	  PAGE_AREA= #page_area#,
+  	  PAGE_STATUS= #page_status#
+	WHERE PAGE_ID= #page_id#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="updateArchivesPageNum">
+   <![CDATA[
+	UPDATE ARCHIVES_PAGE SET
+	  PAGE_NUM= PAGE_NUM + #page_num#
+	WHERE PAGE_ID= #page_id#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="updateArchivesPageFileID">
+   <![CDATA[
+	UPDATE ARCHIVES_PAGE SET
+	  FILE_ID= #file_id#
+	WHERE PAGE_ID= #page_id#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="updateArchivesPageOperate">
+   <![CDATA[
+	UPDATE ARCHIVES_PAGE SET
+	  PAGE_OPERATE= #page_operate#
+	WHERE PAGE_ID= #page_id#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="updateArchivesPageStatus">
+   <![CDATA[
+	UPDATE ARCHIVES_PAGE SET
+	  PAGE_STATUS= #page_status#
+	WHERE PAGE_ID= #page_id#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="updateArchivesPageSize">
+   <![CDATA[
+	UPDATE ARCHIVES_PAGE SET
+	  PAGE_SIZE= #page_size#
+	WHERE PAGE_ID= #page_id#
+   ]]>
+   </mapped-statement>
+
+   <!-- 删除部分 -->
+   <mapped-statement name="deleteArchivesPageByPageID">
+   <![CDATA[
+	DELETE FROM ARCHIVES_PAGE
+	WHERE PAGE_ID= #value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="deleteArchivesPageByFileID">
+   <![CDATA[
+	DELETE FROM ARCHIVES_PAGE
+	WHERE FILE_ID= #value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="deleteArchivesPageByArchivesID">
+   <![CDATA[
+	DELETE FROM ARCHIVES_PAGE
+	WHERE FILE_ID in (
+	  SELECT FILE_ID FROM ARCHIVES_FILE
+	  WHERE ARCHIVES_ID = #value#
+	)
+   ]]>
+   </mapped-statement>
+
+   <!-- 查询部分(不是结果集) -->
+   <mapped-statement name="getMaxArchivesPageId" result-class="java.lang.Integer">
+   <![CDATA[
+	SELECT NVL(MAX(NVL(PAGE_ID,0)),0) FROM ARCHIVES_PAGE
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getMaxArchivesPageNum" result-class="java.lang.Integer">
+   <![CDATA[
+	SELECT NVL(MAX(NVL(A.PAGE_NUM,0)),0) FROM ARCHIVES_PAGE A, ARCHIVES_FILE B
+      	WHERE A.FILE_ID= B.FILE_ID AND B.ARCHIVES_ID= #value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getArchivesIdByPageId" result-class="java.lang.Integer">
+   <![CDATA[
+	SELECT B.ARCHIVES_ID
+	FROM ARCHIVES_PAGE A, ARCHIVES_FILE B
+	WHERE A.FILE_ID= B.FILE_ID AND A.PAGE_ID= #value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getPageCountByFileID" result-class="java.lang.Integer">
+   <![CDATA[
+	SELECT COUNT(*)
+	FROM ARCHIVES_PAGE
+	WHERE FILE_ID= #value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getPageCountByArchivesID" result-class="java.lang.Integer">
+   <![CDATA[
+	SELECT COUNT(*)
+	FROM ARCHIVES_PAGE A, ARCHIVES_FILE B
+	WHERE A.FILE_ID= B.FILE_ID AND B.ARCHIVES_ID=#value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getPreviousPageId" result-class="java.lang.Integer">
+   <![CDATA[
+	SELECT MAX(PAGE_ID)
+	FROM ARCHIVES_PAGE A, ARCHIVES_FILE B
+	WHERE A.FILE_ID= B.FILE_ID AND B.ARCHIVES_ID=#archives_id#
+	  AND A.PAGE_ID< #page_id#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getNextPageId" result-class="java.lang.Integer">
+   <![CDATA[
+	SELECT MIN(A.PAGE_ID)
+	FROM ARCHIVES_PAGE A, ARCHIVES_FILE B
+	WHERE A.FILE_ID= B.FILE_ID AND B.ARCHIVES_ID=#archives_id#
+	  AND A.PAGE_ID> #page_id#
+   ]]>
+   </mapped-statement>
+
+   <!-- 查询部分(SQL结果集-列表) -->
+   <mapped-statement name="queryArchivesPage" result-map="archivesPage">
+   <![CDATA[
+	SELECT * FROM ARCHIVES_PAGE
+	ORDER BY PAGE_ID
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="queryArchivesPageByArchivesID" result-map="archivesPage">
+   <![CDATA[
+	SELECT A.* FROM ARCHIVES_PAGE A, ARCHIVES_FILE B
+      	WHERE A.FILE_ID= B.FILE_ID AND B.ARCHIVES_ID= #value#
+	ORDER BY A.PAGE_ID
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="queryArchivesPageByFileID" result-map="archivesPage">
+   <![CDATA[
+	SELECT * FROM ARCHIVES_PAGE
+      	WHERE FILE_ID= #value#
+	ORDER BY PAGE_ID
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="queryArchivesPageByPageID" result-map="archivesPage">
+   <![CDATA[
+	SELECT * FROM ARCHIVES_PAGE
+      	WHERE PAGE_ID= #value#
+   ]]>
+   </mapped-statement>
+
+   <!-- 根据archives_id查询页码相同的page_id -->
+   <mapped-statement name="queryConflictPageNum" result-map="archivesPage">
+   <![CDATA[
+	SELECT A.*
+	FROM (
+	   SELECT A.PAGE_NUM, COUNT(*) PAGECOUNT
+	   FROM ARCHIVES_PAGE A, ARCHIVES_FILE B
+      	   WHERE A.FILE_ID= B.FILE_ID AND B.ARCHIVES_ID= #value#
+	   GROUP BY A.PAGE_NUM
+	)C, ARCHIVES_PAGE A, ARCHIVES_FILE B
+	WHERE C.PAGE_NUM= A.PAGE_NUM AND A.FILE_ID= B.FILE_ID AND B.ARCHIVES_ID= #value#
+	  AND C.PAGECOUNT>1
+	ORDER BY A.PAGE_ID
+   ]]>
+   </mapped-statement>
+
+   <!-- 根据档案ID查询所有的未通过检查的影像页 -->
+   <mapped-statement name="queryArchivesPageNotPass" result-map="archivesPage">
+   <![CDATA[
+	SELECT A.* FROM ARCHIVES_PAGE A, ARCHIVES_FILE B
+      	WHERE A.FILE_ID= B.FILE_ID
+	  AND B.ARCHIVES_ID= #value# and A.PAGE_STATUS<>'PASS'
+	ORDER BY A.PAGE_ID
+   ]]>
+   </mapped-statement>
+</sql-map>

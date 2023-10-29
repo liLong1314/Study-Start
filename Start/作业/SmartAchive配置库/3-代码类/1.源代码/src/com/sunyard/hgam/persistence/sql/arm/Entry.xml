@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="Entry">
+  <result-map name="entry" class="com.sunyard.hgam.persistence.dao.beans.arm.Entry">
+    <property name="entryId" column="ENTRY_ID" />
+    <property name="fatherEntryId" column="FATHER_ENTRY_ID" />
+    <property name="entryLevel" column="ENTRY_LEVEL" />
+    <property name="entryName" column="ENTRY_NAME" />
+    <property name="isOperation" column="ISOPERATION" />
+    <property name="remark" column="REMARK" />
+    <property name="is_charge" column="IS_CHARGE" />
+   </result-map>
+
+   <mapped-statement name="getFirstEntry" result-map="entry">
+   <![CDATA[
+    SELECT
+	A.ENTRY_ID,
+	A.FATHER_ENTRY_ID,
+	A.ENTRY_LEVEL,
+	A.ENTRY_NAME,
+	B.SYSPARAM_NAME AS ISOPERATION,
+	A.REMARK,
+	A.IS_CHARGE
+    FROM
+	ENTRY A,SysParam B
+    WHERE
+	A.ISOPERATION=B.SysParam_VALUE(+)
+	AND B.SysParam_type='ENTRY_TYPE'
+	AND ENTRY_LEVEL='1'
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getSecondEntry" result-map="entry">
+   <![CDATA[
+    SELECT
+	A.ENTRY_ID,
+	A.FATHER_ENTRY_ID,
+	A.ENTRY_LEVEL,
+	A.ENTRY_NAME,
+	B.SYSPARAM_NAME AS ISOPERATION,
+	A.REMARK,
+	A.IS_CHARGE
+    FROM
+	ENTRY A,SysParam B
+    WHERE
+	A.ISOPERATION=B.SysParam_VALUE(+)
+	AND B.SysParam_type='ENTRY_TYPE'
+	AND A.ENTRY_LEVEL='2'
+    	AND A.FATHER_ENTRY_ID=#value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getEntryByID" result-map="entry">
+   <![CDATA[
+    SELECT
+	ENTRY_ID,
+	FATHER_ENTRY_ID,
+	ENTRY_LEVEL,
+	ENTRY_NAME,
+	ISOPERATION,
+	REMARK,
+	IS_CHARGE
+    FROM
+	ENTRY
+    WHERE
+      ENTRY_ID=#value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getEntryByFatherID" result-map="entry">
+   <![CDATA[
+    SELECT
+	ENTRY_ID,
+	FATHER_ENTRY_ID,
+	ENTRY_LEVEL,
+	ENTRY_NAME,
+	ISOPERATION,
+	REMARK,
+	IS_CHARGE
+    FROM
+	ENTRY
+    WHERE
+      FATHER_ENTRY_ID=#value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="addEntry">
+   <![CDATA[
+    INSERT INTO ENTRY(ENTRY_ID,FATHER_ENTRY_ID,ENTRY_LEVEL,ENTRY_NAME,ISOPERATION,REMARK)
+       VALUES ((SELECT NVL(MAX(NVL(ENTRY_ID,0))+1,1) FROM ENTRY),#fatherEntryId#,#entryLevel#,#entryName#,#isOperation#,#remark#)
+   ]]>
+   </mapped-statement>
+
+  <mapped-statement name="deleteEntryByID">
+  <![CDATA[
+    DELETE FROM ENTRY WHERE ENTRY_ID=#value#
+   ]]>
+  </mapped-statement>
+
+  <mapped-statement name="delEntryByFatherId">
+  <![CDATA[
+    DELETE FROM ENTRY WHERE FATHER_ENTRY_ID=#value#
+   ]]>
+  </mapped-statement>
+
+  <dynamic-mapped-statement name="updateEntry">
+    UPDATE ENTRY SET
+	ENTRY_ID=#entryId#
+	<dynamic>
+        <isNotEmpty prepend="," property="entryName">
+              ENTRY_NAME=#entryName#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="isOperation">
+              ISOPERATION=#isOperation#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="remark">
+              REMARK=#remark#
+            </isNotEmpty>
+	  </dynamic>
+    WHERE ENTRY_ID=#entryId#
+  </dynamic-mapped-statement>
+
+  <!--只用于一级类目变更后同步更新相关二级类目的类目类型-->
+  <mapped-statement name="updateEntrySecondOpt">
+  <![CDATA[
+    UPDATE ENTRY SET
+        ISOPERATION= #isOperation#
+      WHERE
+       (SELECT  ENTRY_LEVEL FROM ENTRY WHERE ENTRY_ID=#entryId# AND ROWNUM<2)='1'
+	AND FATHER_ENTRY_ID=#entryId#
+        AND ENTRY_LEVEL='2'
+   ]]>
+  </mapped-statement>
+
+   <mapped-statement name="updateEntryIsCharge">
+   <![CDATA[
+    UPDATE ENTRY SET
+	IS_CHARGE= #is_charge#
+      WHERE ENTRY_ID= #entryId#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="queryAllSecondEntry" result-map="entry">
+   <![CDATA[
+    SELECT
+	ENTRY_ID,
+	FATHER_ENTRY_ID,
+	ENTRY_LEVEL,
+	ENTRY_NAME,
+	ISOPERATION,
+	REMARK,
+	NVL(IS_CHARGE, ''), IS_CHARGE
+    FROM
+	ENTRY
+    WHERE
+	ENTRY_LEVEL='2'
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="queryChargeStandardSEntry" result-map="entry">
+   <![CDATA[
+    SELECT
+	ENTRY_ID,
+	FATHER_ENTRY_ID,
+	ENTRY_LEVEL,
+	ENTRY_NAME,
+	ISOPERATION,
+	REMARK,
+	NVL(IS_CHARGE, ''), IS_CHARGE
+    FROM
+	ENTRY
+    WHERE
+	ENTRY_LEVEL='2' AND IS_CHARGE= '1'
+    	AND ENTRY_ID NOT IN (SELECT SENTRYID ENTRY_ID FROM CHARGE_STANDARD WHERE SENTRYID!=#value#)
+    ORDER BY ENTRY_ID
+   ]]>
+   </mapped-statement>
+
+  <mapped-statement name="querySecondEntryForEformDefine" result-map="entry">
+   <![CDATA[
+    SELECT
+	ENTRY_ID,
+	FATHER_ENTRY_ID,
+	ENTRY_LEVEL,
+	ENTRY_NAME,
+	ISOPERATION,
+	REMARK,
+	NVL(IS_CHARGE,'') AS IS_CHARGE
+    FROM
+	ENTRY
+    WHERE
+	ENTRY_LEVEL='2'
+	AND ISOPERATION>1
+   ]]>
+  </mapped-statement>
+</sql-map>

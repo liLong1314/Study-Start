@@ -1,0 +1,268 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>无标题文档</title>
+</head>
+
+<body>
+<table width="100%" border="0" cellspacing="0">
+  
+<body><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<script src="alai_tree.js"></script>
+<script src="alai_tree_win2k.js"></script>
+<script src="alai_tree_help.js"></script>
+<script src="alai_tree_check.js"></script>
+<title>类目树</title>
+<style>
+body{font-size:9pt;}
+</style>
+</head>
+<body background="../image/2_mainpagebg_01.gif">
+<hr>
+<table border="0">
+    <tr>
+      <td><div id="divTree"></div></td>
+    </tr>
+</table>
+
+<script>
+/*开始构建目录树*/
+//var tree1=new alai_tree_win2k(divTree)
+var tree1=new alai_tree_help(divTree)
+var root=tree1.root
+
+var theNode1;
+var theNode2;
+var theNode3;
+//1
+theNode1 = tree1.addChkNode(root,"电子文件")
+//11
+theNode2 = tree1.addChkNode(theNode1,"接受")
+//111
+theNode3 = tree1.addChkNode(theNode2,"电子文件接受")
+//12
+theNode2 = tree1.addChkNode(theNode1,"整理")
+//121
+theNode3 = tree1.addChkNode(theNode2,"电子文件整理")
+
+
+//1
+theNode1 = tree1.addChkNode(root,"档案采集")
+//11
+theNode2 = tree1.addChkNode(theNode1,"著录")
+//111
+theNode3 = tree1.addChkNode(theNode2,"案卷著录")
+//112
+theNode3 = tree1.addChkNode(theNode2,"件著录")
+//113
+theNode3 = tree1.addChkNode(theNode2,"文件著录")
+//12
+theNode2 = tree1.addChkNode(theNode1,"录入")
+//121
+theNode3 = tree1.addChkNode(theNode2,"纸质档案扫描录入")
+//122
+theNode3 = tree1.addChkNode(theNode2,"多媒体档案采集录入")
+//123
+theNode3 = tree1.addChkNode(theNode2,"档案重扫补扫")
+//13
+theNode2 = tree1.addChkNode(theNode1,"检查")
+//131
+theNode2 = tree1.addChkNode(theNode2,"检查")
+
+
+
+
+//1
+theNode1 = tree1.addChkNode(root,"档案管理")
+//11
+theNode2 = tree1.addChkNode(theNode1,"全宗管理")
+//111
+theNode3 = tree1.addChkNode(theNode2,"全宗卷信息管理")
+//112
+theNode3 = tree1.addChkNode(theNode2,"档案类目管理")
+//113
+theNode3 = tree1.addChkNode(theNode2,"档案管理")
+//114
+theNode3 = tree1.addChkNode(theNode2,"密级管理")
+//12
+theNode2 = tree1.addChkNode(theNode1,"档案信息管理")
+//121
+theNode3 = tree1.addChkNode(theNode2,"鉴定管理")
+//122
+theNode3 = tree1.addChkNode(theNode2,"销毁管理")
+//123
+theNode3 = tree1.addChkNode(theNode2,"变更管理")
+//124
+theNode3 = tree1.addChkNode(theNode2,"年检管理")
+//125
+theNode3 = tree1.addChkNode(theNode2,"监督检查管理")
+//13
+theNode2 = tree1.addChkNode(theNode1,"库房管理")
+//131
+theNode3 = tree1.addChkNode(theNode2,"出入库管理")
+//132
+theNode3 = tree1.addChkNode(theNode2,"温湿度管理")
+//133
+theNode3 = tree1.addChkNode(theNode2,"安全管理")
+//134
+theNode3 = tree1.addChkNode(theNode2,"密集架管理")
+
+//14
+theNode2 = tree1.addChkNode(theNode1,"规范化管理")
+//141
+theNode3 = tree1.addChkNode(theNode2,"法律法规管理")
+
+
+
+
+
+//1
+theNode1 = tree1.addChkNode(root,"档案利用")
+//11
+theNode2 = tree1.addChkNode(theNode1,"查阅管理")
+//111
+theNode3 = tree1.addChkNode(theNode2,"查阅申请")
+//112
+theNode3 = tree1.addChkNode(theNode2,"查阅审核")
+//113
+theNode3 = tree1.addChkNode(theNode2,"查阅登记")
+//114
+theNode3 = tree1.addChkNode(theNode2,"查阅归还")
+//115
+theNode3 = tree1.addChkNode(theNode2,"查阅反馈")
+//116
+theNode3 = tree1.addChkNode(theNode2,"查阅收费")
+//12
+theNode2 = tree1.addChkNode(theNode1,"借阅管理")
+//121
+theNode3 = tree1.addChkNode(theNode2,"借阅申请")
+//122
+theNode3 = tree1.addChkNode(theNode2,"借阅审核")
+//123
+theNode3 = tree1.addChkNode(theNode2,"借阅登记")
+//124
+theNode3 = tree1.addChkNode(theNode2,"续借登记")
+//125
+theNode3 = tree1.addChkNode(theNode2,"借阅催收")
+//126
+theNode3 = tree1.addChkNode(theNode2,"借阅归还")
+//127
+theNode3 = tree1.addChkNode(theNode2,"借阅反馈")
+//128
+theNode3 = tree1.addChkNode(theNode2,"借阅收费")
+//13
+theNode2 = tree1.addChkNode(theNode1,"补证管理")
+//131
+theNode3 = tree1.addChkNode(theNode2,"补证申请")
+//132
+theNode3 = tree1.addChkNode(theNode2,"补证登记")
+//133
+theNode3 = tree1.addChkNode(theNode2,"档案科审核")
+//134
+theNode3 = tree1.addChkNode(theNode2,"综合科审核")
+//135
+theNode3 = tree1.addChkNode(theNode2,"补证收费")
+//14
+theNode2 = tree1.addChkNode(theNode1,"收费管理")
+//141
+theNode3 = tree1.addChkNode(theNode2,"收费项目定义")
+//142
+theNode3 = tree1.addChkNode(theNode2,"收费标准定义")
+//15
+theNode2 = tree1.addChkNode(theNode1,"综合查询")
+//151
+theNode3 = tree1.addChkNode(theNode2,"档案全文检索")
+//152
+theNode3 = tree1.addChkNode(theNode2,"档案查询")
+//153
+theNode3 = tree1.addChkNode(theNode2,"统计报表")
+//16
+theNode2 = tree1.addChkNode(theNode1,"发布管理")
+//161
+theNode3 = tree1.addChkNode(theNode2,"信息发布")
+//162
+theNode3 = tree1.addChkNode(theNode2,"取消发布")
+
+
+
+
+//1
+theNode1 = tree1.addChkNode(root,"资料导入与查询")
+//11
+theNode2 = tree1.addChkNode(theNode1,"11")
+//111
+theNode3 = tree1.addChkNode(theNode2,"111")
+//112
+theNode3 = tree1.addChkNode(theNode2,"112")
+//12
+theNode2 = tree1.addChkNode(theNode1,"12")
+
+
+
+//1
+theNode1 = tree1.addChkNode(root,"系统管理")
+//11
+theNode2 = tree1.addChkNode(theNode1,"日志管理")
+//111
+theNode3 = tree1.addChkNode(theNode2,"系统运行日志管理")
+//112
+theNode3 = tree1.addChkNode(theNode2,"用户操作日志管理")
+//12
+theNode2 = tree1.addChkNode(theNode1,"用户权限管理")
+//121
+theNode3 = tree1.addChkNode(theNode2,"用户管理")
+//122
+theNode3 = tree1.addChkNode(theNode2,"用户组管理")
+//13
+theNode2 = tree1.addChkNode(theNode1,"数据字典管理")
+//131
+theNode3 = tree1.addChkNode(theNode2,"系统参数")
+//132
+theNode3 = tree1.addChkNode(theNode2,"主题词")
+//133
+theNode3 = tree1.addChkNode(theNode2,"标准定义")
+//134
+theNode3 = tree1.addChkNode(theNode2,"文件类型")
+//14
+theNode2 = tree1.addChkNode(theNode1,"数据库备份与恢复")
+//141
+theNode3 = tree1.addChkNode(theNode2,"备份")
+//142
+theNode3 = tree1.addChkNode(theNode2,"恢复")
+
+
+tree1.oncheck=function(srcNode)
+{
+	if(srcNode.checkBox.checked){  //添加	
+		//alert("Checked");
+	}else{    //取消	
+		//alert("UnChecked");
+	}
+}
+
+tree1.target="-blank"
+/*收缩目录树*/
+tree1.expandToTier(3)
+
+/*简单的目录树事件处理*/
+tree1.onmouseover=function(node)
+{
+	node.label.style.textDecoration="underline"
+}
+tree1.onmouseout=function(node)
+{
+	node.label.style.textDecoration="none"
+}
+</script>
+<hr>
+</body>
+</html>
+
+</body>
+</html>
+</table>
+</body>
+</html>

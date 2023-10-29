@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="Log">
+
+  <result-map name="log" class="com.sunyard.hgam.persistence.dao.beans.smm.Log">
+    <property name="logID" column="LOGID"/>
+    <property name="userID" column="USERID"/>
+    <property name="userName" column="USERNAME"/>
+    <property name="ip" column="IP"/>
+    <property name="operID" column="OPERID"/>
+    <property name="resultCode" column="RESULTCODE"/>
+    <property name="logMsg" column="LOGMSG"/>
+    <property name="type" column="TYPE"/>
+    <property name="occurTime" column="OCCURTIME"/>
+  </result-map>
+
+  <result-map name="operationUrl" class="com.sunyard.hgam.persistence.dao.beans.smm.OperationUrl">
+    <property name="operID" column="OPERID"/>
+    <property name="operCode" column="OPERCODE"/>
+    <property name="url" column="URL"/>
+    <property name="operDesc" column="OPERDESC"/>
+    <property name="isLog" column="ISLOG"/>
+    <property name="remark" column="REMARK"/>
+  </result-map>
+
+  <mapped-statement name="getAllLog" result-map="log">
+    SELECT
+      LOGID,
+      USERID,
+      USERNAME,
+      IP,
+      OPERID,
+      RESULTCODE,
+      LOGMSG,
+      TYPE,
+      OCCURTIME
+    FROM
+       OPERATION_LOG
+    ORDER BY
+      OCCURTIME DESC
+  </mapped-statement>
+
+  <mapped-statement name="getLogByID" result-map="log">
+    SELECT
+      LOGID,
+      USERID,
+      USERNAME,
+      IP,
+      OPERID,
+      RESULTCODE,
+      LOGMSG,
+      TYPE,
+      OCCURTIME
+    FROM
+       OPERATION_LOG
+    WHERE
+      LOGID=#value#
+    ORDER BY
+      OCCURTIME DESC
+  </mapped-statement>
+
+  <mapped-statement name="insertLog">
+    INSERT INTO
+      OPERATION_LOG
+      (
+        LOGID,
+        USERID,
+        USERNAME,
+        IP,
+        OPERID,
+        RESULTCODE,
+        LOGMSG,
+        TYPE,
+        OCCURTIME
+      )
+      SELECT
+        SeqLogId.NextVal,
+        #userID#,
+        #userName#,
+        #ip#,
+        #operID#,
+        #resultCode#,
+        #logMsg#,
+        #type#,
+        TO_DATE(#occurTime#,'YYYY-MM-DD HH24:MI:SS')
+      FROM DUAL
+  </mapped-statement>
+
+  <mapped-statement name="deleteLog">
+    delete from OPERATION_LOG where LOGID=#value#
+  </mapped-statement>
+
+  <mapped-statement name="getAllOperationUrl" result-map="operationUrl">
+    SELECT
+      OPERID,
+      OPERCODE,
+      URL,
+      OPERDESC,
+      ISLOG,
+      REMARK
+    FROM
+      OPERATIONURL
+  </mapped-statement>
+
+  <dynamic-mapped-statement name="updateOperationUrl">
+    UPDATE
+      OPERATIONURL
+    <dynamic prepend="SET">
+      <isNotEmpty prepend="," property="operCode">
+         OPERCODE=#operCode#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="url">
+         URL=#url#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="operDesc">
+         OPERDESC=#operDesc#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="isLog">
+         ISLOG=#isLog#
+      </isNotEmpty>
+      <isNotEmpty prepend="," property="remark">
+         REMARK=#remark#
+      </isNotEmpty>
+    </dynamic>
+    WHERE
+      OPERID=#operID#
+  </dynamic-mapped-statement>
+
+</sql-map>

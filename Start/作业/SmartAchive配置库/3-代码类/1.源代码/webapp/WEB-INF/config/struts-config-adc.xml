@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+  <form-beans>
+    <form-bean name="ArchivesForm" type="com.sunyard.hgam.presentation.form.adc.ArchivesForm" />
+    <form-bean name="ArchivesFileForm" type="com.sunyard.hgam.presentation.form.adc.ArchivesFileForm" />
+  </form-beans>
+  <action-mappings>
+    <!--类目树-->
+    <action type="com.sunyard.hgam.presentation.action.adc.ViewAllEntryTreeListAction" path="/adc/ViewAllEntryTreeList">
+      <forward name="ROLL" path="/adc/view_entry_tree_list.jsp" />
+      <forward name="PIECE" path="/adc/view_entry_tree_list.jsp" />
+      <forward name="FILE" path="/adc/view_entry_tree_list.jsp" />
+      <forward name="ARCHIVES" path="/adc/view_entry_tree_list.jsp" />
+      <forward name="UTILIZE" path="/adc/view_entry_tree_list.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--案卷著录导航-->
+    <action type="com.sunyard.hgam.presentation.action.adc.InputRollNavigatorAction" path="/adc/inputRollNavigator">
+      <forward name="WENSHU" path="/adc/archives_roll_wenshu_input.jsp" />
+      <forward name="YEWU" path="/adc/archives_roll_yewu_input.jsp" />
+      <forward name="OTHER" path="/adc/archives_roll_other_input.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--案卷/著录-->
+    <action name="ArchivesForm" type="com.sunyard.hgam.presentation.action.adc.AddArchivesRollAction" path="/adc/insertRoll" scope="request">
+      <forward name="SUCCESS_WENSHU" path="/adc/viewArchivesFilesList.do" />
+      <forward name="SUCCESS_YEWU" path="/adc/viewArchivesFilesList.do" />
+      <forward name="SUCCESS_OTHER" path="/adc/viewArchivesFilesList.do" />
+      <forward name="CHECKIT_WENSHU" path="/adc/archives_roll_wenshu_input.jsp" />
+      <forward name="CHECKIT_YEWU" path="/adc/archives_roll_yewu_input.jsp" />
+      <forward name="CHECKIT_OTHER" path="/adc/archives_roll_other_input.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--案卷/查询-->
+    <action name="ArchivesForm" type="com.sunyard.hgam.presentation.action.adc.QueryArchivesListAction" path="/adc/queryArchivesRollList">
+      <forward name="SUCCESS" path="/adc/archives_roll_query_for_edit.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--案卷.件/修订导航-->
+    <action name="ArchivesForm" type="com.sunyard.hgam.presentation.action.adc.ViewArchivesAction" path="/adc/viewArchives" scope="request">
+      <forward name="WENSHU" path="/adc/archives_roll_wenshu_edit.jsp" />
+      <forward name="YEWU" path="/adc/archives_roll_yewu_edit.jsp" />
+      <forward name="OTHER" path="/adc/archives_roll_other_edit.jsp" />
+      <forward name="PIECE" path="/adc/archives_piece_edit.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--案卷/修订保存-->
+    <action name="ArchivesForm" type="com.sunyard.hgam.presentation.action.adc.UpdateArchivesAction" path="/adc/updateRollArchives" scope="request">
+      <forward name="SUCCESS" path="/adc/queryArchivesRollList.do" />
+      <forward name="FAILURE_WENSHU" path="/adc/archives_roll_wenshu_edit.jsp" />
+      <forward name="FAILURE_YEWU" path="/adc/archives_roll_yewu_edit.jsp" />
+      <forward name="FAILURE_OTHER" path="/adc/archives_roll_other_edit.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--件著录导航-->
+    <action type="com.sunyard.hgam.presentation.action.adc.InputPieceNavigatorAction" path="/adc/inputPieceNavigator" scope="request">
+      <forward name="SUCCESS" path="/adc/archives_piece_input.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--件著录-->
+    <action name="ArchivesForm" type="com.sunyard.hgam.presentation.action.adc.AddArchivesPieceAction" path="/adc/insertPiece" scope="request">
+      <forward name="SUCCESS" path="/adc/viewArchivesFilesList.do" />
+      <forward name="CHECKIT" path="/adc/archives_piece_input.jsp" />
+      <forward name="FAILURE" path="/adc/archives_piece_input.jsp" />
+    </action>
+    <!--件/查询-->
+    <action name="ArchivesForm" type="com.sunyard.hgam.presentation.action.adc.QueryArchivesListAction" path="/adc/queryArchivesPieceList" scope="request">
+      <forward name="SUCCESS" path="/adc/archives_piece_query_for_edit.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--件/修订保存-->
+    <action name="ArchivesForm" type="com.sunyard.hgam.presentation.action.adc.UpdateArchivesAction" path="/adc/updatePieceArchives" scope="request">
+      <forward name="SUCCESS" path="/adc/queryArchivesPieceList.do" />
+      <forward name="FAILURE" path="/adc/archives_piece_edit.jsp" />
+    </action>
+    <!--文件著录/导航-->
+    <action type="com.sunyard.hgam.presentation.action.adc.InputFileNavigatorAction" path="/adc/inputFileNavigator" scope="request">
+      <forward name="SUCCESS" path="/adc/archives_query.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--文件著录/档案查询-->
+    <action name="ArchivesForm" type="com.sunyard.hgam.presentation.action.adc.QueryArchivesListAction" path="/adc/queryArchivesList" scope="request">
+      <forward name="SUCCESS" path="/adc/archives_query.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--文件著录/档案文件列表-->
+    <action name="ArchivesFileForm" type="com.sunyard.hgam.presentation.action.adc.ViewArchivesFileListAction" path="/adc/viewArchivesFilesList" scope="request">
+      <forward name="SUCCESS_WENSHU" path="/adc/archives_file_wenshu_list.jsp" />
+      <forward name="SUCCESS_YEWU" path="/adc/archives_file_yewu_list.jsp" />
+      <forward name="SUCCESS_OTHER" path="/adc/archives_file_other_list.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--文件著录/输入-->
+    <action name="ArchivesFileForm" type="com.sunyard.hgam.presentation.action.adc.AddArchivesFileAction" path="/adc/addArchivesFile" scope="request">
+      <forward name="SUCCESS" path="/adc/viewArchivesFilesList.do" />
+      <forward name="WENSHU" path="/adc/archives_file_wenshu_input.jsp" />
+      <forward name="YEWU" path="/adc/archives_file_yewu_input.jsp" />
+      <forward name="OTHER" path="/adc/archives_file_other_input.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--文件著录/已整理文件列表-->
+    <action name="ArchivesFileForm" type="com.sunyard.hgam.presentation.action.adc.ViewSelectedFilesAction" path="/adc/viewReceivedFiles" scope="request">
+      <forward name="SUCCESS" path="/adc/archives_file_received_list.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--文件著录/选择已整理文件-->
+    <action name="ArchivesFileForm" type="com.sunyard.hgam.presentation.action.adc.SelectReceivedFilesAction" path="/adc/selectReceivedFiles" scope="request">
+      <forward name="SUCCESS" path="/adc/viewArchivesFilesList.do" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--文件修订/文件查看-->
+    <action name="ArchivesFileForm" type="com.sunyard.hgam.presentation.action.adc.ViewArchivesFileAction" path="/adc/viewArchivesFile" scope="request">
+      <forward name="WENSHU" path="/adc/archives_file_wenshu_edit.jsp" />
+      <forward name="YEWU" path="/adc/archives_file_yewu_edit.jsp" />
+      <forward name="OTHER" path="/adc/archives_file_other_edit.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--文件修订/保存修订-->
+    <action name="ArchivesFileForm" type="com.sunyard.hgam.presentation.action.adc.UpdateArchivesFileAction" path="/adc/updateArchivesFile" scope="request">
+      <forward name="SUCCESS" path="/adc/viewArchivesFilesList.do" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--文件修订/业务类阶段文件列表-->
+    <action name="ArchivesFileForm" type="com.sunyard.hgam.presentation.action.adc.ViewArchivesFileListByPhaseIdAction" path="/adc/viewArchivesFileListByPhaseId" scope="request">
+      <forward name="SUCCESS" path="/adc/archives_file_yewu_list_for_phase.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--INSERT HERE-->
+  </action-mappings>
+</struts-config>

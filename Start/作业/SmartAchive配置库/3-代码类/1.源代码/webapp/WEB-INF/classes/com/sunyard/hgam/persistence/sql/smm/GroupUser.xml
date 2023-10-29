@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="GroupUser">
+
+  <result-map name="groupUser" class="com.sunyard.hgam.persistence.dao.beans.smm.GroupUser">
+    <property name="userID" column="USERID"/>
+    <property name="groupID" column="ROLEID"/>
+  </result-map>
+
+  <mapped-statement name="getUserIDBygroupID" result-map="groupUser">
+    select USERID,ROLEID
+      from ORGROLEUSER
+      where ROLEID=#groupID#
+  </mapped-statement>
+
+  <mapped-statement name="getGroupIDByUserID" result-map="groupUser">
+	select USERID,ROLEID
+    from ORGROLEUSER
+    where USERID=#userID#
+  </mapped-statement>
+
+  <mapped-statement name="getOrgIDByUserID" result-class="java.lang.String">
+    select ORGID
+    from ORGROLEUSER
+    where USERID=#value#
+  </mapped-statement>
+
+  <mapped-statement name="updateUserOrgID">
+    UPDATE ORGROLEUSER set ORGID=#orgID#
+    WHERE USERID=#userID#
+  </mapped-statement>
+
+  <mapped-statement name="insertGU">
+    insert into ORGROLEUSER (USERID,ORGID,ROLEID) values (#userID#,#orgID#,#groupID#)
+  </mapped-statement>
+
+  <mapped-statement name="deleteOneGU">
+    delete from ORGROLEUSER where ROLEID=#groupID# and USERID=#userID#
+  </mapped-statement>
+
+  <mapped-statement name="deleteAllGU">
+    delete from ORGROLEUSER where ROLEID=#groupID#
+  </mapped-statement>
+
+  <mapped-statement name="deleteAllUG">
+    delete from ORGROLEUSER where USERID=#userID#
+  </mapped-statement>
+
+</sql-map>

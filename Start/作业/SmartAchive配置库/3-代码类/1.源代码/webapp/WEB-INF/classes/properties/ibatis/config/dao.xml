@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dao-config PUBLIC "-//iBATIS.com//DTD DAO Configuration 1.0//EN" "http://www.ibatis.com/dtd/dao.dtd">
+
+<dao-config>
+  <context name="DaoManager" default="true">
+    <!-- Configure the transaction pool. -->
+    <transaction-pool implementation="com.ibatis.db.dao.jdbc.SqlMapDaoTransactionPool">
+        <property name="sql-map-config-file" value="properties/ibatis/config/sql-map-config.xml"/>
+    </transaction-pool>
+    <!-- Map the DAO implementations to a meaningful name. -->
+    <!-- 在此映射DAO实现 -->
+    <dao-factory>
+      <!-- rcv part -->
+	<dao name="IfaceArchivesFile" 	implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.rcv.IfaceArchivesFileSqlMapDao"/>
+	<dao name="SettleArchivesFile" 	implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.rcv.SettleArchivesFileSqlMapDao"/>
+
+      <!-- adc part -->
+	<dao name="EntryTreeList" 	implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.adc.EntryTreeListSqlMapDao"/>
+	<dao name="Archives" 		implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.adc.ArchivesSqlMapDao"/>
+	<dao name="ArchivesFile" 	implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.adc.ArchivesFileSqlMapDao"/>
+	<dao name="ArchivesPage" 	implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.adc.ArchivesPageSqlMapDao"/>
+	<dao name="Eform" 		implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.adc.EformSqlMapDao"/>
+
+      <!-- arm part -->
+      <dao name="Secret" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.arm.SecretSqlMapDao"/>
+      <dao name="Entry" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.arm.EntrySqlMapDao"/>
+      <dao name="Temperature" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.arm.TemperatureSqlMapDao"/>
+      <dao name="Safety" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.arm.SafetySqlMapDao"/>
+      <dao name="Law" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.arm.LawSqlMapDao"/>
+      <dao name="Contain" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.arm.ContainSqlMapDao"/>
+      <dao name="ArchOper" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.arm.ArchOperSqlMapDao"/>
+      <dao name="FileOper" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.arm.FileOperSqlMapDao"/>
+      <dao name="PageOper" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.arm.PageOperSqlMapDao"/>
+      <dao name="Identify" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.arm.IdentifySqlMapDao"/>
+      <dao name="Destroy" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.arm.DestroySqlMapDao"/>
+      <dao name="Whole" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.arm.WholeSqlMapDao"/>
+      <dao name="Study" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.arm.StudySqlMapDao"/>
+	   <dao name="BuildingCataLog" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.arm.BuildingCataLogSqlMapDao"/>
+       <dao name="OtherCataLog" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.arm.OtherCataLogSqlMapDao"/>
+       <dao name="WatchExamine" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.arm.WatchExamineSqlMapDao"/>
+       <dao name="SubRollCatalog" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.arm.SubRollCatalogSqlMapDao"/>
+       <dao name="WatchExamineDenote"  implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.arm.WatchExamineDenoteSqlMapDao"/>
+      <!-- aum part -->
+      <dao name="UtilizeInfoDao" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.aum.UtilizeInfoSqlMapDao"/>
+      <dao name="ArchivesList" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.aum.ArchivesSqlMapDao"/>
+      <dao name="ConfirmInfo" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.aum.ConfirmInfoSqlMapDao"/>
+      <dao name="ChargeStandard" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.aum.ChargeStandardSqlMapDao"/>
+      <dao name="UtilizeDetail" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.aum.UtilizeDetailSqlMapDao"/>
+      <!-- smm part -->
+      <dao name="Account" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.smm.AccountSqlMapDao"/>
+      <dao name="Permission" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.smm.PermissionSqlMapDao"/>
+      <dao name="SysParam" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.smm.SysParamSqlMapDao"/>
+      <dao name="AccountPermission" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.smm.AccountPermissionSqlMapDao"/>
+      <dao name="Group" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.smm.GroupSqlMapDao"/>
+      <dao name="GroupUser" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.smm.GroupUserSqlMapDao"/>
+      <dao name="GroupPermission" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.smm.GroupPermissionSqlMapDao"/>
+      <dao name="Log" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.smm.LogSqlMapDao"/>
+      <dao name="Theme" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.smm.ThemeSqlMapDao"/>
+      <dao name="SysParam" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.smm.SysParamSqlMapDao"/>
+      <dao name="Org" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.smm.OrganizationSqlMapDao"/>
+      <!-- pub part -->
+      <dao name="PublishInfo" implementation="com.sunyard.hgam.persistence.dao.sqlmapdao.pub.PublishInfoSqlMapDao"/>
+
+    </dao-factory>
+  </context>
+</dao-config>

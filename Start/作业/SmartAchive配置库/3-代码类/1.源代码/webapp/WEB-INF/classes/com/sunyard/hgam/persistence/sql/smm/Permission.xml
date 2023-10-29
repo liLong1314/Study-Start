@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="Permission">
+
+  <result-map name="permission" class="com.sunyard.hgam.persistence.dao.beans.smm.Permission">
+    <property name="permID" column="PERMISSION_ID"/>
+    <property name="permCode" column="PERMISSION_CODE"/>
+    <property name="permContent" column="PERMISSION_NAME"/>
+    <property name="permType" column="PERMISSION_TYPE"/>
+  </result-map>
+
+  <mapped-statement name="getAllPermission" result-map="permission">
+    select PERMISSION_ID,PERMISSION_CODE,PERMISSION_NAME,PERMISSION_TYPE
+      from Permission
+  </mapped-statement>
+
+  <dynamic-mapped-statement name="getAllPermissionByType" result-map="permission">
+    select PERMISSION_ID,PERMISSION_CODE,PERMISSION_NAME,PERMISSION_TYPE from Permission
+    <dynamic prepend="WHERE">
+      <isNotEmpty property="permType">
+	PERMISSION_TYPE=#permType#
+      </isNotEmpty>
+      <isEqual prepend="and" property="permType" compareValue="1">
+        length(PERMISSION_CODE)>7
+      </isEqual>
+      <isEqual prepend="and" property="permType" compareValue="2">
+        PERMISSION_CODE like 'OPER%'
+      </isEqual>
+    </dynamic>
+    order by PERMISSION_CODE
+  </dynamic-mapped-statement>
+
+  <mapped-statement name="getPermissionByCode" result-map="permission">
+    select PERMISSION_ID,PERMISSION_CODE,PERMISSION_NAME,PERMISSION_TYPE
+      from Permission
+      where PERMISSION_ID=#value#
+  </mapped-statement>
+
+  <mapped-statement name="insertPermission">
+    insert into Permission
+      (PERMISSION_ID,PERMISSION_CODE,PERMISSION_NAME,PERMISSION_TYPE)
+      values (#permID#,#permCode#,#permContent#,#permType#)
+  </mapped-statement>
+
+  <mapped-statement name="updatePermission">
+    update Permission
+      set PERMISSION_NAME=#permContent#,PERMISSION_TYPE=#permType#
+      where PERMISSION_ID=#permID# and PERMISSION_CODE=#permCode#
+  </mapped-statement>
+
+  <mapped-statement name="deletePermission">
+    delete from Permission
+      where PERMISSION_ID=#permID# and PERMISSION_CODE=#permCode#
+  </mapped-statement>
+
+</sql-map>

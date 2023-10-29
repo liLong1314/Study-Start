@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="IfaceArchivesFile">
+   <result-map name="ifaceArchivesFile" class="com.sunyard.hgam.persistence.dao.beans.adc.ArchivesFile">
+    <property name="file_id" column="FILE_ID"/>
+    <property name="eform_id" column="EFORM_ID"/>
+    <property name="phase_id" column="PHASE_ID"/>
+    <property name="up_phase_id" column="UP_PHASE_ID"/>
+    <property name="parent_file_id" column="PARENT_FILE_ID"/>
+    <property name="proj_id" column="PROJ_ID"/>
+    <property name="proj_name" column="PROJ_NAME"/>
+    <property name="file_num" column="FILE_NUM"/>
+    <property name="file_title" column="FILE_TITLE"/>
+    <property name="file_duty" column="FILE_DUTY"/>
+    <property name="file_date" column="FILE_DATE"/>
+    <property name="file_page_amount" column="FILE_PAGE_AMOUNT"/>
+    <property name="file_type" column="FILE_TYPE"/>
+    <property name="file_keywords" column="FILE_KEYWORDS"/>
+    <property name="file_status" column="FILE_STATUS"/>
+    <property name="file_pathName" column="FILE_PATHNAME"/>
+    <property name="remark" column="REMARK"/>
+    <property name="accept_id" column="ACCEPT_ID"/>
+   </result-map>
+   <result-map name="eformFieldValueInfo" class="com.sunyard.hgam.persistence.dao.beans.adc.EformFieldValue">
+    <property name="file_id" 		column="FILE_ID"/>
+    <property name="eform_id" 		column="EFORM_ID"/>
+    <property name="field_id" 		column="FIELD_ID"/>
+    <property name="field_type_id" 	column="FIELD_TYPE_ID"/>
+    <property name="field_cname" 	column="FIELD_CNAME"/>
+    <property name="field_ename" 	column="FIELD_ENAME"/>
+    <property name="field_len" 		column="FIELD_LEN"/>
+    <property name="field_isNull" 	column="FIELD_ISNULL"/>
+    <property name="field_isBrief" 	column="FIELD_ISBRIEF"/>
+    <property name="field_seq" 		column="FIELD_SEQ"/>
+    <property name="field_isEdit" 	column="FIELD_ISEDIT"/>
+    <property name="field_value" 	column="FIELD_VALUE"/>
+   </result-map>
+   <result-map name="EformDefineInOA" class="com.sunyard.hgam.persistence.dao.beans.adc.EformDefine">
+    <property name="eform_id" 		column="EFORM_ID"/>
+    <property name="eform_name" 	column="EFORM_NAME"/>
+    <property name="eform_version" 	column="EFORM_VERSION"/>
+    <property name="eform_begin_date" 	column="EFORM_BEGIN_DATE"/>
+    <property name="eform_end_date" 	column="EFORM_END_DATE"/>
+   </result-map>
+   <result-map name="IfaceArchivesPage" class="com.sunyard.hgam.persistence.dao.beans.adc.ArchivesPage">
+    <property name="page_id" column="PAGE_ID"/>
+    <property name="file_id" column="FILE_ID"/>
+    <property name="page_type" column="PAGE_TYPE"/>
+    <property name="page_size" column="PAGE_SIZE"/>
+    <property name="page_num" column="PAGE_NUM"/>
+    <property name="page_date" column="PAGE_DATE"/>
+    <property name="page_pathName" column="PAGE_PATHNAME"/>
+   </result-map>
+
+   <dynamic-mapped-statement name="addArchivesPageFromIface">
+	INSERT INTO ARCHIVES_PAGE
+        (PAGE_ID,
+	 FILE_ID,
+	 PAGE_OPERATE,
+	 PAGE_STATUS
+	 <dynamic>
+            <isNotEmpty prepend="," property="page_date">
+              PAGE_DATE
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="page_pathName">
+              PAGE_PATHNAME
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="page_type">
+              PAGE_TYPE
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="page_size">
+              PAGE_SIZE
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="page_num">
+              PAGE_NUM
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="remark">
+              REMARK
+            </isNotEmpty>
+         </dynamic>
+	)
+	VALUES
+        (#page_id#,
+	 #file_id#,
+	 '1',
+	 'NOPASS'
+	 <dynamic>
+            <isNotEmpty prepend="," property="page_date">
+              TO_DATE(#page_date#,'YYYY-MM-DD'),
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="page_type">
+              #page_type#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="page_size">
+              #page_size#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="page_num">
+              #page_num#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="remark">
+              #remark#
+            </isNotEmpty>
+         </dynamic>
+	)
+   </dynamic-mapped-statement>
+
+   <mapped-statement name="getMaxIfaceArchivesFileId" result-class="java.lang.Integer">
+   <![CDATA[
+	SELECT NVL(MAX(NVL(FILE_ID,0)),0) AS FILE_ID FROM OA_ARCHIVES_FILE
+   ]]>
+   </mapped-statement>
+
+   <!--注意：要屏蔽表中表的文件-->
+   <dynamic-mapped-statement name="queryIfaceArchivesFileList" result-map="ifaceArchivesFile" >
+	SELECT
+	  FILE_ID,
+	  A.EFORM_ID,
+	  PHASE_ID,
+	  UP_PHASE_ID,
+	  PARENT_FILE_ID,
+	  PROJ_ID,
+	  PROJ_NAME,
+	  FILE_NUM,
+	  DECODE(A.FILE_TITLE,NULL,B.EFORM_NAME,A.FILE_TITLE) AS FILE_TITLE,
+	  FILE_DUTY,
+	  FILE_DATE,
+	  FILE_PAGE_AMOUNT,
+	  FILE_TYPE,
+	  FILE_KEYWORDS,
+	  FILE_STATUS,
+	  FILE_PATHNAME,
+	  A.REMARK,
+	  ACCEPT_ID
+	FROM OA_ARCHIVES_FILE A,OA_EFORM_DEFINE B
+	WHERE FILE_STATUS = '1'
+          AND SUBSTR(A.EFORM_ID,length(A.EFORM_ID)-4,2)='00'
+	  AND A.EFORM_ID=B.EFORM_ID(+)
+    <dynamic>
+      <isNotEmpty prepend="AND" property="file_num">
+         FILE_NUM LIKE '%' || #file_num# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="file_title">
+         FILE_TITLE LIKE '%' || #file_title# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="proj_id">
+         PROJ_ID LIKE '%' || #proj_id# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="proj_name">
+         PROJ_NAME LIKE '%' || #proj_name# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="accept_id">
+         ACCEPT_ID LIKE '%' || #accept_id# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="phase_id">
+         PHASE_ID=#phase_id#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="up_phase_id">
+         UP_PHASE_ID=#up_phase_id#
+      </isNotEmpty>
+    </dynamic>
+    	ORDER BY
+      	FILE_ID DESC
+  </dynamic-mapped-statement>
+
+   <mapped-statement name="getIfaceArchivesFileByFileId" result-map="ifaceArchivesFile">
+   <![CDATA[
+	SELECT
+	  FILE_ID,
+	  A.EFORM_ID,
+	  PHASE_ID,
+	  UP_PHASE_ID,
+	  PARENT_FILE_ID,
+	  PROJ_ID,
+	  PROJ_NAME,
+	  FILE_NUM,
+	  DECODE(A.EFORM_ID,NULL,A.FILE_TITLE,B.EFORM_NAME) AS FILE_TITLE,
+	  FILE_DUTY,
+	  TO_CHAR(FILE_DATE,'YYYY-MM-DD') AS FILE_DATE,
+	  FILE_PAGE_AMOUNT,
+	  FILE_TYPE,
+	  FILE_KEYWORDS,
+	  FILE_STATUS,
+	  FILE_PATHNAME,
+	  A.REMARK,
+	  ACCEPT_ID
+	FROM OA_ARCHIVES_FILE A,OA_EFORM_DEFINE B
+	WHERE FILE_ID=#value#
+       AND A.EFORM_ID=B.EFORM_ID(+)
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getIfaceArchivesPageByFileID" result-map="IfaceArchivesPage">
+   <![CDATA[
+	SELECT
+	  PAGE_ID,
+	  FILE_ID,
+	  PAGE_TYPE,
+	  PAGE_NUM,
+	  PAGE_SIZE,
+	  TO_CHAR(PAGE_DATE,'YYYY-MM-DD') AS PAGE_DATE,
+	  PAGE_PATHNAME
+	FROM OA_ARCHIVES_PAGE
+      	WHERE FILE_ID= #value#
+	ORDER BY PAGE_ID
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getIfaceEformFieldValueInfoByFileId" result-map="eformFieldValueInfo">
+   <![CDATA[
+	SELECT DISTINCT
+    	  BB.FILE_ID,
+    	  AA.EFORM_ID,
+	  AA.FIELD_ID,
+	  AA.FIELD_TYPE_ID,
+	  AA.FIELD_CNAME,
+	  AA.FIELD_ENAME,
+	  AA.FIELD_LEN,
+	  AA.FIELD_ISNULL,
+	  AA.FIELD_ISBRIEF,
+	  AA.FIELD_SEQ,
+	  AA.FIELD_ISEDIT,
+	  SUBSTR(BB.FIELD_VALUE,0,1500) AS FIELD_VALUE
+	FROM (
+       		SELECT B.EFORM_ID,
+              	  A.FIELD_ID,
+              	  A.FIELD_TYPE_ID,
+              	  A.FIELD_CNAME,
+              	  A.FIELD_ENAME,A.FIELD_LEN,A.FIELD_ISNULL,A.FIELD_ISBRIEF,B.FIELD_SEQ,B.FIELD_ISEDIT
+       		FROM OA_FIELD_DEFINE A,OA_EFORM_FIELD B
+       		WHERE  B.FIELD_ID=A.FIELD_ID AND B.EFORM_ID IN
+		(SELECT DISTINCT EFORM_ID FROM OA_ARCHIVES_FILE WHERE FILE_ID=#value#)
+       		)AA,
+       		(
+       		SELECT C.FILE_ID,C.FIELD_ID,C.FIELD_VALUE
+       		FROM OA_FIELD_VALUE C
+       		WHERE C.FILE_ID=#value#) BB
+	WHERE AA.FIELD_ID=BB.FIELD_ID(+)
+	ORDER BY AA.FIELD_SEQ,AA.FIELD_ID
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="updateIfaceArchivesFileStatusToReceivedByFileId">
+   <![CDATA[
+	UPDATE OA_ARCHIVES_FILE
+	SET FILE_STATUS=2
+	WHERE FILE_ID=#value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="updateIfaceArchivesFileStatusToBackByFileIds">
+   <![CDATA[
+	UPDATE OA_ARCHIVES_FILE
+	SET FILE_STATUS=3
+	WHERE FILE_ID in (#value#)
+   ]]>
+   </mapped-statement>
+
+   <!--注意：暂不倒入表中表-->
+   <!--如：25,000,00,001:后3位表示版本信息，再2位是子表编码，再3位是表格编号，一个业务类型的一个输入表格对应一个表，前面1-2位为业务类型编号。-->
+   <mapped-statement name="insertAllEformDefineFromOA">
+   <![CDATA[
+	INSERT INTO EFORM_DEFINE
+	(EFORM_ID,
+	 EFORM_NAME,
+	 EFORM_VERSION,
+	 EFORM_BEGIN_DATE,
+	 EFORM_END_DATE
+	)
+	SELECT
+	  EFORM_ID,
+	  EFORM_NAME,
+	  EFORM_VERSION,
+	  EFORM_BEGIN_DATE,
+	  EFORM_END_DATE
+	FROM OA_EFORM_DEFINE
+	WHERE EFORM_ID>100000000
+	  AND SUBSTR(EFORM_ID,length(EFORM_ID)-4,2)='00'
+	  AND EFORM_ID NOT IN
+          (
+		SELECT EFORM_ID
+		FROM EFORM_DEFINE
+		WHERE EFORM_ID>100000000
+          )
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="insertAllFieldDefineFromOA">
+   <![CDATA[
+	INSERT INTO FIELD_DEFINE
+	(
+	  FIELD_ID,
+	  FIELD_TYPE_ID,
+	  FIELD_CNAME,
+	  FIELD_ENAME,
+	  FIELD_LEN,
+	  FIELD_ISNULL,
+	  FIELD_ISBRIEF
+	)
+	SELECT
+	  FIELD_ID,
+	  FIELD_TYPE_ID,
+	  FIELD_CNAME,
+	  FIELD_ENAME,
+	  FIELD_LEN,
+	  FIELD_ISNULL,
+	  FIELD_ISBRIEF
+	FROM OA_FIELD_DEFINE
+	WHERE FIELD_ID>100000000
+	  AND FIELD_ID NOT IN
+          (
+		SELECT FIELD_ID
+		FROM FIELD_DEFINE
+		WHERE FIELD_ID>100000000
+          )
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="insertAllEformFieldFromOA">
+   <![CDATA[
+	INSERT INTO EFORM_FIELD
+	(
+	  EFORM_ID,
+	  FIELD_SEQ,
+	  FIELD_ISEDIT,
+	  FIELD_ID
+	)
+	SELECT
+	  EFORM_ID,
+	  FIELD_SEQ,
+	  FIELD_ISEDIT,
+	  FIELD_ID
+	FROM OA_EFORM_FIELD
+	WHERE EFORM_ID>100000000
+	  AND SUBSTR(EFORM_ID,length(EFORM_ID)-4,2)='00'
+	  AND EFORM_ID NOT IN
+          (
+		SELECT EFORM_ID
+		FROM EFORM_FIELD
+		WHERE EFORM_ID>100000000
+          )
+   ]]>
+   </mapped-statement>
+</sql-map>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="Whole">
+  <result-map name="whole" class="com.sunyard.hgam.persistence.dao.beans.arm.Whole">
+    <property name="wholeId" column="WHOLEDOSSIER_ID"/>
+    <property name="wholeType" column="WHOLEDOSSIER_TYPE"/>
+    <property name="wholeYear" column="WHOLEDOSSIER_YEAR"/>
+    <property name="wholeName" column="WHOLEDOSSIER_NAME"/>
+    <property name="wholeMakeMan" column="WHOLEDOSSIER_MAKEMAN"/>
+    <property name="wholeMakeDate" column="WHOLEDOSSIER_MAKEDATE"/>
+    <property name="wholeContent" column="WHOLEDOSSIER_CONTENT"/>
+    <property name="remark" column="REMARK"/>
+   </result-map>
+
+   <mapped-statement name="getWholeByType" result-map="whole">
+   <![CDATA[
+    SELECT
+	WHOLEDOSSIER_ID,
+	WHOLEDOSSIER_TYPE,
+	WHOLEDOSSIER_YEAR,
+	WHOLEDOSSIER_NAME,
+	WHOLEDOSSIER_MAKEMAN,
+	TO_CHAR(WHOLEDOSSIER_MAKEDATE,'YYYY-MM-DD') AS WHOLEDOSSIER_MAKEDATE,
+	WHOLEDOSSIER_CONTENT,
+	REMARK
+    FROM
+	WHOLEDOSSIER
+    WHERE
+	WHOLEDOSSIER_TYPE=#value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="addWhole">
+   <![CDATA[
+    INSERT INTO WHOLEDOSSIER(
+	WHOLEDOSSIER_ID,
+	WHOLEDOSSIER_TYPE,
+	WHOLEDOSSIER_YEAR,
+	WHOLEDOSSIER_NAME,
+	WHOLEDOSSIER_MAKEMAN,
+	WHOLEDOSSIER_MAKEDATE,
+	WHOLEDOSSIER_CONTENT,
+	REMARK
+	)
+       VALUES (
+	(SELECT NVL(MAX(NVL(WHOLEDOSSIER_ID,0))+1,1) FROM WHOLEDOSSIER),
+	#wholeType#,
+	#wholeYear#,
+	#wholeName#,
+	#wholeMakeMan#,
+	TO_DATE(#wholeMakeDate#,'YYYY-MM-DD'),
+	#wholeContent#,
+	#remark#
+	)
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getWholeByID" result-map="whole">
+   <![CDATA[
+    SELECT
+      WHOLEDOSSIER_ID,
+      WHOLEDOSSIER_TYPE,
+      WHOLEDOSSIER_YEAR,
+      WHOLEDOSSIER_NAME,
+      WHOLEDOSSIER_MAKEMAN,
+      TO_CHAR(WHOLEDOSSIER_MAKEDATE,'YYYY-MM-DD') AS WHOLEDOSSIER_MAKEDATE,
+      WHOLEDOSSIER_CONTENT,
+      REMARK
+    FROM
+      WHOLEDOSSIER
+    WHERE
+      WHOLEDOSSIER_ID=#value#
+   ]]>
+   </mapped-statement>
+
+  <mapped-statement name="deleteWholeByID">
+  <![CDATA[
+    DELETE FROM WHOLEDOSSIER WHERE WHOLEDOSSIER_ID=#value#
+   ]]>
+  </mapped-statement>
+
+  <mapped-statement name="updateWhole">
+  <![CDATA[
+    UPDATE WHOLEDOSSIER SET
+      WHOLEDOSSIER_YEAR=#wholeYear#,
+      WHOLEDOSSIER_NAME=#wholeName#,
+      WHOLEDOSSIER_MAKEMAN=#wholeMakeMan#,
+      WHOLEDOSSIER_MAKEDATE=TO_DATE(#wholeMakeDate#,'YYYY-MM-DD'),
+      WHOLEDOSSIER_CONTENT=#wholeContent#,
+      REMARK=#remark#
+      WHERE WHOLEDOSSIER_ID=#wholeId#
+   ]]>
+  </mapped-statement>
+</sql-map>

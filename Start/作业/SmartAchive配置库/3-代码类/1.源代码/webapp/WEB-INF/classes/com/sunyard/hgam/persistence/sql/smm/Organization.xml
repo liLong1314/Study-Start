@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="Organization">
+
+  <result-map name="organization" class="com.sunyard.hgam.persistence.dao.beans.smm.Organization">
+    <property name="id" column="ID"/>
+    <property name="name" column="NAME"/>
+    <property name="type" column="TYPE"/>
+    <property name="sysPrivilege" column="SYSPRIVILEGE"/>
+    <property name="isDelete" column="ISDELETE"/>
+    <property name="desc" column="DESCRIPTION"/>
+    <property name="superiorOrgId" column="SUPERIORORGID"/>
+    <property name="superiorOrgName" column="SUPERIORORGNAME"/>
+  </result-map>
+
+  <mapped-statement name="getAllOrg" result-map="organization">
+    SELECT
+      organization.id,
+      organization.name,
+      organization.type,
+      organization.sysprivilege,
+      organization.isdelete,
+      organization.description,
+      t.id as superiorOrgid,
+      t.name as superiorOrgName
+    FROM
+      organization,
+      (select
+        organization.id,
+        organization.name,
+        orgorg.suborgid
+        from organization,orgorg
+      where
+      organization.id=orgorg.orgid AND
+      organization.id&lt;&gt;0
+      ) t
+    WHERE
+      organization.id=t.suborgid(+) AND
+      organization.id&lt;&gt;0 AND
+      organization.isdelete=0
+    ORDER BY
+      t.id
+  </mapped-statement>
+
+  <dynamic-mapped-statement name="searchOrg" result-map="organization">
+    SELECT
+      organization.id,
+      organization.name,
+      organization.type,
+      organization.sysprivilege,
+      organization.isdelete,
+      organization.description,
+      t.id as superiorOrgid,
+      t.name as superiorOrgName
+    FROM
+      organization,
+      (select
+        organization.id,
+        organization.name,
+        orgorg.suborgid
+        from organization,orgorg
+      where
+      organization.id=orgorg.orgid AND
+      organization.id&lt;&gt;0
+      ) t
+    WHERE
+      organization.id=t.suborgid(+) AND
+      organization.id&lt;&gt;0 AND
+      organization.isdelete=0
+      <dynamic>
+        <isNotEmpty prepend="AND" property="name">
+          organization.name like #name#
+        </isNotEmpty>
+      </dynamic>
+    ORDER BY
+      t.id
+  </dynamic-mapped-statement>
+
+  <mapped-statement name="getOrgByID" result-map="organization">
+    SELECT
+      organization.id,
+      organization.name,
+      organization.type,
+      organization.sysprivilege,
+      organization.isdelete,
+      organization.description,
+      t.id as superiorOrgid,
+      t.name as superiorOrgName
+    FROM
+      organization,
+      (select
+        organization.id,
+        organization.name,
+        orgorg.suborgid
+        from organization,orgorg
+      where
+      organization.id=orgorg.orgid AND
+      organization.id&lt;&gt;0
+      ) t
+    WHERE
+      organization.id=t.suborgid(+) AND
+      organization.id&lt;&gt;0 AND
+      organization.isdelete=0 AND
+      organization.id=#value#
+    ORDER BY
+      t.id
+  </mapped-statement>
+
+  <mapped-statement name="getSubOrg" result-map="organization">
+    SELECT
+      organization.id,
+      organization.name,
+      organization.type,
+      organization.sysprivilege,
+      organization.isdelete,
+      organization.description,
+      t.id as superiorOrgid,
+      t.name as superiorOrgName
+    FROM
+      organization,
+      (select
+        organization.id,
+        organization.name,
+        orgorg.suborgid
+        from organization,orgorg
+      where
+      organization.id=orgorg.orgid AND
+      organization.id&lt;&gt;0
+      ) t
+    WHERE
+      organization.id=t.suborgid(+) AND
+      organization.id&lt;&gt;0 AND
+      organization.isdelete=0  AND
+      t.id=#value#
+    ORDER BY
+      t.id
+  </mapped-statement>
+
+  <mapped-statement name="getOrgByName" result-class="java.lang.String">
+    SELECT
+      organization.id
+    FROM
+      organization
+    WHERE
+      organization.id&lt;&gt;0 AND
+      organization.isdelete=0  AND
+      organization.name=#value#
+  </mapped-statement>
+
+  <mapped-statement name="getOrgNameByID" result-class="java.lang.String">
+    SELECT
+      organization.name
+    FROM
+      organization
+    WHERE
+      organization.id&lt;&gt;0 AND
+      organization.isdelete=0  AND
+      organization.id=#value#
+  </mapped-statement>
+
+  <mapped-statement name="insertOrganization">
+    INSERT INTO
+      organization
+      (
+        id,
+        name,
+        description
+      )
+      VALUES
+      (
+        (SELECT NVL(MAX(NVL(id,0))+1,1) FROM organization),
+        #name#,
+        #desc#
+      )
+  </mapped-statement>
+
+  <mapped-statement name="insertOrgOrg">
+    insert into orgorg
+      (orgid,suborgid)
+    values
+      (#superiorOrgId#,#id#)
+  </mapped-statement>
+
+  <mapped-statement name="updateOrganization">
+    update
+      organization
+    set
+      name=#name#,
+      description=#desc#
+    where
+      id=#id#
+  </mapped-statement>
+
+  <mapped-statement name="updateOrgOrg">
+    update orgorg
+      set orgid=#superiorOrgId#
+    where
+      suborgid=#id#
+  </mapped-statement>
+
+  <mapped-statement name="deleteOrganization">
+    update organization set isdelete=1 where id=#value#
+  </mapped-statement>
+
+</sql-map>

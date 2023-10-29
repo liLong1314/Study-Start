@@ -1,0 +1,17 @@
+<title>请选择</title>
+<br><table width="259" border="0" align="center" cellpadding="2" cellspacing="2">
+  <tr>
+    <td><div align="center">
+        <script>
+document.write(window.dialogArguments);
+</script>
+      </div></td>
+  </tr>
+  <tr>
+    <td height="49"> <div align="center">
+        <input name="button" type=button onClick="window.returnValue='YES'; self.close()" value="  是  ">
+        <input name="button2" type=button onClick="window.returnValue='NO'; self.close()" value="  否  ">
+        <input name="button2" type=button onClick="window.returnValue='CANCEL'; self.close()" value="取 消">
+      </div></td>
+  </tr>
+</table>

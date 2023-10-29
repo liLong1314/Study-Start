@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="EntryTreeList">
+  <result-map name="entryTreeList" class="com.sunyard.hgam.persistence.dao.beans.adc.EntryTreeList">
+    <property name="entryId" column="ENTRY_ID"/>
+    <property name="entryName" column="ENTRY_NAME"/>
+    <property name="isOperation" column="ISOPERATION"/>
+    <property name="fatherEntryId" column="FATHER_ENTRY_ID"/>
+    <property name="entryLevel" column="ENTRY_LEVEL"/>
+    <property name="remark" column="REMARK"/>
+   </result-map>
+
+   <mapped-statement name="getAllFirstLevelTree" result-map="entryTreeList">
+   <![CDATA[
+	SELECT
+	  ENTRY_ID,
+	  ENTRY_NAME,
+          ISOPERATION,
+	  FATHER_ENTRY_ID,
+	  ENTRY_LEVEL,
+          REMARK
+	FROM ENTRY
+	WHERE ENTRY_LEVEL=1 AND FATHER_ENTRY_ID IS NULL
+   ]]>
+   </mapped-statement>
+
+   <!--暂时没用-->
+   <mapped-statement name="getFirstLevelTreeForRoll" result-map="entryTreeList">
+   <![CDATA[
+	SELECT
+	  ENTRY_ID,
+	  ENTRY_NAME,
+          ISOPERATION,
+	  FATHER_ENTRY_ID,
+	  ENTRY_LEVEL,
+          REMARK
+	FROM ENTRY
+	WHERE ENTRY_LEVEL=1 AND ENTRY_ID IN(5,6,7) AND FATHER_ENTRY_ID IS NULL
+   ]]>
+   </mapped-statement>
+
+   <!--修订：郑先全，20040225-->
+   <!--说明：5党群工作类、6行政管理类、7规划业务管理档案-->
+   <mapped-statement name="getFirstLevelTreeForPiece" result-map="entryTreeList">
+   <![CDATA[
+	SELECT
+	  ENTRY_ID,
+	  ENTRY_NAME,
+          ISOPERATION,
+	  FATHER_ENTRY_ID,
+	  ENTRY_LEVEL,
+          REMARK
+	FROM ENTRY
+	WHERE ENTRY_LEVEL=1 AND ENTRY_ID IN(5,6,7) AND FATHER_ENTRY_ID IS NULL
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getSecondLevelTreeByFatherId" result-map="entryTreeList">
+   <![CDATA[
+	SELECT
+	  ENTRY_ID,
+	  ENTRY_NAME,
+          ISOPERATION,
+	  FATHER_ENTRY_ID,
+	  ENTRY_LEVEL,
+          REMARK
+	FROM ENTRY
+	WHERE ENTRY_LEVEL=2 AND FATHER_ENTRY_ID=#value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getSecondLevelTreeByFatherIdForPiece" result-map="entryTreeList">
+   <![CDATA[
+	SELECT
+	  ENTRY_ID,
+	  ENTRY_NAME,
+          ISOPERATION,
+	  FATHER_ENTRY_ID,
+	  ENTRY_LEVEL,
+          REMARK
+	FROM ENTRY
+	WHERE ENTRY_LEVEL=2 AND ISOPERATION=0 AND FATHER_ENTRY_ID=#value#
+   ]]>
+   </mapped-statement>
+
+</sql-map>

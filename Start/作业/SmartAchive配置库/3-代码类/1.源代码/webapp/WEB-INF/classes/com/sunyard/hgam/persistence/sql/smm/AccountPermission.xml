@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="AccountPermission">
+  <result-map name="accountPermission" class="com.sunyard.hgam.persistence.dao.beans.smm.AccountPermission">
+    <property name="userID" column="USER_ID"/>
+    <property name="permID" column="PERMISSION_ID"/>
+    <property name="permType" column="PERMISSION_TYPE"/>
+  </result-map>
+  <mapped-statement name="getPermissionByUserID" result-map="accountPermission">
+	select A.USER_ID,A.PERMISSION_ID,A.PERMISSION_TYPE
+    	from USER_PERMISSION A,PERMISSION B
+    	where A.PERMISSION_ID=B.PERMISSION_ID
+		AND A.USER_ID=#value#
+	order by B.PERMISSION_CODE
+  </mapped-statement>
+  <mapped-statement name="insertAP">
+    insert into USER_PERMISSION(USER_ID,PERMISSION_ID,PERMISSION_TYPE) values(#userID#,#permID#,#permType#)
+  </mapped-statement>
+  <mapped-statement name="deleteOneAP">
+    delete from USER_PERMISSION where USER_ID=#userID# and PERMISSION_ID=#permID#
+  </mapped-statement>
+  <dynamic-mapped-statement name="deleteAllAP">
+    delete from USER_PERMISSION
+    <dynamic prepend="WHERE">
+        <isNotEmpty prepend="and" property="userID">
+           USER_ID=#userID#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="permType">
+           PERMISSION_TYPE=#permType#
+        </isNotEmpty>
+	</dynamic>
+  </dynamic-mapped-statement>
+
+</sql-map>

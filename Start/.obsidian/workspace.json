@@ -1,0 +1,291 @@
+{
+  "main": {
+    "id": "5a86b452ae39b884",
+    "type": "split",
+    "children": [
+      {
+        "id": "a6741aae90dca4c8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "46eeab305406f4fe",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "本身/Obsidian常用插件推荐以及下载链接.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "204404159c876882",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "未命名.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "6bb1e262e48acd0b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "编程/Spring家族/SpringMVc/REST API.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "b2e4005dc14b6521",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "编程/Spring家族/SpringMVc/报错/Required request body is missing.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "168cdd5cf8ab81b9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "编程/工具/框架/MP/问题/No MyBatis mapper was found.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "80671e105c7d8c6f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "编程/Spring家族/SpringBoot/资料/2. Git.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "108a7cd2cfaa00fe",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "编程/Spring家族/SpringBoot/资料/2.2clone报错.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 6
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "67372eb836d8bacb",
+    "type": "split",
+    "children": [
+      {
+        "id": "b0ae34f7a3f566d3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6f89316b647935c4",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "5113dc9e70beb927",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "selectByMap",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "byCreatedTime"
+              }
+            }
+          },
+          {
+            "id": "3777acaea5871824",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "75ca10e97d6a6669",
+    "type": "split",
+    "children": [
+      {
+        "id": "f348d3db8bcd91af",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a3b551eb58e53974",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "本身/Obsidian常用插件推荐以及下载链接.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "3b168dad66f6c684",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "本身/Obsidian常用插件推荐以及下载链接.md",
+                "linksCollapsed": true,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "70a0bbd779990941",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "cc0c9ebc2f04b83b",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "本身/Obsidian常用插件推荐以及下载链接.md"
+              }
+            }
+          },
+          {
+            "id": "641623eaf688ee22",
+            "type": "leaf",
+            "state": {
+              "type": "advanced-tables-toolbar",
+              "state": {}
+            }
+          },
+          {
+            "id": "2fcd59c904a69c26",
+            "type": "leaf",
+            "state": {
+              "type": "calendar",
+              "state": {}
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "obsidian-excalidraw-plugin:新建绘图文件": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": false,
+      "oz-clear-unused-images:Clear Unused Images": false,
+      "remotely-save:Remotely Save": false
+    }
+  },
+  "active": "6f89316b647935c4",
+  "lastOpenFiles": [
+    "编程/Spring家族/SpringBoot/资料/2. Git.md",
+    "编程/Spring家族/SpringBoot/资料/2.2clone报错.md",
+    "编程/TODO/ToDo.md",
+    "本身/电脑/Because an activated User Account Control (UAC) o.md",
+    "编程/工具/框架/MP/第三方完整教程/docs/04.问答/01.问答.md",
+    "编程/工具/框架/MP/第三方完整教程/docs/01.指南/02.核心功能/03.CRUD接口.md",
+    "编程/工具/框架/MP/第三方完整教程/docs/01.指南/03.扩展/12.流式查询.md",
+    "编程/工具/框架/MP/第三方完整教程/MybatisPlus.md",
+    "编程/Spring家族/SpringMVc/@PathVariable.md",
+    "编程/Spring家族/SpringBoot/资料/用户登录注册.md",
+    "编程/工具/框架/MP/问题/No MyBatis mapper was found.md",
+    "本身/电脑",
+    "编程/TODO",
+    "编程/工具/框架/MP/问题",
+    "编程/工具/框架/MP/第三方完整教程",
+    "编程/Spring家族/SpringMVc/报错/Required request body is missing.md",
+    "编程/Spring家族/SpringMVc/SpringMVC.md",
+    "编程/Spring家族/SpringMVc/@RequestBody.md",
+    "编程/Spring家族/SpringMVc/REST API.md",
+    "编程/工具/框架/Sa-Token/Sa-token.md",
+    "编程/工具/框架/Sa-Token",
+    "编程/工具/框架",
+    "编程/工具",
+    "编程/Spring家族/SpringMVc/报错",
+    "编程/Spring家族/SpringBoot/公共/hutool ——Java好用的工具类.md",
+    "编程/Spring家族/SpringCloud/混乱/k8s(kubernetes).md",
+    "编程/Spring家族/SpringMVc/VO，BO，PO，DO，DTO.md",
+    "编程",
+    "AI",
+    "未命名.md",
+    "本身/Obsidian常用插件推荐以及下载链接.md",
+    "未命名.canvas",
+    "2023-10-21.md",
+    "img/mybatisx-jump.gif.md",
+    "作业/计算机网络/数据及子系统.md",
+    "编程/Spring家族/SpringBoot/资料/2.1Github报错.md",
+    "编程/工具/框架/MP/第三方完整教程/docs/02.配置/02.代码生成器配置/01.代码生成器配置新.md",
+    "Pasted image 20231022220836.png",
+    "Pasted image 20231022220743.png"
+  ]
+}

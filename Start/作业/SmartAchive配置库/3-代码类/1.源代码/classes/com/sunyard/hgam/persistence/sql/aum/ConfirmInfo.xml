@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="ConfirmInfo">
+  <result-map name="conInfo" class="com.sunyard.hgam.persistence.dao.beans.aum.ConfirmInfo">
+    <property name="confirmID" column="CONFIRM_ID" /><!-- 审核编号 -->
+    <property name="applyID" column="APPLY_ID" /><!-- 申请编号 -->
+    <property name="confirmUserID" column="CONFIRM_USER_ID" /><!-- 审批人员id -->
+    <property name="confirmDate" column="CONFIRM_DATE" /><!-- 审核时间 -->
+    <property name="confirmIdea" column="CONFIRM_IDEA" /><!-- 审核意见 -->
+    <property name="isAgree" column="IS_AGREE" /><!-- 是否同意 -->
+    <property name="status" column="STATUS" /><!-- 审核的环节类型 -->
+    <property name="remark" column="REMARK" /><!-- 备注 -->
+    <property name="taskID" column="TASK_ID" /><!-- 任务ID -->
+  </result-map>
+
+   <mapped-statement name="getConfirmInfoByApplyID" result-map="conInfo">
+   <![CDATA[
+    SELECT
+	A.CONFIRM_ID,
+	A.APPLY_ID,
+	B.NAME AS CONFIRM_USER_ID,
+	A.CONFIRM_DATE,
+        A.IS_AGREE,
+	A.CONFIRM_IDEA,
+	A.REMARK,
+        A.STATUS,
+        A.TASK_ID
+    FROM
+	UTILIZE_CONFIRM A,USERS B
+    WHERE
+        A.APPLY_ID=#value# AND
+        A.CONFIRM_USER_ID=B.ID
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getConfirmInfoByTaskID" result-map="conInfo">
+   <![CDATA[
+    SELECT
+	CONFIRM_ID,
+	APPLY_ID,
+	CONFIRM_USER_ID,
+        TO_CHAR(CONFIRM_DATE,'YYYY-MM-DD') AS CONFIRM_DATE,
+        IS_AGREE,
+	CONFIRM_IDEA,
+	REMARK,
+        STATUS,
+        TASK_ID
+    FROM
+	UTILIZE_CONFIRM
+    WHERE
+      UTILIZE_CONFIRM.TASK_ID=#value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="insertConfirmInfo">
+   <![CDATA[
+   INSERT INTO UTILIZE_CONFIRM(CONFIRM_ID,APPLY_ID,CONFIRM_USER_ID,CONFIRM_DATE,CONFIRM_IDEA,REMARK,STATUS,IS_AGREE,TASK_ID)
+	VALUES ((SELECT NVL(MAX(NVL(CONFIRM_ID,0)),0)+1 FROM UTILIZE_CONFIRM),#applyID#,#confirmUserID#,TO_DATE(#confirmDate#,'YYYY-MM-DD'),#confirmIdea#,#remark#,#status#,#isAgree#,#taskID#)
+   ]]>
+   </mapped-statement>
+
+</sql-map>

@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+  <form-beans>
+    <form-bean name="UtilizeInfoForm" type="com.sunyard.hgam.presentation.form.aum.UtilizeInfoForm" />
+    <form-bean name="UtilizePersonForm" type="com.sunyard.hgam.presentation.form.aum.UtilizePersonForm" />
+    <form-bean name="UtilizeDetailForm" type="com.sunyard.hgam.presentation.form.aum.UtilizeDetailForm" />
+    <form-bean name="ArchForm" type="com.sunyard.hgam.presentation.form.aum.ArchForm" />
+    <form-bean name="archQueryForm" type="com.sunyard.hgam.presentation.form.arm.ArchOperForm" />
+    <form-bean name="fileQueryForm" type="com.sunyard.hgam.presentation.form.arm.FileOperForm" />
+    <form-bean name="pageQueryForm" type="com.sunyard.hgam.presentation.form.arm.PageOperForm" />
+    <form-bean name="CheckArchivesPageForm" type="com.sunyard.hgam.presentation.form.adc.CheckArchivesPageForm" />
+    <form-bean name="ConfirmInfoForm" type="com.sunyard.hgam.presentation.form.aum.ConfirmInfoForm" />
+    <form-bean name="ArchivesForm" type="com.sunyard.hgam.presentation.form.adc.ArchivesForm" />
+    <form-bean name="ArchivesFileForm" type="com.sunyard.hgam.presentation.form.adc.ArchivesFileForm" />
+
+    <!-- 收费管理 -->
+    <form-bean name="IsChargeForm"    type="com.sunyard.hgam.presentation.form.aum.IsChargeForm" />
+    <form-bean name="ChargeStandardForm"    type="com.sunyard.hgam.presentation.form.aum.ChargeStandardForm" />
+
+    <form-bean name="UtilizeDetailForm"    type="com.sunyard.hgam.presentation.form.aum.UtilizeDetailForm" />
+    <form-bean name="SelectArchivesFileForm"    type="com.sunyard.hgam.presentation.form.aum.SelectArchivesFileForm" />
+
+    <form-bean name="ArchivesForm" type="com.sunyard.hgam.presentation.form.adc.ArchivesForm" />
+    <form-bean name="ArchivesFileForm" type="com.sunyard.hgam.presentation.form.adc.ArchivesFileForm" />
+  </form-beans>
+  <action-mappings>
+
+  <!-- 查阅管理部分 -->
+    <!-- 显示利用者信息 -->
+    <action name="UtilizeInfoForm"
+            type="com.sunyard.hgam.presentation.action.aum.ShowAllUtilizePersonAction"
+            scope="request"
+            path="/aum/ShowAllUtilizePerson">
+      <forward name="VIEW" path="/aum/select_utilize_person.jsp" />
+      <forward name="BORROW" path="/aum/borrow_select_utilize_person.jsp" />
+      <forward name="REPAIR" path="/aum/repair_select_utilize_person.jsp" />
+    </action>
+    <!-- 显示档案明细信息 -->
+    <action type="com.sunyard.hgam.presentation.action.aum.ViewUtilizeDetailAction"
+            path="/aum/ViewUtilizeDetail">
+      <forward name="APPLY" path="/aum/show_all_utilize_detail.jsp" />
+      <forward name="APPLYBORROW" path="/aum/borrow_show_all_utilize_detail.jsp" />
+      <forward name="APPLYREPAIR" path="/aum/repair_show_all_utilize_detail.jsp" />
+      <forward name="HANDLER" path="/aum/show_all_utilize_detail_handler.jsp" />
+    </action>
+    <!-- 增加申请利用信息 -->
+    <action name="UtilizeInfoForm"
+            type="com.sunyard.hgam.presentation.action.aum.AddUtilizeInfoAction"
+            scope="request"
+            path="/aum/AddUtilizeInfo">
+      <forward name="success" path="/aum/ViewUtilizeDetail.do" />
+    </action>
+    <!-- 删除申请利用信息 -->
+    <action name="UtilizeInfoForm"
+            type="com.sunyard.hgam.presentation.action.aum.DeleteUtilizeInfoAction"
+            scope="request"
+            path="/aum/DeleteUtilizeInfo">
+      <forward name="VIEW" path="/aum/ViewTaskList.do" />
+      <forward name="BORROW" path="/aum/BorrowTaskList.do" />
+      <forward name="REPAIR" path="/aum/RepairTaskList.do" />
+    </action>
+    <!-- 删除档案明细信息 -->
+    <action name="UtilizeDetailForm"
+            type="com.sunyard.hgam.presentation.action.aum.DeleteUtilizeDetailAction"
+            scope="request"
+            path="/aum/DeleteUtilizeDetail">
+      <forward name="success" path="/aum/ViewUtilizeDetail.do" />
+    </action>
+    <!-- 增加档案明细信息 -->
+    <action name="UtilizeDetailForm"
+            type="com.sunyard.hgam.presentation.action.aum.AddUtilizeDetailAction"
+            path="/aum/AddUtilizeDetail">
+      <forward name="SUCCESS" path="/aum/ViewUtilizeDetail.do" />
+      <forward name="INVALID_SELECT" path="/aum/invalid_selected_files.jsp" />
+    </action>
+    <!-- 显示任务列表 -->
+    <action type="com.sunyard.hgam.presentation.action.aum.ViewTaskListAction"
+            path="/aum/ViewTaskList">
+      <forward name="success" path="/aum/view_right_main.jsp" />
+    </action>
+    <!-- 显示任务中要处理的表单 -->
+    <action name="UtilizeInfoForm"
+            type="com.sunyard.hgam.presentation.action.aum.ViewShowFormAction"
+            scope="request"
+            path="/aum/ViewShowForm">
+      <forward name="HANDLER" path="/aum/view_handler_form.jsp" />
+      <forward name="TRACE" path="/aum/view_trace_process.jsp" />
+    </action>
+    <!-- 显示申请表单 -->
+    <action name="UtilizeInfoForm"
+            type="com.sunyard.hgam.presentation.action.aum.ViewNewApplyFormAction"
+            scope="request"
+            path="/aum/ViewNewApplyForm">
+      <forward name="success" path="/aum/view_apply_form.jsp" />
+    </action>
+    <!-- 启动查阅流程 -->
+    <action name="UtilizeInfoForm"
+            type="com.sunyard.hgam.presentation.action.aum.ViewStartApplyFlowAction"
+            scope="request"
+            path="/aum/ViewStartApplyFlow">
+      <forward name="success" path="/aum/end_success_view.jsp" />
+    </action>
+    <!-- 提交任务 -->
+    <action name="UtilizeInfoForm"
+            type="com.sunyard.hgam.presentation.action.aum.ViewCommitTaskAction"
+            scope="request"
+            path="/aum/ViewCommitTask">
+      <forward name="success" path="/aum/end_success_view.jsp" />
+    </action>
+
+  <!-- 借阅管理部分 -->
+    <!-- 显示催收单 -->
+    <action name="UtilizeInfoForm"
+            type="com.sunyard.hgam.presentation.action.aum.DisplayUrgeFormAction"
+            scope="request"
+            path="/aum/DisplayUrgeForm">
+      <forward name="success" path="/aum/urge_form.jsp" />
+    </action>
+    <!-- 显示任务列表 -->
+    <action type="com.sunyard.hgam.presentation.action.aum.BorrowTaskListAction"
+            path="/aum/BorrowTaskList">
+      <forward name="success" path="/aum/borrow_right_main.jsp" />
+    </action>
+    <!-- 显示任务中要处理的表单 -->
+    <action name="UtilizeInfoForm"
+            type="com.sunyard.hgam.presentation.action.aum.BorrowShowFormAction"
+            scope="request"
+            path="/aum/BorrowShowForm">
+      <forward name="HANDLER" path="/aum/borrow_handler_form.jsp" />
+      <forward name="TRACE" path="/aum/borrow_trace_process.jsp" />
+    </action>
+    <!-- 显示申请表单 -->
+    <action name="UtilizeInfoForm"
+            type="com.sunyard.hgam.presentation.action.aum.BorrowNewApplyFormAction"
+            scope="request"
+            path="/aum/BorrowNewApplyForm">
+      <forward name="success" path="/aum/borrow_apply_form.jsp" />
+    </action>
+    <!-- 启动借阅流程 -->
+    <action name="UtilizeInfoForm"
+            type="com.sunyard.hgam.presentation.action.aum.BorrowStartApplyFlowAction"
+            scope="request"
+            path="/aum/BorrowStartApplyFlow">
+      <forward name="success" path="/aum/end_success_borrow.jsp" />
+    </action>
+    <!-- 提交任务 -->
+    <action name="UtilizeInfoForm"
+            type="com.sunyard.hgam.presentation.action.aum.BorrowCommitTaskAction"
+            scope="request"
+            path="/aum/BorrowCommitTask">
+      <forward name="success" path="/aum/end_success_borrow.jsp" />
+    </action>
+
+  <!-- 补证管理部分 -->
+    <!-- 显示任务列表 -->
+    <action type="com.sunyard.hgam.presentation.action.aum.RepairTaskListAction"
+            path="/aum/RepairTaskList">
+      <forward name="success" path="/aum/repair_right_main.jsp" />
+    </action>
+    <!-- 显示任务中要处理的表单 -->
+    <action name="UtilizeInfoForm"
+            type="com.sunyard.hgam.presentation.action.aum.RepairShowFormAction"
+            scope="request"
+            path="/aum/RepairShowForm">
+      <forward name="HANDLER" path="/aum/repair_handler_form.jsp" />
+      <forward name="TRACE" path="/aum/repair_trace_process.jsp" />
+    </action>
+    <!-- 显示申请表单 -->
+    <action name="UtilizeInfoForm"
+            type="com.sunyard.hgam.presentation.action.aum.RepairNewApplyFormAction"
+            scope="request"
+            path="/aum/RepairNewApplyForm">
+      <forward name="success" path="/aum/repair_apply_form.jsp" />
+    </action>
+    <!-- 启动查证流程 -->
+    <action name="UtilizeInfoForm"
+            type="com.sunyard.hgam.presentation.action.aum.RepairStartApplyFlowAction"
+            scope="request"
+            path="/aum/RepairStartApplyFlow">
+      <forward name="success" path="/aum/end_success_repair.jsp" />
+    </action>
+    <!-- 提交任务 -->
+    <action name="UtilizeInfoForm"
+            type="com.sunyard.hgam.presentation.action.aum.RepairCommitTaskAction"
+            scope="request"
+            path="/aum/RepairCommitTask">
+      <forward name="success" path="/aum/end_success_repair.jsp" />
+    </action>
+
+    <!-- 增加申请者信息 -->
+    <action name="UtilizePersonForm"
+            type="com.sunyard.hgam.presentation.action.aum.AddUtilizePersonAction"
+            scope="request"
+            path="/aum/AddUtilizePerson">
+      <forward name="success" path="/aum/ShowAllUtilizePerson.do" />
+    </action>
+    <!-- 显示增加申请者信息页面 -->
+    <action name="UtilizePersonForm"
+            type="com.sunyard.hgam.presentation.action.aum.ShowUtilizePersonFormAction"
+            scope="request"
+            path="/aum/ShowUtilizePersonForm">
+      <forward name="success" path="/aum/utilize_person_add.jsp" />
+    </action>
+    <!-- 编辑申请者信息 -->
+    <action name="UtilizePersonForm"
+            type="com.sunyard.hgam.presentation.action.aum.EditUtilizePersonAction"
+            scope="request"
+            path="/aum/EditUtilizePerson">
+      <forward name="success" path="/aum/ShowAllUtilizePerson.do" />
+    </action>
+    <!-- 显示编辑申请者信息页面 -->
+    <action name="UtilizePersonForm"
+            type="com.sunyard.hgam.presentation.action.aum.ShowUtilizePersonFormForEditAction"
+            scope="request"
+            path="/aum/ShowUtilizePersonFormForEdit">
+      <forward name="success" path="/aum/utilize_person_edit.jsp" />
+    </action>
+    <!-- 删除申请者信息 -->
+    <action name="UtilizePersonForm"
+            type="com.sunyard.hgam.presentation.action.aum.DeleteUtilizePersonAction"
+            scope="request"
+            path="/aum/DeleteUtilizePerson">
+      <forward name="success" path="/aum/ShowAllUtilizePerson.do" />
+    </action>
+
+    <!--文件著录/档案文件列表-->
+    <action name="ArchivesFileForm"
+            type="com.sunyard.hgam.presentation.action.aum.ViewArchivesFileListAction"
+            path="/aum/utilizeArchivesFilesList"
+            scope="request">
+      <forward name="WENSHU" path="/aum/utilize_archives_file_wenshu_list.jsp" />
+      <forward name="YEWU" path="/aum/utilize_archives_file_yewu_list.jsp" />
+      <forward name="OTHER" path="/aum/utilize_archives_file_wenshu_list.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--文件著录/档案查询-->
+    <action name="ArchivesForm"
+            type="com.sunyard.hgam.presentation.action.aum.QueryArchivesListAction"
+            path="/aum/queryArchivesList"
+            scope="request">
+      <forward name="SUCCESS" path="/aum/utilize_archives_query.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--文件修订/业务类阶段文件列表-->
+    <action name="ArchivesFileForm"
+            type="com.sunyard.hgam.presentation.action.aum.ViewArchivesFileListByPhaseIdAction"
+            path="/aum/utilizeArchivesFileListByPhaseId"
+            scope="request">
+      <forward name="SUCCESS" path="/aum/utilize_archives_file_yewu_list_for_phase.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--文件著录/导航-->
+    <action type="com.sunyard.hgam.presentation.action.aum.QueryFileNavigatorAction"
+            path="/aum/queryFileNavigator">
+      <forward name="SUCCESS" path="/aum/utilize_archives_query.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+
+
+	<!-- 档案综合查询 -->
+	<!--整合综合查询begin-->
+	<action type="com.sunyard.hgam.presentation.action.aum.QueryArchivesNavigatorAction"
+		path="/aum/queryArchivesNavigator">
+	<forward name="SUCCESS" path="/aum/querymain.jsp" />
+        <forward name="FAILURE" path="/error.jsp" />
+	</action>
+	<action name="archQueryForm"
+		type="com.sunyard.hgam.presentation.action.aum.QueryArchivesAction"
+		path="/aum/queryArchives">
+	<forward name="success" path="/aum/queryarchlist.jsp" />
+	</action>
+	<action name="archQueryForm"
+		type="com.sunyard.hgam.presentation.action.aum.ArchQueryAction"
+		path="/aum/ArchQuery">
+	<forward name="success" path="/aum/queryarchlist.jsp" />
+	</action>
+	<action name="archQueryForm"
+		type="com.sunyard.hgam.presentation.action.aum.ArchBlurQueryAction"
+		path="/aum/ArchBlurQuery">
+	<forward name="success" path="/aum/queryarchlist.jsp" />
+	</action>
+	<action name="archQueryForm"
+		type="com.sunyard.hgam.presentation.action.aum.OperQueryAction"
+		path="/aum/OperQuery">
+	<forward name="success" path="/aum/queryarchlist.jsp" />
+	</action>
+
+	<!--整合综合查询end-->
+
+        <!-- 出入库查询,wanghua add,2004-03-15 -->
+	<action type="com.sunyard.hgam.presentation.action.aum.QueryInOutArchivesAction"
+		path="/aum/QueryInOutArchives">
+	  <forward name="SUCCESS" path="/aum/in_out_lib_query.jsp" />
+	</action>
+
+	<!--档案文件列表-->
+    	<action name="ArchivesFileForm"
+		type="com.sunyard.hgam.presentation.action.aum.ViewArchivesFileListAction"
+		path="/aum/viewArchivesFilesList"
+		scope="request">
+      	<forward name="WENSHU" path="/aum/archives_file_wenshu_list.jsp" />
+      	<forward name="YEWU" path="/aum/archives_file_yewu_list.jsp" />
+      	<forward name="OTHER" path="/aum/archives_file_other_list.jsp" />
+      	<forward name="FAILURE" path="/error.jsp" />
+    	</action>
+
+	<!--档案文件查询-->
+    	<action name="ArchivesFileForm"
+		type="com.sunyard.hgam.presentation.action.aum.QueryArchivesFileAction"
+		path="/aum/queryArchivesFile"
+		scope="request">
+      	<forward name="WENSHU" path="/aum/archives_file_wenshu_list.jsp" />
+      	<forward name="YEWU" path="/aum/archives_file_yewu_list_for_phase.jsp" />
+      	<forward name="OTHER" path="/aum/archives_file_other_list.jsp" />
+      	<forward name="FAILURE" path="/error.jsp" />
+    	</action>
+
+	<!--暂时不用,替换为上面那个（郑先全）-->
+	<action type="com.sunyard.hgam.presentation.action.aum.FileLookAction"
+		path="/aum/FileLook">
+	<forward name="success" path="/aum/queryfile.jsp" />
+	</action>
+
+	<!--文件查看-->
+    	<action name="ArchivesFileForm"
+		type="com.sunyard.hgam.presentation.action.adc.ViewArchivesFileAction"
+		path="/aum/viewArchivesFile" scope="request">
+      	<forward name="WENSHU" path="/aum/archives_file_wenshu_info.jsp" />
+      	<forward name="YEWU" path="/aum/archives_file_yewu_info.jsp" />
+      	<forward name="OTHER" path="/aum/archives_file_other_info.jsp" />
+      	<forward name="FAILURE" path="/error.jsp" />
+    	</action>
+
+    	<!--业务类阶段文件列表-->
+    	<action name="ArchivesFileForm"
+		type="com.sunyard.hgam.presentation.action.aum.ViewArchivesFileListByPhaseIdAction"
+		path="/aum/viewArchivesFileListByPhaseId" scope="request">
+      	<forward name="SUCCESS" path="/aum/archives_file_yewu_list_for_phase.jsp" />
+      	<forward name="FAILURE" path="/error.jsp" />
+    	</action>
+
+	<!--不用-->
+	<action type="com.sunyard.hgam.presentation.action.aum.ArchInfoViewAction"
+		path="/aum/ArchInfoView">
+	<forward name="success" path="/aum/queryarchinfo.jsp" />
+	</action>
+	<!--改为-->
+    	<action name="ArchivesForm"
+		type="com.sunyard.hgam.presentation.action.aum.ViewArchivesAction"
+		path="/aum/viewArchives">
+      	<forward name="WENSHU" path="/aum/archives_roll_wenshu_info.jsp" />
+      	<forward name="YEWU" path="/aum/archives_roll_yewu_info.jsp" />
+      	<forward name="OTHER" path="/aum/archives_roll_other_info.jsp" />
+      	<forward name="PIECE" path="/aum/archives_piece_info.jsp" />
+      	<forward name="FAILURE" path="/error.jsp" />
+    	</action>
+
+	<action name="fileQueryForm"
+		type="com.sunyard.hgam.presentation.action.aum.FileQueryAction"
+		path="/aum/FileQuery">
+	<forward name="success" path="/aum/queryfile.jsp" />
+	</action>
+
+	<action name="pageQueryForm"
+		type="com.sunyard.hgam.presentation.action.aum.PageQueryAction"
+		path="/aum/PageQuery">
+	<forward name="success" path="/aum/querypage.jsp" />
+	</action>
+
+	<!--调整：由于需求要求利用时页面直接可以翻页，故做调整，/aum/PageLook和/aum/ImageShow整合为一个/aum/viewArchivesPage-->
+	<action name="CheckArchivesPageForm" type="com.sunyard.hgam.presentation.action.aum.ViewArchivesPageAction"
+		path="/aum/viewArchivesPage">
+	<forward name="SUCCESS" path="/aum/queryimage.jsp" />
+	<forward name="FAILURE" path="/error.jsp" />
+	</action>
+	<action type="com.sunyard.hgam.presentation.action.aum.PageLookAction"
+		path="/aum/PageLook">
+	<forward name="success" path="/aum/querypage.jsp" />
+	</action>
+    	<action name="CheckArchivesPageForm"
+		type="com.sunyard.hgam.presentation.action.adc.CheckArchivesPageAction"
+		scope="request" path="/aum/ImageShow_NOUSE_EDIT_BY_ZXQ">
+      	<forward name="ShowPage" path="/aum/queryimage.jsp" />
+    	</action>
+	<action name="CheckArchivesPageForm"
+		type="com.sunyard.hgam.presentation.action.aum.ImageShowAction"
+		path="/aum/ImageShow">
+	<forward name="success" path="/aum/queryimage.jsp" />
+	</action>
+
+    <!-- 收费管理 -->
+    <action name="ChargeStandardForm"
+        type="com.sunyard.hgam.presentation.action.aum.ChargeStandardAction"
+        scope="request"
+        path="/aum/ChargeStandard">
+      <forward name="ShowInitAdd" path="/aum/AddChargeStandard.jsp" />
+      <forward name="ShowInitUpdate" path="/aum/ModifyChargeStandard.jsp" />
+      <forward name="ShowSuccess" path="/aum/ShowAllChargeStandard.jsp" />
+    </action>
+    <action name="IsChargeForm"
+        type="com.sunyard.hgam.presentation.action.aum.IsChargeAction"
+        scope="request"
+        path="/aum/IsCharge">
+      <forward name="ShowSuccess" path="/aum/IsChargeSecondEntry.jsp" />
+    </action>
+
+    <!-- ss -->
+    <action name="UtilizeDetailForm"
+        type="com.sunyard.hgam.presentation.action.aum.UtilizeDetailAction"
+        scope="request"
+        path="/aum/UtilizeDetail">
+      <forward name="ShowApply" path="/aum/ShowAllUtilizeDetail.jsp" />
+    </action>
+    <action name="QueryArchivesViewForm"
+	type="com.sunyard.hgam.presentation.action.adc.QueryArchivesViewAction"
+	scope="request"
+	path="/aum/queryArchivesView">
+      <forward name="QueryAllArchives" path="/aum/QueryArchivesView.jsp" />
+    </action>
+    <action name="SelectArchivesFileForm"
+        type="com.sunyard.hgam.presentation.action.aum.SelectArchivesFileAction"
+        scope="request"
+        path="/aum/SelectArchivesFile">
+      <forward name="ShowApply" path="/aum/QueryFileView.jsp" />
+    </action>
+  </action-mappings>
+</struts-config>

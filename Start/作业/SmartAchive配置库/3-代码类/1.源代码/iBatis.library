@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <!--JBuilder Library Definition File-->
+  <fullname>iBatis</fullname>
+  <class>
+    <path>[lib/iBatis/cglib-asm-1.0.jar]</path>
+    <path>[lib/iBatis/xercesImpl.jar]</path>
+    <path>[lib/iBatis/jta.jar]</path>
+    <path>[lib/iBatis/oscache.jar]</path>
+    <path>[lib/iBatis/commons-collections.jar]</path>
+    <path>[lib/iBatis/commons-logging.jar]</path>
+    <path>[lib/iBatis/commons-dbcp.jar]</path>
+    <path>[lib/iBatis/xmlParserAPIs.jar]</path>
+    <path>[lib/iBatis/jdom.jar]</path>
+    <path>[lib/iBatis/cglib-1.0.jar]</path>
+    <path>[lib/iBatis/ibatis-db.jar]</path>
+    <path>[lib/iBatis/jdbc2_0-stdext.jar]</path>
+    <path>[lib/iBatis/commons-pool.jar]</path>
+    <path>[lib/iBatis/commons-logging-api.jar]</path>
+  </class>
+  <source>
+    <path>[lib/iBatis/ibatis-db-src.zip]</path>
+  </source>
+  <lastmodsaved>1070507304707</lastmodsaved>
+</library>

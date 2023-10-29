@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="ArchOper">
+  <result-map name="archoper" class="com.sunyard.hgam.persistence.dao.beans.arm.ArchOper">
+    <property name="archivesId" column="ARCHIVES_ID"/>
+    <property name="refarchivesId" column="REF_ARCHIVES_ID"/>
+    <property name="entryId" column="ENTRY_ID"/>
+    <property name="archivesNum" column="ARCHIVES_NUM"/>
+    <property name="rollMode" column="ROLL_MODE"/>
+    <property name="archivesYear" column="ARCHIVES_YEAR"/>
+    <property name="archivesName" column="ARCHIVES_NAME"/>
+    <property name="storeTerm" column="STORE_TERM"/>
+    <property name="archivesStatus" column="ARCHIVES_STATUS"/>
+    <property name="remark" column="REMARK"/>
+   </result-map>
+  <result-map name="onearchoper" class="com.sunyard.hgam.persistence.dao.beans.arm.ArchOper">
+    <property name="archivesId" column="ARCHIVES_ID"/>
+    <property name="refarchivesId" column="REF_ARCHIVES_ID"/>
+    <property name="entryId" column="ENTRY_ID"/>
+    <property name="archivesNum" column="ARCHIVES_NUM"/>
+    <property name="rollMode" column="ROLL_MODE"/>
+    <property name="archivesYear" column="ARCHIVES_YEAR"/>
+    <property name="archivesName" column="ARCHIVES_NAME"/>
+    <property name="storeTerm" column="STORE_TERM"/>
+    <property name="archRoomCode" column="ARCHIVES_ROOM_CODE"/>
+    <property name="regNum" column="REG_NUM"/>
+    <property name="archUnit" column="ARCHIVES_UNIT"/>
+    <property name="mediaType" column="MEDIA_TYPE"/>
+    <property name="specification" column="SPECIFICATION"/>
+    <property name="archAmount" column="ARCHIVES_AMOUNT"/>
+    <property name="archFoundUnit" column="ARCHIVES_FOUND_UNIT"/>
+    <property name="archFoundMan" column="ARCHIVES_FOUND_MAN"/>
+    <property name="archFoundDate" column="ARCHIVES_FOUND_DATE"/>
+    <property name="projId" column="PROJ_ID"/>
+    <property name="projName" column="PROJ_NAME"/>
+    <property name="archivesStatus" column="ARCHIVES_STATUS"/>
+    <property name="isChange" column="IS_CHANGE"/>
+    <property name="isOperation" column="IS_OPERATION"/>
+    <property name="remark" column="REMARK"/>
+   </result-map>
+
+   <mapped-statement name="getArchivesByEntryID" result-map="archoper">
+   <![CDATA[
+    SELECT
+	ARCHIVES_ID,
+	REF_ARCHIVES_ID,
+	ENTRY_ID,
+	ARCHIVES_NUM,
+	ROLL_MODE,
+	ARCHIVES_STATUS,
+	ARCHIVES_YEAR,
+	ARCHIVES_NAME,
+	STORE_TERM,
+	REMARK
+    FROM
+	ARCHIVES
+    WHERE
+	ARCHIVES_STATUS='1'
+    AND
+	IS_CHANGE='0'
+    AND
+	ENTRY_ID=#value#
+   ]]>
+   </mapped-statement>
+
+   <dynamic-mapped-statement name="queryArchive" result-map="archoper">
+    SELECT
+	ARCHIVES_ID,
+	REF_ARCHIVES_ID,
+	ENTRY_ID,
+	ARCHIVES_NUM,
+	ROLL_MODE,
+	ARCHIVES_STATUS,
+	ARCHIVES_YEAR,
+	ARCHIVES_NAME,
+	STORE_TERM,
+	REMARK
+    FROM
+	ARCHIVES
+    <dynamic prepend="WHERE">
+	IS_CHANGE='0'
+      <isNotEmpty prepend="AND" property="entryId">
+      	ENTRY_ID=#entryId#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="archivesNum">
+      	ARCHIVES_NUM like '%' || #archivesNum# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="archivesYear">
+      	ARCHIVES_YEAR like '%' || #archivesYear# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="archivesName">
+      	ARCHIVES_NAME like '%' || #archivesName# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="storeTerm">
+      	STORE_TERM like '%' || #storeTerm# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="projId">
+      	PROJ_ID like '%' || #projId# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="projName">
+      	PROJ_NAME like '%' || #projName# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="archFoundUnit">
+      	ARCHIVES_MAKE_UNIT like '%' || #archFoundUnit# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="archFoundDate">
+      	ARCHIVES_FOUND_MAN like '%' || #archFoundDate# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="archFoundMan">
+      	ARCHIVES_FOUND_DATE like '%' || #archFoundMan# || '%'
+      </isNotEmpty>
+    </dynamic>
+    ORDER BY ARCHIVES_ID DESC
+  </dynamic-mapped-statement>
+
+  <!--新增(郑先全，20040205):ENTRY-->
+  <dynamic-mapped-statement name="queryArchiveX" result-map="archoper">
+    SELECT
+	ARCHIVES_ID,
+	REF_ARCHIVES_ID,
+	ENTRY_ID,
+	ARCHIVES_NUM,
+	ROLL_MODE,
+	ARCHIVES_STATUS,
+	ARCHIVES_YEAR,
+	ARCHIVES_NAME,
+	STORE_TERM,
+	REMARK
+    FROM
+	ARCHIVES
+    <dynamic prepend="WHERE">
+	IS_CHANGE='0'
+      <isNotEmpty prepend="AND" property="entryId">
+      	ENTRY_ID IN (SELECT ENTRY_ID FROM ENTRY WHERE FATHER_ENTRY_ID=#entryId#)
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="archivesNum">
+      	ARCHIVES_NUM like '%' || #archivesNum# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="archivesYear">
+      	ARCHIVES_YEAR like '%' || #archivesYear# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="archivesName">
+      	ARCHIVES_NAME like '%' || #archivesName# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="storeTerm">
+      	STORE_TERM like '%' || #storeTerm# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="projId">
+      	PROJ_ID like '%' || #projId# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="projName">
+      	PROJ_NAME like '%' || #projName# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="archFoundUnit">
+      	ARCHIVES_MAKE_UNIT like '%' || #archFoundUnit# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="archFoundDate">
+      	ARCHIVES_FOUND_MAN like '%' || #archFoundDate# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="archFoundMan">
+      	ARCHIVES_FOUND_DATE like '%' || #archFoundMan# || '%'
+      </isNotEmpty>
+    </dynamic>
+    ORDER BY ARCHIVES_ID DESC
+  </dynamic-mapped-statement>
+
+   <dynamic-mapped-statement name="queryOperArchive" result-map="archoper">
+    SELECT
+	ARCHIVES_ID,
+	REF_ARCHIVES_ID,
+	ENTRY_ID,
+	ARCHIVES_NUM,
+	ROLL_MODE,
+	ARCHIVES_STATUS,
+	ARCHIVES_YEAR,
+	ARCHIVES_NAME,
+	STORE_TERM,
+	REMARK
+    FROM
+	ARCHIVES
+    WHERE
+	IS_CHANGE='0'
+	AND ARCHIVES_ID IN
+	(SELECT ARCHIVES_ID FROM ARCHIVES_FILE
+ 	WHERE FILE_ID IN
+ 	(SELECT FILE_ID
+  	FROM FIELD_DEFINE A,FIELD_VALUE B
+	WHERE A.FIELD_ID=B.FIELD_ID
+	<dynamic prepend="AND">
+	<iterate property="fieldValues" open="(" close=")" conjunction="OR">
+	A.FIELD_CNAME=#fieldNames[]# AND B.FIELD_VALUE like '%' || #fieldValues[]# ||'%'
+	</iterate>
+        <isNotEmpty prepend="AND" property="entryId">
+      	 ENTRY_ID=#entryId#
+      	</isNotEmpty>
+	</dynamic>
+ 	)
+      )
+    ORDER BY ARCHIVES_ID DESC
+  </dynamic-mapped-statement>
+
+   <dynamic-mapped-statement name="queryOperArchiveX" result-map="archoper">
+    SELECT
+	ARCHIVES_ID,
+	REF_ARCHIVES_ID,
+	ENTRY_ID,
+	ARCHIVES_NUM,
+	ROLL_MODE,
+	ARCHIVES_STATUS,
+	ARCHIVES_YEAR,
+	ARCHIVES_NAME,
+	STORE_TERM,
+	REMARK
+    FROM
+	ARCHIVES
+    WHERE
+	IS_CHANGE='0'
+	AND ARCHIVES_ID IN
+	(SELECT ARCHIVES_ID FROM ARCHIVES_FILE
+ 	WHERE FILE_ID IN
+ 	(SELECT FILE_ID
+  	FROM FIELD_DEFINE A,FIELD_VALUE B
+	WHERE A.FIELD_ID=B.FIELD_ID
+	<dynamic prepend="AND">
+	<iterate property="fieldValues" open="(" close=")" conjunction="OR">
+	A.FIELD_CNAME=#fieldNames[]# AND B.FIELD_VALUE like '%' || #fieldValues[]# ||'%'
+	</iterate>
+        <isNotEmpty prepend="AND" property="entryId">
+      	 ENTRY_ID IN (SELECT ENTRY_ID FROM ENTRY WHERE FATHER_ENTRY_ID=#entryId#)
+      	</isNotEmpty>
+	</dynamic>
+ 	)
+      )
+    ORDER BY ARCHIVES_ID DESC
+  </dynamic-mapped-statement>
+
+   <dynamic-mapped-statement name="queryblurArchive" result-map="archoper">
+    SELECT
+	ARCHIVES_ID,
+	REF_ARCHIVES_ID,
+	ENTRY_ID,
+	ARCHIVES_NUM,
+	ROLL_MODE,
+	ARCHIVES_STATUS,
+	ARCHIVES_YEAR,
+	ARCHIVES_NAME,
+	STORE_TERM,
+	REMARK
+    FROM
+	ARCHIVES
+    WHERE
+	IS_CHANGE='0'
+    <dynamic>
+      <isNotEmpty prepend="AND" property="entryId">
+      	ENTRY_ID=#entryId#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="blurquery">
+      	(
+      <isNotEmpty property="blurquery">
+      	ARCHIVES_NUM like '%' || #blurquery# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="OR" property="blurquery">
+      	ARCHIVES_YEAR like '%' || #blurquery# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="OR" property="blurquery">
+      	ARCHIVES_NAME like '%' || #blurquery# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="OR" property="blurquery">
+      	STORE_TERM like '%' || #blurquery# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="OR" property="blurquery">
+      	PROJ_ID like '%' || #blurquery# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="OR" property="blurquery">
+      	PROJ_NAME like '%' || #blurquery# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="OR" property="blurquery">
+      	ARCHIVES_FOUND_UNIT like '%' || #blurquery# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="OR" property="blurquery">
+      	ARCHIVES_FOUND_MAN like '%' || #blurquery# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="OR" property="blurquery">
+      	ARCHIVES_FOUND_DATE like '%' || #blurquery# || '%'
+      </isNotEmpty>
+	)
+      </isNotEmpty>
+    </dynamic>
+    ORDER BY ARCHIVES_ID DESC
+  </dynamic-mapped-statement>
+
+   <dynamic-mapped-statement name="queryblurArchiveX" result-map="archoper">
+    SELECT
+	ARCHIVES_ID,
+	REF_ARCHIVES_ID,
+	ENTRY_ID,
+	ARCHIVES_NUM,
+	ROLL_MODE,
+	ARCHIVES_STATUS,
+	ARCHIVES_YEAR,
+	ARCHIVES_NAME,
+	STORE_TERM,
+	REMARK
+    FROM
+	ARCHIVES
+    WHERE
+	IS_CHANGE='0'
+    <dynamic>
+      <isNotEmpty prepend="AND" property="entryId">
+      	ENTRY_ID IN (SELECT ENTRY_ID FROM ENTRY WHERE FATHER_ENTRY_ID=#entryId#)
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="blurquery">
+      	(
+      <isNotEmpty property="blurquery">
+      	ARCHIVES_NUM like '%' || #blurquery# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="OR" property="blurquery">
+      	ARCHIVES_YEAR like '%' || #blurquery# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="OR" property="blurquery">
+      	ARCHIVES_NAME like '%' || #blurquery# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="OR" property="blurquery">
+      	STORE_TERM like '%' || #blurquery# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="OR" property="blurquery">
+      	PROJ_ID like '%' || #blurquery# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="OR" property="blurquery">
+      	PROJ_NAME like '%' || #blurquery# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="OR" property="blurquery">
+      	ARCHIVES_FOUND_UNIT like '%' || #blurquery# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="OR" property="blurquery">
+      	ARCHIVES_FOUND_MAN like '%' || #blurquery# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="OR" property="blurquery">
+      	ARCHIVES_FOUND_DATE like '%' || #blurquery# || '%'
+      </isNotEmpty>
+	)
+      </isNotEmpty>
+    </dynamic>
+    ORDER BY ARCHIVES_ID DESC
+  </dynamic-mapped-statement>
+
+   <dynamic-mapped-statement name="searchArchive" result-map="archoper">
+    SELECT
+	ARCHIVES_ID,
+	REF_ARCHIVES_ID,
+	ENTRY_ID,
+	ARCHIVES_NUM,
+	ROLL_MODE,
+	ARCHIVES_STATUS,
+	ARCHIVES_YEAR,
+	ARCHIVES_NAME,
+	STORE_TERM,
+	REMARK
+    FROM
+	ARCHIVES
+    <dynamic prepend="WHERE">
+	ARCHIVES_STATUS='1'
+    	AND IS_CHANGE='0'
+      <isNotEmpty prepend="AND" property="entryId">
+      	ENTRY_ID=#entryId#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="archivesNum">
+      	ARCHIVES_NUM like '%' || #archivesNum#  || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="archivesYear">
+      	ARCHIVES_YEAR like '%' || #archivesYear#  || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="archivesName">
+      	ARCHIVES_NAME like '%' || #archivesName#  || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="storeTerm">
+      	STORE_TERM=#storeTerm#
+      </isNotEmpty>
+    </dynamic>
+  </dynamic-mapped-statement>
+
+  <!-- 销毁查询-->
+
+   <mapped-statement name="getArchivesDescByEntryID" result-map="archoper">
+   <![CDATA[
+    SELECT
+	ARCHIVES_ID,
+	REF_ARCHIVES_ID,
+	ENTRY_ID,
+	ARCHIVES_NUM,
+	ROLL_MODE,
+	ARCHIVES_STATUS,
+	ARCHIVES_YEAR,
+	ARCHIVES_NAME,
+	STORE_TERM,
+	REMARK
+    FROM
+	ARCHIVES
+    WHERE
+	ARCHIVES_ID IN (
+		SELECT ARCHIVES_ID FROM ARCHIVES_FILE
+		WHERE FILE_STATUS='-1'
+		)
+	AND ARCHIVES_STATUS='1'
+    	AND IS_CHANGE='0'
+    	AND ENTRY_ID=#value#
+   ]]>
+   </mapped-statement>
+
+   <dynamic-mapped-statement name="searchArchiveDest" result-map="archoper">
+    SELECT
+	ARCHIVES_ID,
+	REF_ARCHIVES_ID,
+	ENTRY_ID,
+	ARCHIVES_NUM,
+	ROLL_MODE,
+	ARCHIVES_STATUS,
+	ARCHIVES_YEAR,
+	ARCHIVES_NAME,
+	STORE_TERM,
+	REMARK
+    FROM
+	ARCHIVES
+    WHERE
+	ARCHIVES_ID IN (
+		SELECT ARCHIVES_ID FROM ARCHIVES_FILE
+		WHERE FILE_STATUS='-1'
+		)
+     	AND IS_CHANGE='0'
+    <dynamic>
+      <isNotEmpty prepend="AND" property="entryId">
+      	ENTRY_ID=#entryId#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="archivesNum">
+      	ARCHIVES_NUM like '%' || #archivesNum#  || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="archivesYear">
+      	ARCHIVES_YEAR like '%' || #archivesYear#  || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="archivesName">
+      	ARCHIVES_NAME like '%' || #archivesName#  || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="storeTerm">
+      	STORE_TERM=#storeTerm#
+      </isNotEmpty>
+    </dynamic>
+  </dynamic-mapped-statement>
+
+   <mapped-statement name="getChangedArchives" result-map="archoper">
+   <![CDATA[
+    SELECT
+	ARCHIVES_ID,
+	REF_ARCHIVES_ID,
+	ENTRY_ID,
+	ARCHIVES_NUM,
+	ROLL_MODE,
+	ARCHIVES_STATUS,
+	ARCHIVES_YEAR,
+	ARCHIVES_NAME,
+	STORE_TERM,
+	REMARK
+    FROM
+	ARCHIVES
+    WHERE
+	ARCHIVES_ID=#value#
+    OR
+	REF_ARCHIVES_ID=#value#
+    AND
+	IS_CHANGE=1
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getOneArchive" result-map="onearchoper">
+   <![CDATA[
+    SELECT
+	ARCHIVES_ID,
+	REF_ARCHIVES_ID,
+	ENTRY_ID,
+	ARCHIVES_NUM,
+	ROLL_MODE,
+	ARCHIVES_YEAR,
+	ARCHIVES_NAME,
+	STORE_TERM,
+	ARCHIVES_ROOM_CODE,
+	REG_NUM,
+	ARCHIVES_UNIT,
+	MEDIA_TYPE,
+	SPECIFICATION,
+	ARCHIVES_AMOUNT,
+	ARCHIVES_FOUND_UNIT,
+	ARCHIVES_FOUND_MAN,
+	ARCHIVES_FOUND_DATE,
+	PROJ_ID,
+	PROJ_NAME,
+	ARCHIVES_STATUS,
+	IS_CHANGE,
+	IS_OPERATION,
+	REMARK
+    FROM
+	ARCHIVES
+    WHERE
+	ARCHIVES_ID=#value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="addChangedArchive">
+   <![CDATA[
+    INSERT INTO ARCHIVES(
+	ARCHIVES_ID,
+	REF_ARCHIVES_ID,
+	ENTRY_ID,
+	ARCHIVES_NUM,
+	ROLL_MODE,
+	ARCHIVES_YEAR,
+	ARCHIVES_NAME,
+	STORE_TERM,
+	ARCHIVES_ROOM_CODE,
+	REG_NUM,
+	ARCHIVES_UNIT,
+	MEDIA_TYPE,
+	SPECIFICATION,
+	ARCHIVES_AMOUNT,
+	ARCHIVES_FOUND_UNIT,
+	ARCHIVES_FOUND_MAN,
+	ARCHIVES_FOUND_DATE,
+	PROJ_ID,
+	PROJ_NAME,
+	ARCHIVES_STATUS,
+	IS_CHANGE,
+	IS_OPERATION,
+	REMARK
+	)
+       VALUES (
+	(SELECT NVL(MAX(NVL(ARCHIVES_ID,0))+1,1) FROM ARCHIVES),
+	#refarchivesId#,
+	#entryId#,
+	#archivesNum#,
+	#rollMode#,
+	#archivesYear#,
+	#archivesName#,
+	#storeTerm#,
+	#archRoomCode#,
+	#regNum#,
+	#archUnit#,
+	#mediaType#,
+	#specification#,
+	#archAmount#,
+	#archFoundUnit#,
+	#archFoundMan#,
+	#archFoundDate#,
+	#projId#,
+	#projName#,
+	#archivesStatus#,
+	#isChange#,
+	#isOperation#,
+	#remark#
+	)
+   ]]>
+   </mapped-statement>
+
+  <mapped-statement name="breakArchive">
+  <![CDATA[
+    UPDATE ARCHIVES SET
+      ARCHIVES_STATUS='0'
+      WHERE ARCHIVES_ID=#value#
+   ]]>
+  </mapped-statement>
+</sql-map>

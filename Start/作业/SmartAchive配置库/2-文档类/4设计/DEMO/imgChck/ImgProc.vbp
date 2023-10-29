@@ -1,0 +1,37 @@
+Type=Control
+UserControl=ImgProc.ctl
+Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\WINNT\System32\StdOle2.tlb#OLE Automation
+Module=mdlDeclare; mdlDeclare.bas
+Object={6D940288-9F11-11CE-83FD-02608C3EC08A}#2.2#0; Imgedit.ocx
+Startup="(None)"
+ExeName32="ImgProc.ocx"
+Command32=""
+Name="ImgProcEx"
+HelpContextID="0"
+CompatibleMode="1"
+CompatibleEXE32="ImgProc.ocx"
+MajorVer=1
+MinorVer=0
+RevisionVer=0
+AutoIncrementVer=0
+ServerSupportFiles=0
+VersionCompanyName="sunhoo"
+CompilationType=0
+OptimizationType=0
+FavorPentiumPro(tm)=0
+CodeViewDebugInfo=0
+NoAliasing=0
+BoundsCheck=0
+OverflowCheck=0
+FlPointCheck=0
+FDIVCheck=0
+UnroundedFP=0
+StartMode=1
+Unattended=0
+Retained=0
+ThreadPerObject=0
+MaxNumberOfThreads=1
+ThreadingModel=1
+
+[MS Transaction Server]
+AutoRefresh=1

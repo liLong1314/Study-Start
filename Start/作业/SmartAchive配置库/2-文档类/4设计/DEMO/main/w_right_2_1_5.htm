@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>无标题文档</title>
+<link href="../common/css/sunhoo.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+body {
+	background-image: url(../image/2_mainpagebg_01.gif);
+}
+-->
+</style></head>
+<body class="bg-page01">
+<script language="JavaScript">
+function copyToList(from,to){
+  fromList = eval('document.forms[0].' + from);
+  toList = eval('document.forms[0].' + to);
+  if (toList.options.length > 0 && toList.options[0].value == 'temp')
+  {
+    toList.options.length = 0;
+  }
+  var sel = false;
+  for (i=0;i<fromList.options.length;i++)
+  {
+    var current = fromList.options[i];
+    if (current.selected)
+    {
+      sel = true;
+      if (current.value == 'temp')
+      {
+        alert ('你不能选择这个项目!');
+        return;
+      }
+      txt = current.text;
+      val = current.value;
+      toList.options[toList.length] = new Option(txt,val);
+      fromList.options[i] = null;
+      i--;
+    }
+  }
+  if (!sel) alert ('你还没有选择任何项目');
+}
+function allSelect() 
+{
+  List = document.forms[0].chosen;
+  if (List.length && List.options[0].value == 'temp') return;
+  for (i=0;i<List.length;i++)
+  {
+     List.options[i].selected = true;
+  }
+}
+
+</script>
+<form action="" method="post" name="form1">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr> 
+      <td width="32"><img src="../image/2_table_l_t.gif" width="32" height="22"></td>
+      <td colspan="3" background="../image/2_table_c_t.gif">&nbsp;</td>
+      <td width="26"><img src="../image/2_table_r_t.gif" width="26" height="22"></td>
+    </tr>
+    <tr> 
+      <td background="../image/2_table_c_r.gif">&nbsp;</td>
+      <td width="74" align="right" bgcolor="#FFFFFF"> <img src="../image/dot01.gif" width="8" height="8"><br> 
+      </td>
+      <td width="10" align="center" bgcolor="#FFFFFF">&nbsp;</td>
+      <td width="851" align="left" bgcolor="#FFFFFF"> 您现在的位置： &gt;&gt; 系统管理 &gt;&gt; 
+        权限管理 &gt;&gt; 用户管理</td>
+      <td background="../image/2_table_c_l.gif">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td><img src="../image/2_table_r_b.gif" width="32" height="20"></td>
+      <td colspan="3" background="../image/2_table_c_b.gif"><img src="../image/2_table_c_b.gif" width="115" height="20"></td>
+      <td><img src="../image/2_table_l_b.gif" width="26" height="20"></td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr> 
+    <td width="2%"><img src="../image/2_table_l_t.gif" width="32" height="22"></td>
+    <td width="95%" background="../image/2_table_c_t.gif"><table width="237" border="0" cellspacing="0" cellpadding="0">
+        <tr align="center"> 
+          <td width="25" height="23" align="right" background="../image/2_table_c_t.gif" bgcolor="#FFFFFF"><img src="../image/dot01.gif" width="8" height="8"></td>
+          <td width="212"><table width="200" border="0" cellpadding="2" cellspacing="1" bgcolor="#99CC00">
+              <tr> 
+                <td align="center" bgcolor="#F2F9E6" class="tishi">用户组信息</td>
+              </tr>
+            </table></td>
+        </tr>
+      </table></td>
+    <td width="3%"><img src="../image/2_table_r_t.gif" width="24" height="22"></td>
+  </tr>
+  <tr> 
+    <td background="../image/2_table_c_r.gif">&nbsp;</td>
+    <td align="center" bgcolor="#FFFFFF"><table width="100%" border="1">
+        <tr> 
+          <td>
+<table width="100%" border="0">
+              <tr>
+                <td>用户组编号</td>
+                <td>001</td>
+                <td>用户组名称</td>
+                <td>信息科</td>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+            <div align="center"></div></td>
+        </tr>
+      </table>
+      <br> </td>
+    <td background="../image/2_table_c_l.gif">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td><img src="../image/2_table_r_b.gif" width="32" height="20"></td>
+    <td background="../image/2_table_c_b.gif"><img src="../image/2_table_c_b.gif" width="115" height="20"></td>
+    <td><img src="../image/2_table_l_b.gif" width="26" height="20"></td>
+  </tr>
+</table>
+  <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td width="3%"><img src="../image/2_table_l_t.gif" width="32" height="22"></td>
+      <td width="94%" background="../image/2_table_c_t.gif"><table width="237" border="0" cellspacing="0" cellpadding="0">
+          <tr align="center"> 
+            <td width="25" align="right" background="../image/2_table_c_t.gif" bgcolor="#FFFFFF"><img src="../image/dot01.gif" width="8" height="8"></td>
+            <td width="212"><table width="200" border="0" cellpadding="2" cellspacing="1" bgcolor="#99CC00">
+                <tr> 
+                  <td align="center" bgcolor="#F2F9E6" class="tishi">组成员的添加与删除</td>
+                </tr>
+              </table></td>
+          </tr>
+        </table></td>
+      <td width="3%"><img src="../image/2_table_r_t.gif" width="25" height="22"></td>
+    </tr>
+    <tr> 
+      <td height="34" background="../image/2_table_c_r.gif">&nbsp;</td>
+      <td align="center" bgcolor="#FFFFFF"><table width="100%" border="1">
+          <tr> 
+            <td height="68" bordercolor="#CCCCCC"> <table width="100%" border="0">
+                <tr> 
+                  <td>已有组用户</td>
+                  <td>&nbsp;</td>
+                  <td>可加入组的用户</td>
+                  <td>用户姓名 
+                    <input name="textfield" type="text" size="12">
+                    <input type="submit" name="Submit3" value="查询"></td>
+                </tr>
+                <tr> 
+                  <td rowspan="2"><select name="possible" size="4" multiple width=200 style="width: 200px">
+                      <option value="1">张三</option>
+                      <option value="2">李四</option>
+                      <option value="3">xx</option>
+                      <option value="4">yy</option>
+                    </select></td>
+                  <td><input name="button" type=button onClick="copyToList('possible','chosen')" value="  >>  "></td>
+                  <td colspan="2" rowspan="2"><select name="chosen" size="4" multiple width=200 style="width: 200px;">
+                      <option value="1">王五</option>
+                      <option value="2">赵六</option>
+                      <option value="3">cc</option>
+                      <option value="4">dd</option>
+                    </select></td>
+                </tr>
+                <tr> 
+                  <td><input name="button2" type=button onClick="copyToList('chosen','possible')" value="  <<  "></td>
+                </tr>
+              </table></td>
+          </tr>
+        </table>
+        <table width="100%" border="0">
+          <tr> 
+            <td height="25"> <div align="right">
+                <input type="button" name="Submit"onclick="window.location='w_right_2_1_12.htm'" value="确定">
+              </div></td>
+            <td><input type="button" name="Submit2" onclick="window.location='w_right_2_2.htm'"value="返回"></td>
+          </tr>
+        </table>
+        <br> </td>
+      <td background="../image/2_table_c_l.gif">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td><img src="../image/2_table_r_b.gif" width="32" height="20"></td>
+      <td background="../image/2_table_c_b.gif"><img src="../image/2_table_c_b.gif" width="115" height="20"></td>
+      <td><img src="../image/2_table_l_b.gif" width="26" height="20"></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

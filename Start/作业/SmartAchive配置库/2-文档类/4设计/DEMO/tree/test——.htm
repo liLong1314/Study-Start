@@ -1,0 +1,40 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<script src="alai_tree.js"></script>
+<script src="alai_tree_win2k.js"></script>
+<title>类目树</title>
+<style>
+body{font-size:9pt;}
+</style>
+</head>
+<body>
+
+<hr>
+<div id="pathlist" style="display:none;">
+10/1010/101010;
+10/1020/102010;
+10/1030/103010;
+10/1030/103020;
+
+20/2010/201010;
+20/2020/202010;
+20/2030/203010;
+20/2030/203020;
+</div>
+<table border="0">
+    <tr>
+      <td><div id="divTree"></div></td>
+    </tr>
+</table>
+
+<script>
+
+//win2k风格模板
+var tree=new alai_tree_win2k(divTree)
+tree.pathParse(pathlist.innerText.replace(/\s/g,""),true)
+tree.expandToTier(2)
+
+</script>
+</body>
+</html>

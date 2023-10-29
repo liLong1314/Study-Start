@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="Safety">
+  <result-map name="safety" class="com.sunyard.hgam.persistence.dao.beans.arm.Safety">
+    <property name="safetyId" column="SAFETY_ID"/>
+    <property name="roomCode" column="ROOM_CODE"/>
+    <property name="safetyType" column="SAFETY_TYPE"/>
+    <property name="safetySituation" column="SAFETY_SITUATION"/>
+    <property name="safetyChecker" column="SAFETY_CHECKER"/>
+    <property name="safetyCheckDate" column="SAFETY_CHECKDATE"/>
+    <property name="safetyDealWithPerson" column="SAFETY_DEALWITHPERSON"/>
+    <property name="safetyDealedDate" column="SAFETY_DEALEDDATE"/>
+    <property name="safetyResult" column="SAFETY_RESULT"/>
+    <property name="remark" column="REMARK"/>
+   </result-map>
+
+   <mapped-statement name="getAllSafety" result-map="safety">
+   <![CDATA[
+    SELECT
+      SAFETY_ID,
+      ROOM_CODE,
+      SAFETY_TYPE,
+      SAFETY_SITUATION,
+      SAFETY_CHECKER,
+      TO_CHAR(SAFETY_CHECKDATE,'YYYY-MM-DD') AS SAFETY_CHECKDATE,
+      SAFETY_DEALWITHPERSON,
+      TO_CHAR(SAFETY_DEALEDDATE,'YYYY-MM-DD') AS SAFETY_DEALEDDATE,
+      SAFETY_RESULT,
+      REMARK
+    FROM
+      SAFETY
+   ]]>
+   </mapped-statement>
+
+   <dynamic-mapped-statement name="searchSafety" result-map="safety">
+    SELECT
+      SAFETY_ID,
+      ROOM_CODE,
+      SAFETY_TYPE,
+      SAFETY_SITUATION,
+      SAFETY_CHECKER,
+      TO_CHAR(SAFETY_CHECKDATE,'YYYY-MM-DD') AS SAFETY_CHECKDATE,
+      SAFETY_DEALWITHPERSON,
+      TO_CHAR(SAFETY_DEALEDDATE,'YYYY-MM-DD') AS SAFETY_DEALEDDATE,
+      SAFETY_RESULT,
+      REMARK
+    FROM
+      SAFETY
+    <dynamic prepend="WHERE">
+      <isNotEmpty prepend="AND" property="safetyType">
+      	SAFETY_TYPE like '%' || #safetyType# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="safetySituation">
+      	SAFETY_SITUATION like '%' || #safetySituation# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="safetyResult">
+      	SAFETY_RESULT like '%' || #safetyResult# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="safetyCheckDate">
+      	SAFETY_CHECKDATE=TO_DATE(#safetyCheckDate#,'YYYY-MM-DD')
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="safetyDealedDate">
+      	SAFETY_DEALEDDATE=TO_DATE(#safetyDealedDate#,'YYYY-MM-DD')
+      </isNotEmpty>
+    </dynamic>
+  </dynamic-mapped-statement>
+
+   <mapped-statement name="addSafety">
+   <![CDATA[
+    INSERT INTO SAFETY(
+	SAFETY_ID,
+	ROOM_CODE,
+	SAFETY_TYPE,
+	SAFETY_SITUATION,
+	SAFETY_CHECKER,
+	SAFETY_CHECKDATE,
+	SAFETY_DEALWITHPERSON,
+	SAFETY_DEALEDDATE,
+	SAFETY_RESULT,
+	REMARK)
+       VALUES (
+	(SELECT NVL(MAX(NVL(SAFETY_ID,0))+1,1) FROM SAFETY),
+	#roomCode#,
+	#safetyType#,
+	#safetySituation#,
+	#safetyChecker#,
+	TO_DATE(#safetyCheckDate#,'YYYY-MM-DD'),
+	#safetyDealWithPerson#,
+	TO_DATE(#safetyDealedDate#,'YYYY-MM-DD'),
+	#safetyResult#,
+	#remark#)
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getSafetyByID" result-map="safety">
+   <![CDATA[
+    SELECT
+      SAFETY_ID,
+      ROOM_CODE,
+      SAFETY_TYPE,
+      SAFETY_SITUATION,
+      SAFETY_CHECKER,
+      TO_CHAR(SAFETY_CHECKDATE,'YYYY-MM-DD') AS SAFETY_CHECKDATE,
+      SAFETY_DEALWITHPERSON,
+      TO_CHAR(SAFETY_DEALEDDATE,'YYYY-MM-DD') AS SAFETY_DEALEDDATE,
+      SAFETY_RESULT,
+      REMARK
+    FROM
+      SAFETY
+    WHERE
+      SAFETY_ID=#value#
+   ]]>
+   </mapped-statement>
+
+  <mapped-statement name="deleteSafetyByID">
+  <![CDATA[
+    DELETE FROM SAFETY WHERE SAFETY_ID=#value#
+   ]]>
+  </mapped-statement>
+
+  <mapped-statement name="updateSafety">
+  <![CDATA[
+    UPDATE SAFETY SET
+      ROOM_CODE=#roomCode#,
+      SAFETY_TYPE=#safetyType#,
+      SAFETY_SITUATION=#safetySituation#,
+      SAFETY_CHECKER=#safetyChecker#,
+      SAFETY_CHECKDATE=TO_DATE(#safetyCheckDate#,'YYYY-MM-DD'),
+      SAFETY_DEALWITHPERSON=#safetyDealWithPerson#,
+      SAFETY_DEALEDDATE=TO_DATE(#safetyDealedDate#,'YYYY-MM-DD'),
+      SAFETY_RESULT=#safetyResult#,
+      REMARK=#remark#
+      WHERE SAFETY_ID=#safetyId#
+   ]]>
+  </mapped-statement>
+</sql-map>

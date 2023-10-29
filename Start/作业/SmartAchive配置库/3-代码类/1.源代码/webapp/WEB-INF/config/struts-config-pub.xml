@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+  <form-beans>
+    <form-bean name="PublishInfoForm" type="com.sunyard.hgam.presentation.form.pub.PublishInfoForm" />
+    <form-bean name="PublishInfoAccessoryForm" type="com.sunyard.hgam.presentation.form.pub.PublishInfoAccessoryForm" />
+  </form-beans>
+  <action-mappings>
+    <!--信息发布/新增发布信息-->
+    <action name="PublishInfoForm"
+            type="com.sunyard.hgam.presentation.action.pub.AddPublishInfoAction"
+            path="/pub/addPublishInfo"
+            scope="request">
+      <forward name="PUBLISH" path="/pub/queryPublishInfoList.do?ACT=EDT" />
+      <forward name="FEEDBACK" path="/pub/viewAllPublishInfoList.do" />
+      <forward name="FAILURE_PUBLISH" path="/pub/publish_info_input.jsp" />
+      <forward name="FAILURE_FEEDBACK" path="/pub/feedback_info_input.jsp" />
+    </action>
+    <!--信息发布/查看所有的发布信息（首页）-->
+    <action name="PublishInfoForm"
+            type="com.sunyard.hgam.presentation.action.pub.ViewAllPublishInfoListAction"
+            path="/pub/viewAllPublishInfoList"
+            scope="request">
+      <forward name="SUCCESS" path="/pub/publish_info_list_all.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--信息发布/查看选定的发布信息-->
+    <action name="PublishInfoForm"
+            type="com.sunyard.hgam.presentation.action.pub.ViewPublishInfoAction"
+            path="/pub/viewPublishInfo"
+            scope="request">
+      <forward name="PUBLISH_EDIT" path="/pub/publish_info_edit.jsp" />
+      <forward name="PUBLISH_CONFIRM" path="/pub/publish_info_confirm.jsp" />
+      <forward name="PUBLISH_VIEW" path="/pub/publish_info_view.jsp" />
+      <forward name="FEEDBACK_REPLY" path="/pub/feedback_info_reply.jsp" />
+      <forward name="FEEDBACK_VIEW" path="/pub/feedback_info_view.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--信息发布/更新选定的发布信息-->
+    <action name="PublishInfoForm"
+            type="com.sunyard.hgam.presentation.action.pub.UpdatePublishInfoAction"
+            path="/pub/updatePublishInfo"
+            scope="request">
+      <forward name="EDIT" path="/pub/queryPublishInfoList.do" />
+      <forward name="CONFIRM" path="/pub/queryPublishInfoList.do" />
+      <forward name="REPLY" path="/pub/queryFeedbackList.do" />
+      <forward name="FAILURE" path="/pub/publish_info_edit.jsp" />
+    </action>
+    <!--信息发布/查询发布信息-->
+    <action name="PublishInfoForm"
+            type="com.sunyard.hgam.presentation.action.pub.QueryPublishInfoListAction"
+            path="/pub/queryPublishInfoList"
+            scope="request">
+      <forward name="SUCCESS" path="/pub/publish_info_list.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--信息发布/查询反馈信息-->
+    <action name="PublishInfoForm"
+            type="com.sunyard.hgam.presentation.action.pub.QueryFeedbackListAction"
+            path="/pub/queryFeedbackList"
+            scope="request">
+      <forward name="SUCCESS" path="/pub/feedback_info_list.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--信息发布/删除信息-->
+    <action name="PublishInfoForm"
+            type="com.sunyard.hgam.presentation.action.pub.DeletePublishInfoAction"
+            path="/pub/deletePublishInfo"
+            scope="request">
+      <forward name="FEEDBACK" path="/pub/queryFeedbackList.do" />
+      <forward name="PUBLISH" path="/pub/queryPublishInfoList.do" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--INSERT HERE-->
+  </action-mappings>
+</struts-config>

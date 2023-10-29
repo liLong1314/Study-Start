@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+  <form-beans>
+    <form-bean name="ArchivesFileForm" type="com.sunyard.hgam.presentation.form.adc.ArchivesFileForm" />
+  </form-beans>
+  <action-mappings>
+    <!--文件列表查询-->
+    <action name="ArchivesFileForm" type="com.sunyard.hgam.presentation.action.rcv.QueryIfaceArchivesFileListAction" path="/rcv/queryIfaceArchivesFileList" scope="request">
+      <forward name="SUCCESS" path="/rcv/receive_file_query.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--文件信息查看-->
+    <action name="ArchivesFileForm" type="com.sunyard.hgam.presentation.action.rcv.ViewIfaceArchivesFileAction" path="/rcv/viewIfaceArchivesFile" scope="request">
+      <forward name="SUCCESS" path="/rcv/receive_file_info.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--接口文件接收-->
+    <action name="ArchivesFileForm" type="com.sunyard.hgam.presentation.action.rcv.ReceiveIfaceArchivesFilesAction" path="/rcv/receiveIfaceArchivesFiles" scope="request">
+      <forward name="SUCCESS" path="/rcv/queryIfaceArchivesFileList.do" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--接口文件退回-->
+    <action name="ArchivesFileForm" type="com.sunyard.hgam.presentation.action.rcv.BackIfaceArchivesFilesAction" path="/rcv/backIfaceArchivesFiles" scope="request">
+      <forward name="SUCCESS" path="/rcv/queryIfaceArchivesFileList.do" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--文件整理查询-->
+    <action name="ArchivesFileForm" type="com.sunyard.hgam.presentation.action.rcv.QuerySettleArchivesFileListAction" path="/rcv/querySettleArchivesFileList" scope="request">
+      <forward name="SUCCESS" path="/rcv/settle_file_query.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--文件整理导航-->
+    <action name="ArchivesFileForm" type="com.sunyard.hgam.presentation.action.rcv.SettleArchivesFileNavigatorAction" path="/rcv/settleArchivesFileNavigator" scope="request">
+      <forward name="WENSHU" path="/rcv/settle_file_yewu_input.jsp" />
+      <forward name="YEWU" path="/rcv/settle_file_yewu_input.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--文件整理保存-->
+    <action name="ArchivesFileForm" type="com.sunyard.hgam.presentation.action.rcv.UpdateSettleArchivesFileAction" path="/rcv/updateSettleArchivesFile" scope="request">
+      <forward name="SUCCESS" path="/rcv/querySettleArchivesFileList.do" />
+      <forward name="FAILURE_WENSHU" path="/rcv/settle_file_yewu_input.jsp" />
+      <forward name="FAILURE_YEWU" path="/rcv/settle_file_yewu_input.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--文件附件查看-->
+    <action type="com.sunyard.hgam.presentation.action.rcv.ViewArchivesFileAccessoryAction" path="/rcv/viewArchivesFileAccessory" scope="request">
+      <forward name="SUCCESS" path="/rcv/settle_file_yewu_input.jsp" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--文件整理-->
+    <action name="ArchivesFileForm" type="com.sunyard.hgam.presentation.action.rcv.UpdateSettleArchivesFileAction" path="/rcv/updateSettleArchivesFile" scope="request">
+      <forward name="SUCCESS" path="/rcv/querySettleArchivesFileList.do" />
+      <forward name="FAILURE" path="/error.jsp" />
+    </action>
+    <!--INSERT HERE-->
+  </action-mappings>
+</struts-config>

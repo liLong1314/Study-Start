@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="WatchExamine">
+  <result-map name="watchExamine" class="com.sunyard.hgam.persistence.dao.beans.arm.WatchExamine">
+    <property name="watchId" column="WATCH_ID" />
+    <property name="subCode" column="SUB_CODE" />
+    <property name="watchTitle" column="WATCH_TITLE" />
+    <property name="watchContent" column="WATCH_CONTENT" />
+    <property name="watchTime" column="WATCH_TIME" />
+    <property name="watchAuthor" column="WATCH_AUTHOR" />
+    <property name="refWatchId" column="REF_WATCH_ID" />
+    <property name="remark" column="REMARK" />
+  </result-map>
+  <mapped-statement name="getAllWatchExamine" result-map="watchExamine">
+   <![CDATA[
+     SELECT
+       WATCH_EXAMINE.WATCH_ID,
+       WATCH_EXAMINE.SUB_CODE,
+       WATCH_EXAMINE.WATCH_TITLE,
+       WATCH_EXAMINE.WATCH_CONTENT,
+       TO_CHAR(WATCH_EXAMINE.WATCH_TIME,'YYYY-MM-DD') AS WATCH_TIME,
+       WATCH_EXAMINE.WATCH_AUTHOR,
+       WATCH_EXAMINE.REMARK,
+       WATCHEXAMINE_DENOTE.WATCH_ID AS REF_WATCH_ID
+     FROM
+       WATCH_EXAMINE,WATCHEXAMINE_DENOTE
+     WHERE
+       WATCH_EXAMINE.WATCH_ID=WATCHEXAMINE_DENOTE.WATCH_ID(+)
+   ]]>
+  </mapped-statement>
+<mapped-statement name="getWatchExamineByID" result-map="watchExamine">
+   <![CDATA[
+     SELECT
+     WATCH_EXAMINE.WATCH_ID,
+       WATCH_EXAMINE.SUB_CODE,
+       WATCH_EXAMINE.WATCH_TITLE,
+       WATCH_EXAMINE.WATCH_CONTENT,
+       TO_CHAR(WATCH_EXAMINE.WATCH_TIME,'YYYY-MM-DD') AS WATCH_TIME,
+       WATCH_EXAMINE.WATCH_AUTHOR,
+       WATCH_EXAMINE.REMARK,
+       WATCHEXAMINE_DENOTE.WATCH_ID AS REF_WATCH_ID
+     FROM
+       WATCH_EXAMINE,WATCHEXAMINE_DENOTE
+     WHERE
+      WATCH_EXAMINE.WATCH_ID=WATCHEXAMINE_DENOTE.WATCH_ID(+)
+     AND
+      WATCH_EXAMINE.WATCH_ID=#value#
+   ]]>
+  </mapped-statement>
+<mapped-statement name="addWatchExamine">
+   <![CDATA[
+    INSERT INTO WATCH_EXAMINE(WATCH_ID,
+                                 SUB_CODE,
+                                 WATCH_TITLE,
+                                 WATCH_CONTENT,
+                                 WATCH_TIME,
+                                 WATCH_AUTHOR,
+                                 REMARK)
+       VALUES ((SELECT NVL(MAX(NVL(WATCH_ID,0))+1,1) FROM WATCH_EXAMINE),
+                #subCode#,
+                #watchTitle#,
+               #watchContent#,
+               TO_DATE(#watchTime#,'YYYY-MM-DD'),
+               #watchAuthor#,
+               #remark#)
+   ]]>
+   </mapped-statement>
+   <mapped-statement name="updateWatchExamine">
+  <![CDATA[
+    UPDATE WATCH_EXAMINE SET
+      SUB_CODE=#subCode#,
+      WATCH_TITLE=#watchTitle#,
+      WATCH_CONTENT=#watchContent#,
+      WATCH_TIME=TO_DATE(#watchTime#,'YYYY-MM-DD'),
+      WATCH_AUTHOR=#watchAuthor#,
+      REMARK=#remark#,
+      WHERE WATCH_ID=#watchId#
+   ]]>
+  </mapped-statement>
+   <dynamic-mapped-statement name="queryWatchExamineList" result-map="watchExamine" >
+     SELECT
+    WATCH_EXAMINE.WATCH_ID,
+       WATCH_EXAMINE.SUB_CODE,
+       WATCH_EXAMINE.WATCH_TITLE,
+       WATCH_EXAMINE.WATCH_CONTENT,
+       TO_CHAR(WATCH_EXAMINE.WATCH_TIME,'YYYY-MM-DD') AS WATCH_TIME,
+       WATCH_EXAMINE.WATCH_AUTHOR,
+       WATCH_EXAMINE.REMARK,
+       WATCHEXAMINE_DENOTE.WATCH_ID AS REF_WATCH_ID
+     FROM
+       WATCH_EXAMINE,WATCHEXAMINE_DENOTE
+    <dynamic prepend="WHERE">
+      WATCH_EXAMINE.WATCH_ID=WATCHEXAMINE_DENOTE.WATCH_ID(+)
+      <isNotEmpty prepend="AND" property="subCode">
+      	WATCH_EXAMINE.SUB_CODE like '%' || #subCode# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="watchTitle">
+      	WATCH_EXAMINE.WATCH_TITLE like '%' || #watchTitle# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="watchTimeFrom">
+      <isNotEmpty property="watchTimeTo">
+      	WATCH_EXAMINE.WATCH_TIME between to_date(#watchTimeFrom#,'YYYY-MM-DD') and to_date(#watchTimeTo#,'YYYY-MM-DD')
+      </isNotEmpty>
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="watchAuthor">
+          WATCH_EXAMINE.WATCH_AUTHOR like '%' || #watchAuthor# || '%'
+      </isNotEmpty>
+    </dynamic>
+    	ORDER BY
+      	WATCH_EXAMINE.SUB_CODE DESC
+
+  </dynamic-mapped-statement>
+</sql-map>
+
+

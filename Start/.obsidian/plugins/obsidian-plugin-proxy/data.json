@@ -1,0 +1,54 @@
+{
+  "currentProxy": "myproxy",
+  "defaultProxy": "mirr",
+  "proxyList": [
+    {
+      "id": "myproxy",
+      "raw": "https://obsidian-proxy.netlify.app/api/proxy/raw/",
+      "page": "https://obsidian-proxy.netlify.app/api/proxy/site/",
+      "userImages": "https://obsidian-proxy.netlify.app/api/proxy/user-images/"
+    },
+    {
+      "id": "mirr",
+      "download": "https://gh.gcdn.mirr.one/",
+      "raw": "https://raw-gh.gcdn.mirr.one/",
+      "page": "https://gh.gcdn.mirr.one/"
+    },
+    {
+      "id": "fastgit",
+      "download": "https://download.fastgit.org/",
+      "raw": "https://raw.fastgit.org/",
+      "page": "https://hub.fastgit.xyz/"
+    },
+    {
+      "id": "mtr",
+      "download": "https://download.fastgit.org/",
+      "raw": "https://raw-gh.gcdn.mirr.one/",
+      "page": "https://api.mtr.pub/"
+    },
+    {
+      "id": "gitclone",
+      "download": "https://download.fastgit.org/",
+      "raw": "https://raw.fastgit.org/",
+      "page": "https://gitclone.com/github.com/"
+    },
+    {
+      "id": "ghproxy",
+      "download": "https://mirror.ghproxy.com/https://github.com/",
+      "raw": "https://mirror.ghproxy.com/https://github.com/",
+      "page": "https://mirror.ghproxy.com/https://github.com/"
+    },
+    {
+      "id": "github",
+      "download": "https://github.com/",
+      "raw": "https://raw.githubusercontent.com/",
+      "page": "https://github.com/"
+    },
+    {
+      "id": "v2ray",
+      "download": "http://localhost:1987/proxy/https://github.com/",
+      "raw": "http://localhost:1987/proxy/https://raw.githubusercontent.com/",
+      "page": "http://localhost:1987/proxy/https://github.com/"
+    }
+  ]
+}

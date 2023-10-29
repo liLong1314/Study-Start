@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="Identify">
+  <result-map name="identify" class="com.sunyard.hgam.persistence.dao.beans.arm.Identify">
+    <property name="checkupId" column="CHECKUP_ID"/>
+    <property name="fileId" column="FILE_ID"/>
+    <property name="checkupOperator" column="CHECKUP_OPERATOR"/>
+    <property name="checkupSituation" column="CHECKUP_SITUATION"/>
+    <property name="checkupDate" column="CHECKUP_DATE"/>
+    <property name="remark" column="REMARK"/>
+   </result-map>
+
+   <mapped-statement name="getAllIdentify" result-map="identify">
+   <![CDATA[
+    SELECT
+	CHECKUP_ID,
+	FILE_ID,
+	CHECKUP_OPERATOR,
+	CHECKUP_SITUATION,
+	TO_CHAR(CHECKUP_DATE,'YYYY-MM-DD') AS CHECKUP_DATE,
+	REMARK
+    FROM
+	CHECKUP
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getIdentifyByID" result-map="identify">
+   <![CDATA[
+    SELECT
+	CHECKUP_ID,
+	FILE_ID,
+	CHECKUP_OPERATOR,
+	CHECKUP_SITUATION,
+	TO_CHAR(CHECKUP_DATE,'YYYY-MM-DD') AS CHECKUP_DATE,
+	REMARK
+    FROM
+	CHECKUP
+    WHERE
+	CHECKUP_ID=#value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="addIdentify">
+   <![CDATA[
+    INSERT INTO CHECKUP(
+	CHECKUP_ID,
+	FILE_ID,
+	CHECKUP_OPERATOR,
+	CHECKUP_SITUATION,
+	CHECKUP_DATE,
+	REMARK
+	)
+       VALUES (
+	(SELECT NVL(MAX(NVL(CHECKUP_ID,0))+1,1) FROM CHECKUP),
+	#fileId#,
+	#checkupOperator#,
+	#checkupSituation#,
+	TO_DATE(#checkupDate#,'YYYY-MM-DD'),
+	#remark#
+	)
+   ]]>
+   </mapped-statement>
+
+  <mapped-statement name="deleteIdentifyByID">
+  <![CDATA[
+    DELETE FROM CHECKUP WHERE CHECKUP_ID=#value#
+   ]]>
+  </mapped-statement>
+  <dynamic-mapped-statement name="queryIdentifyList" result-map="identify">
+    SELECT
+      CHECKUP_ID,
+      FILE_ID,
+      CHECKUP_OPERATOR,
+      CHECKUP_SITUATION,
+      TO_CHAR(CHECKUP_DATE,'YYYY-MM-DD') AS CHECKUP_DATE,
+      REMARK
+    FROM
+      CHECKUP
+    <dynamic prepend="WHERE">
+      <isNotEmpty prepend="AND" property="checkupOperator">
+      	CHECKUP_OPERATOR like '%' || #checkupOperator# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="checkupSituation">
+      	CHECKUP_SITUATION like '%' || #checkupSituation# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="checkupDateFrom">
+      <isNotEmpty property="checkupDateTo">
+      	CHECKUP_DATE between to_date(#checkupDateFrom#,'YYYY-MM-DD') and to_date(#checkupDateTo#,'YYYY-MM-DD')
+      </isNotEmpty>
+      </isNotEmpty>
+    </dynamic>
+  </dynamic-mapped-statement>
+
+</sql-map>

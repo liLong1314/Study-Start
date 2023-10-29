@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="Temperature">
+  <result-map name="temperature" class="com.sunyard.hgam.persistence.dao.beans.arm.Temperature">
+    <property name="temperatureId" column="TEMPERATURE_ID"/>
+    <property name="roomCode" column="ROOM_CODE"/>
+    <property name="temperatureDegree" column="TEMPERATURE_DEGREE"/>
+    <property name="temperatureWet" column="TEMPERATURE_WET"/>
+    <property name="temperatureDate" column="TEMPERATURE_DATE"/>
+    <property name="temperatureMan" column="TEMPERATURE_MAN"/>
+    <property name="remark" column="REMARK"/>
+   </result-map>
+
+   <mapped-statement name="getAllTemperature" result-map="temperature">
+   <![CDATA[
+    SELECT
+      TEMPERATURE_ID,
+      ROOM_CODE,
+      TEMPERATURE_DEGREE,
+      TEMPERATURE_WET,
+      TO_CHAR(TEMPERATURE_DATE,'YYYY-MM-DD') AS TEMPERATURE_DATE,
+      TEMPERATURE_MAN,
+      REMARK
+    FROM
+      TEMPERATURE
+   ]]>
+   </mapped-statement>
+
+   <dynamic-mapped-statement name="searchTemperature" result-map="temperature">
+    SELECT
+      TEMPERATURE_ID,
+      ROOM_CODE,
+      TEMPERATURE_DEGREE,
+      TEMPERATURE_WET,
+      TO_CHAR(TEMPERATURE_DATE,'YYYY-MM-DD') AS TEMPERATURE_DATE,
+      TEMPERATURE_MAN,
+      REMARK
+    FROM
+      TEMPERATURE
+    <dynamic prepend="WHERE">
+      <isNotEmpty prepend="AND" property="temperatureMan">
+      	TEMPERATURE_MAN like '%' || #temperatureMan# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="temDateFrom">
+      <isNotEmpty property="temDateTo">
+      	TEMPERATURE_DATE between to_date(#temDateFrom#,'YYYY-MM-DD') and to_date(#temDateTo#,'YYYY-MM-DD')
+      </isNotEmpty>
+      </isNotEmpty>
+    </dynamic>
+  </dynamic-mapped-statement>
+
+   <mapped-statement name="addTemperature">
+   <![CDATA[
+    INSERT INTO TEMPERATURE(
+	TEMPERATURE_ID,
+	ROOM_CODE,
+	TEMPERATURE_DEGREE,
+	TEMPERATURE_WET,
+        TEMPERATURE_DATE,
+	TEMPERATURE_MAN,
+	REMARK)
+       VALUES (
+	(SELECT NVL(MAX(NVL(TEMPERATURE_ID,0))+1,1) FROM TEMPERATURE),
+	#roomCode#,
+	#temperatureDegree#,
+	#temperatureWet#,
+	TO_DATE(#temperatureDate#,'YYYY-MM-DD'),
+	#temperatureMan#,
+	#remark#)
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getTemperatureByID" result-map="temperature">
+   <![CDATA[
+    SELECT
+      TEMPERATURE_ID,
+      ROOM_CODE,
+      TEMPERATURE_DEGREE,
+      TEMPERATURE_WET,
+      TO_CHAR(TEMPERATURE_DATE,'YYYY-MM-DD') AS TEMPERATURE_DATE,
+      TEMPERATURE_MAN,
+      REMARK
+    FROM
+      TEMPERATURE
+    WHERE
+      TEMPERATURE_ID=#value#
+   ]]>
+   </mapped-statement>
+
+  <mapped-statement name="deleteTemperatureByID">
+  <![CDATA[
+    DELETE FROM TEMPERATURE WHERE TEMPERATURE_ID=#value#
+   ]]>
+  </mapped-statement>
+
+  <mapped-statement name="updateTemperature">
+  <![CDATA[
+    UPDATE TEMPERATURE SET
+      ROOM_CODE=#roomCode#,
+      TEMPERATURE_DEGREE=#temperatureDegree#,
+      TEMPERATURE_WET=#temperatureWet#,
+      TEMPERATURE_DATE=TO_DATE(#temperatureDate#,'YYYY-MM-DD'),
+      TEMPERATURE_MAN=#temperatureMan#,
+      REMARK=#remark#
+      WHERE TEMPERATURE_ID=#temperatureId#
+   ]]>
+  </mapped-statement>
+</sql-map>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="Law">
+  <result-map name="law" class="com.sunyard.hgam.persistence.dao.beans.arm.Law">
+    <property name="lawId" column="LAW_ID"/>
+    <property name="lawType" column="LAW_TYPE"/>
+    <property name="lawCode" column="LAW_CODE"/>
+    <property name="lawDept" column="LAW_DEPT"/>
+    <property name="lawTitle" column="LAW_TITLE"/>
+    <property name="lawDate" column="LAW_DATE"/>
+    <property name="lawContent" column="LAW_CONTENT"/>
+    <property name="remark" column="REMARK"/>
+   </result-map>
+
+   <mapped-statement name="getAllLaw" result-map="law">
+   <![CDATA[
+    SELECT
+      LAW_ID,
+      LAW_TYPE,
+      LAW_CODE,
+      LAW_DEPT,
+      LAW_TITLE,
+      TO_CHAR(LAW_DATE,'YYYY-MM-DD') AS LAW_DATE,
+      LAW_CONTENT,
+      REMARK
+    FROM
+      LAW
+   ]]>
+   </mapped-statement>
+
+   <dynamic-mapped-statement name="searchLaw" result-map="law">
+    SELECT
+      LAW_ID,
+      LAW_TYPE,
+      LAW_CODE,
+      LAW_DEPT,
+      LAW_TITLE,
+      TO_CHAR(LAW_DATE,'YYYY-MM-DD') AS LAW_DATE,
+      LAW_CONTENT,
+      REMARK
+    FROM
+      LAW
+    <dynamic prepend="WHERE">
+      <isNotEmpty prepend="AND" property="lawDept">
+      	LAW_DEPT like '%' || #lawDept# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="lawTitle">
+      	LAW_TITLE like '%' || #lawTitle# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="lawDateFrom">
+      	<isNotEmpty property="lawDateTo">LAW.LAW_DATE between to_date(#lawDateFrom#,'YYYY-MM-DD') and to_date(#lawDateTo#,'YYYY-MM-DD')</isNotEmpty>
+      </isNotEmpty>
+    </dynamic>
+  </dynamic-mapped-statement>
+
+   <mapped-statement name="addLaw">
+   <![CDATA[
+    INSERT INTO LAW(
+	LAW_ID,
+	LAW_TYPE,
+	LAW_CODE,
+	LAW_DEPT,
+	LAW_TITLE,
+	LAW_DATE,
+	LAW_CONTENT,
+	REMARK
+	)
+       VALUES (
+	(SELECT NVL(MAX(NVL(LAW_ID,0))+1,1) FROM LAW),
+	#lawType#,
+	#lawCode#,
+	#lawDept#,
+	#lawTitle#,
+	TO_DATE(#lawDate#,'YYYY-MM-DD'),
+	#lawContent#,
+	#remark#
+	)
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getLawByID" result-map="law">
+   <![CDATA[
+    SELECT
+      LAW_ID,
+      LAW_TYPE,
+      LAW_CODE,
+      LAW_DEPT,
+      LAW_TITLE,
+      TO_CHAR(LAW_DATE,'YYYY-MM-DD') AS LAW_DATE,
+      LAW_CONTENT,
+      REMARK
+    FROM
+      LAW
+    WHERE
+      LAW_ID=#value#
+   ]]>
+   </mapped-statement>
+
+  <mapped-statement name="deleteLawByID">
+  <![CDATA[
+    DELETE FROM LAW WHERE LAW_ID=#value#
+   ]]>
+  </mapped-statement>
+
+  <mapped-statement name="updateLaw">
+  <![CDATA[
+    UPDATE LAW SET
+      LAW_TYPE=#lawType#,
+      LAW_CODE=#lawCode#,
+      LAW_DEPT=#lawDept#,
+      LAW_TITLE=#lawTitle#,
+      LAW_DATE=TO_DATE(#lawDate#,'YYYY-MM-DD'),
+      LAW_CONTENT=#lawContent#,
+      REMARK=#remark#
+      WHERE LAW_ID=#lawId#
+   ]]>
+  </mapped-statement>
+</sql-map>

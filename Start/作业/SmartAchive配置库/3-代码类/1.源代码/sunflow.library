@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <!--JBuilder Library Definition File-->
+  <fullname>sunflow</fullname>
+  <class>
+    <path>[lib/sunflow/sunflow2_1.jar]</path>
+    <path>[lib/sunflow/sunflowDriver.jar]</path>
+  </class>
+  <lastmodsaved>1072750166265</lastmodsaved>
+</library>

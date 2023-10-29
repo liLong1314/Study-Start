@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title> 为您服务</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link href="../common/css/sunhoo.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_goToURL() { //v3.0
+  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+}
+//-->
+</script>
+<script>
+function doLogOut(){
+	top.location.href="/smm/logout.do";
+}
+function doShowHelp(){
+	window.open("help.htm","help","");
+}
+function doClose(){
+	//alert(top.window.opener);
+	if(typeof(top.window.opener)=="object"){
+		top.window.opener.top.window.close();
+	}
+	top.window.close();
+}
+function doGoHome(){
+	top.window.location.href="/index.jsp";
+	//MM_goToURL('parent.frames[\'hmain\']','../main/main_index.htm');
+	//MM_goToURL('parent.frames[\'left\']','../public/left_default.jsp');
+	//return document.MM_returnValue
+}
+</script>
+</head>
+<body background="../image/bg_dot.gif" leftmargin="0" topmargin="0">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="304" height="38" background="../image/home_49.gif"><table width="306" border="0" cellspacing="0" cellpadding="0">
+      <tr align="center">
+        <td class="tishi" onclick="doLogOut();" title="注销" style="cursor:hand"><img src="../image/0_menu01.gif" width="51" height="15" border="0"></td>
+        <td class="tishi" onclick="doShowHelp();" title="帮助" style="cursor:hand"><img src="../image/0_menu02.gif" width="51" height="15" border="0"></td>
+        <td class="tishi" onclick="doGoHome();" title="回主界面" style="cursor:hand"><img src="../image/0_menu03.gif" width="79" height="15" border="0"></td>
+        <td class="tishi" onclick="doClose();" title="关闭系统" style="cursor:hand"><img src="../image/0_menu04.gif" border="0"></td>
+      </tr>
+    </table></td>
+    <td width="438" background="../image/home_50.gif"><img src="../image/home_50.gif" width="15" height="38"></td>
+    <td width="275"><img src="../image/home_52.gif" width="275" height="38"></td>
+  </tr>
+</table>
+</body>
+</html>

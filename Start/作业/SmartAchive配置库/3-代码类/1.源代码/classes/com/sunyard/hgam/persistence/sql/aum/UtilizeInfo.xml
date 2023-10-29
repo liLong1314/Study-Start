@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="UtilizeInfo">
+  <result-map name="utilizeInformation" class="com.sunyard.hgam.persistence.dao.beans.aum.UtilizeInfo">
+    <property name="applyID" column="APPLY_ID" /><!-- 申请编号 -->
+    <property name="flowInsID" column="FLOW_ID" /><!-- 流程实例ID -->
+    <property name="personID" column="PERSON_ID" /><!-- 外单位人员利用者ID -->
+    <property name="userID" column="USER_ID" /><!-- 本单位人员利用者ID -->
+    <property name="self" column="IS_SELFORG" /><!-- 利用者是否为本单位 -->
+    <property name="renew" column="IS_RENEW" /><!-- 是否续借 -->
+    <property name="typeID" column="TYPE_ID" /><!-- 利用类型ID -->
+    <property name="modeID" column="MODE_ID" /><!-- 利用方式ID -->
+    <property name="personName" column="PERSON_NAME" /><!-- 申请人 -->
+    <property name="personCorp" column="PERSON_CORP" /><!-- 公司 -->
+    <property name="modeName" column="MODE_NAME" /><!-- 利用方式 -->
+    <property name="aim" column="AIM" /><!-- 目的 -->
+    <property name="beginDate" column="BEGIN_DATE" /><!-- 利用开始日期 -->
+    <property name="utilizeTerm" column="UTILIZE_TERM" /><!-- 利用期限（天） -->
+    <property name="realReturnDate" column="REAL_RETURN_DATE" /><!-- 实际归还日期 -->
+    <property name="applyDate" column="APPLY_DATE" /><!-- 申请时间 -->
+    <property name="realGetMoney" column="REAL_GET_MONEY" /><!-- 实收金额 -->
+    <property name="handleMan" column="HANDLE_MAN" /><!-- 经办人 -->
+    <property name="handleIdea" column="HANDLE_IDEA" /><!-- 经办人意见 -->
+    <property name="handleDate" column="HANDLE_DATE" /><!-- 经办时间 -->
+    <property name="latestRenewDate" column="LATEST_RENEW_DATE" /><!-- 最后续借时间 -->
+    <property name="latestDunDate" column="LATEST_DUN_DATE" /><!-- 最后催收时间 -->
+    <property name="remark" column="REMARK" /><!-- 备注 -->
+    <property name="utilizeStatus" column="UTILIZE_STATUS" /><!-- 利用状态 -->
+
+  </result-map>
+
+  <result-map name="modeNameList" class="com.sunyard.hgam.persistence.dao.beans.aum.UtilizeInfo">
+    <property name="modeID" column="MODE_ID" /><!-- 利用方式ID -->
+    <property name="modeName" column="MODE_NAME" /><!-- 利用方式 -->
+  </result-map>
+
+  <result-map name="utilizeInfo" class="com.sunyard.hgam.persistence.dao.beans.aum.UtilizeInfo">
+    <property name="applyID" column="APPLY_ID" /><!-- 申请编号 -->
+    <property name="personName" column="PERSON_NAME" /><!-- 申请人 -->
+    <property name="personCorp" column="PERSON_CORP" /><!-- 公司 -->
+    <property name="modeName" column="MODE_NAME" /><!-- 利用方式 -->
+    <property name="utilizeStatus" column="UTILIZE_STATUS" /><!-- 利用状态 -->
+  </result-map>
+
+  <result-map name="taskinfo" class="com.sunyard.hgam.persistence.dao.beans.aum.UtilizeInfo">
+    <property name="applyID" column="APPLY_ID" /><!-- 申请编号 -->
+    <property name="personName" column="PERSON_NAME" /><!-- 申请人 -->
+    <property name="personCorp" column="PERSON_CORP" /><!-- 公司 -->
+    <property name="modeName" column="MODE_NAME" /><!-- 利用方式 -->
+    <property name="utilizeStatus" column="UTILIZE_STATUS" /><!-- 利用状态 -->
+    <property name="beginDate" column="BEGIN_DATE" /><!-- 利用开始日期 -->
+    <property name="utilizeTerm" column="UTILIZE_TERM" /><!-- 利用期限（天） -->
+  </result-map>
+
+  <result-map name="utilizeInfo1" class="com.sunyard.hgam.persistence.dao.beans.aum.UtilizeInfo">
+    <property name="applyID" column="APPLY_ID" /><!-- 申请编号 -->
+    <property name="personName" column="PERSON_NAME" /><!-- 申请人 -->
+    <property name="personCorp" column="PERSON_CORP" /><!-- 公司 -->
+    <property name="modeName" column="MODE_NAME" /><!-- 利用方式 -->
+    <property name="utilizeStatus" column="UTILIZE_STATUS" /><!-- 利用状态 -->
+    <property name="aim" column="AIM" /><!-- 目的 -->
+    <property name="handleIdea" column="HANDLE_IDEA" /><!-- 经办人意见 -->
+  </result-map>
+
+
+  <result-map name="lendInfo" class="com.sunyard.hgam.persistence.dao.beans.aum.UtilizeInfo">
+    <property name="applyID" column="APPLY_ID" /><!-- 申请编号 -->
+    <property name="personName" column="PERSON_NAME" /><!-- 申请人 -->
+    <property name="personCorp" column="PERSON_CORP" /><!-- 公司 -->
+    <property name="modeName" column="MODE_NAME" /><!-- 利用方式 -->
+    <property name="beginDate" column="BEGIN_DATE" /><!-- 利用开始日期 -->
+    <property name="utilizeTerm" column="UTILIZE_TERM" /><!-- 利用期限（天） -->
+    <property name="utilizeStatus" column="UTILIZE_STATUS" /><!-- 利用状态 -->
+  </result-map>
+
+  <result-map name="utilizePersonInfoForEdit" class="com.sunyard.hgam.persistence.dao.beans.aum.UtilizePerson">
+    <property name="person_id" column="PERSON_ID" />
+    <property name="person_name" column="PERSON_NAME" />
+    <property name="person_corp" column="PERSON_CORP" />
+    <property name="person_tel" column="PERSON_TEL" />
+    <property name="person_address" column="PERSON_ADDRESS" />
+    <property name="certificate_type" column="CERTIFICATE_TYPE" />
+    <property name="certificate_num" column="CERTIFICATE_NUM" />
+    <property name="remark" column="REMARK" />
+  </result-map>
+
+  <result-map name="utilizePersonInfo" class="com.sunyard.hgam.persistence.dao.beans.aum.UtilizeInfo">
+    <property name="personID" column="PERSON_ID" /><!-- 申请人编号 -->
+    <property name="personName" column="PERSON_NAME" /><!-- 申请人 -->
+    <property name="personCorp" column="PERSON_CORP" /><!-- 公司 -->
+  </result-map>
+
+   <!-- 查阅管理部分 -->
+   <mapped-statement name="getUtilizeInfoByNameStatusType" result-map="utilizeInfo">
+   <![CDATA[
+    SELECT
+	APPLY_ID,
+	PERSON_NAME,
+	PERSON_CORP,
+	MODE_NAME,
+	UTILIZE_STATUS
+    FROM
+	UTILIZE_APPLY,UTILIZE_PERSON,UTILIZE_TYPE,UTILIZE_MODE
+    WHERE
+      PERSON_NAME=#pName# AND UTILIZE_STATUS=#aStatus# AND UTILIZE_APPLY.TYPE_ID=#tID# AND
+      UTILIZE_APPLY.PERSON_ID=UTILIZE_PERSON.PERSON_ID AND UTILIZE_APPLY.MODE_ID=UTILIZE_MODE.MODE_ID AND UTILIZE_APPLY.TYPE_ID=UTILIZE_TYPE.TYPE_ID
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getUtilizeInfoByApplyID" result-map="utilizeInformation">
+    SELECT
+     DISTINCT
+        A.APPLY_ID,A.FLOW_ID,A.PERSON_ID,A.USER_ID,B.PERSON_NAME AS PERSON_NAME,A.IS_SELFORG,A.IS_RENEW,
+        A.TYPE_ID,A.MODE_ID,B.PERSON_CORP,D.MODE_NAME,A.AIM,
+        TO_CHAR(A.BEGIN_DATE,'YYYY-MM-DD') AS BEGIN_DATE,
+        TO_CHAR(A.REAL_RETURN_DATE,'YYYY-MM-DD') AS REAL_RETURN_DATE,
+        TO_CHAR(A.APPLY_DATE,'YYYY-MM-DD') AS APPLY_DATE,
+        A.UTILIZE_TERM,A.REAL_GET_MONEY,
+        A.HANDLE_MAN,A.HANDLE_IDEA,A.HANDLE_DATE,A.LATEST_RENEW_DATE,A.LATEST_DUN_DATE,
+        A.REMARK,A.UTILIZE_STATUS
+    FROM
+        UTILIZE_APPLY A,UTILIZE_PERSON B,UTILIZE_TYPE C,UTILIZE_MODE D
+    WHERE
+        A.PERSON_ID=B.PERSON_ID
+        AND A.MODE_ID=D.MODE_ID
+        AND A.TYPE_ID=C.TYPE_ID
+        AND A.APPLY_ID=#applyID#
+    UNION
+    SELECT
+     DISTINCT
+        A.APPLY_ID,A.FLOW_ID,A.PERSON_ID,A.USER_ID,E.NAME AS PERSON_NAME,A.IS_SELFORG,A.IS_RENEW,
+        A.TYPE_ID,A.MODE_ID,E.DEPARTMENT,D.MODE_NAME,A.AIM,
+        TO_CHAR(A.BEGIN_DATE,'YYYY-MM-DD') AS BEGIN_DATE,
+        TO_CHAR(A.REAL_RETURN_DATE,'YYYY-MM-DD') AS REAL_RETURN_DATE,
+        TO_CHAR(A.APPLY_DATE,'YYYY-MM-DD') AS APPLY_DATE,
+        A.UTILIZE_TERM,A.REAL_GET_MONEY,
+        A.HANDLE_MAN,A.HANDLE_IDEA,A.HANDLE_DATE,A.LATEST_RENEW_DATE,A.LATEST_DUN_DATE,
+        A.REMARK,A.UTILIZE_STATUS
+    FROM
+        UTILIZE_APPLY A,UTILIZE_TYPE C,UTILIZE_MODE D,USERS E
+    WHERE
+        A.USER_ID=E.ID
+        AND A.MODE_ID=D.MODE_ID
+        AND A.TYPE_ID=C.TYPE_ID
+        AND A.APPLY_ID=#applyID#
+   </mapped-statement>
+
+   <mapped-statement name="insertUtilizeInfo">
+   <![CDATA[
+   INSERT INTO UTILIZE_APPLY(APPLY_ID,PERSON_ID,USER_ID,TYPE_ID,MODE_ID,AIM,BEGIN_DATE,UTILIZE_TERM,APPLY_DATE,UTILIZE_STATUS,IS_SELFORG,IS_RENEW,REMARK)
+   VALUES ((SELECT NVL(MAX(NVL(APPLY_ID,0)),0)+1 FROM UTILIZE_APPLY),
+         #personID#,#userID#,#typeID#,#modeID#,#aim#,TO_DATE(#beginDate#,'YYYY-MM-DD'),#utilizeTerm#,TO_DATE(#applyDate#,'YYYY-MM-DD'),#utilizeStatus#,#self#,#renew#,#remark#)
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getApplyID" result-class="java.lang.String">
+   <![CDATA[
+    SELECT NVL(MAX(NVL(APPLY_ID,0)),0) FROM UTILIZE_APPLY
+   ]]>
+   </mapped-statement>
+
+
+
+   <mapped-statement name="insertUtilizeDetail">
+   <![CDATA[
+   INSERT INTO UTILIZE_DETAIL(APPLY_ID,PAGE_ID,CHARGE_ID,REMARK)
+	VALUES (#applyID#,#pageID#,#chargeID#,#remark#)
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="updateUtilizeInfoForConfirm">
+   <![CDATA[
+   UPDATE UTILIZE_APPLY SET
+	UTILIZE_STATUS=#utilizeStatus#
+    	WHERE APPLY_ID=#applyID#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="updateUtilizeInfoForRegi">
+   <![CDATA[
+   UPDATE UTILIZE_APPLY SET
+	BEGIN_DATE=#beginDate#,
+	UTILIZE_STATUS=#utilizeStatus#
+    	WHERE APPLY_ID=#applyID#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="updateUtilizeInfoForReturn">
+   <![CDATA[
+   UPDATE UTILIZE_APPLY SET
+	REAL_RETURN_DATE=#returnDate#,
+	UTILIZE_STATUS=#utilizeStatus#
+    	WHERE APPLY_ID=#applyID#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="updateUtilizeInfoForCharge">
+   <![CDATA[
+   UPDATE UTILIZE_APPLY SET
+	REAL_GET_MONEY=#realGetMoney#,
+	UTILIZE_STATUS=#utilizeStatus#
+    	WHERE APPLY_ID=#applyID#
+   ]]>
+   </mapped-statement>
+
+   <!-- 借阅管理部分 -->
+   <mapped-statement name="getLendInfoByNameStatusType" result-map="lendInfo">
+   <![CDATA[
+    SELECT
+	APPLY_ID,
+	PERSON_NAME,
+	PERSON_CORP,
+	MODE_NAME,
+        BEGIN_DATE,
+        UTILIZE_TERM,
+	UTILIZE_STATUS
+    FROM
+	UTILIZE_APPLY,UTILIZE_PERSON,UTILIZE_TYPE,UTILIZE_MODE
+    WHERE
+      PERSON_NAME=#pName# AND UTILIZE_STATUS=#aStatus# AND UTILIZE_APPLY.TYPE_ID=#tID# AND
+      UTILIZE_APPLY.PERSON_ID=UTILIZE_PERSON.PERSON_ID AND UTILIZE_APPLY.MODE_ID=UTILIZE_MODE.MODE_ID AND UTILIZE_APPLY.TYPE_ID=UTILIZE_TYPE.TYPE_ID
+   ]]>
+   </mapped-statement>
+   <mapped-statement name="getLendInfoByApplyID" result-map="utilizeInfo">
+   <![CDATA[
+    SELECT
+	APPLY_ID,
+	PERSON_NAME,
+	PERSON_CORP,
+	MODE_NAME,
+        BEGIN_DATE,
+        UTILIZE_TERM,
+	UTILIZE_STATUS
+    FROM
+	UTILIZE_APPLY,UTILIZE_PERSON,UTILIZE_TYPE,UTILIZE_MODE
+    WHERE
+      UTILIZE_APPLY.APPLY_ID=#applyID# AND UTILIZE_APPLY.TYPE_ID = #typeID# AND
+      UTILIZE_APPLY.PERSON_ID=UTILIZE_PERSON.PERSON_ID AND UTILIZE_APPLY.MODE_ID=UTILIZE_MODE.MODE_ID AND UTILIZE_APPLY.TYPE_ID=UTILIZE_TYPE.TYPE_ID
+   ]]>
+   </mapped-statement>
+
+   <!-- 根据利用方式名称得到利用方式ID wanghua add 2004/01/11 -->
+   <mapped-statement name="getUtilModeIDByName" result-class="java.lang.Integer">
+   <![CDATA[
+       SELECT MODE_ID
+       FROM UTILIZE_MODE
+       WHERE UTILIZE_MODE.MODE_NAME=#value#
+   ]]>
+   </mapped-statement>
+
+   <!-- 更新流程实例状态 wanghua add 2004/01/11 -->
+   <mapped-statement name="updateUtilizeStatus">
+   <![CDATA[
+       UPDATE UTILIZE_APPLY
+       SET UTILIZE_STATUS=#utilizeStatus#
+       WHERE APPLY_ID=#applyID#
+   ]]>
+   </mapped-statement>
+
+   <!-- 更新流程实例ID wanghua add 2004/02/12 -->
+   <mapped-statement name="updateFlowInsID">
+   <![CDATA[
+       UPDATE UTILIZE_APPLY
+       SET FLOW_ID=#flowInsID#
+       WHERE APPLY_ID=#applyID#
+   ]]>
+   </mapped-statement>
+
+   <!-- 根据applyID更新收费信息 wanghua add 2004/01/11 -->
+   <mapped-statement name="updateChargeInfo">
+        UPDATE UTILIZE_APPLY
+        SET REAL_GET_MONEY=#realGetMoney#
+    	WHERE APPLY_ID=#applyID#
+   </mapped-statement>
+
+   <!-- 查询所有档案利用方式 wanghua add 2004/01/11 -->
+   <mapped-statement name="getAllUtilModeName" result-map="modeNameList">
+   <![CDATA[
+      SELECT MODE_NAME,MODE_ID
+      FROM UTILIZE_MODE
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getAllTask" result-map="taskinfo">
+   <![CDATA[
+    SELECT
+	A.APPLY_ID,
+	B.PERSON_NAME,
+	B.PERSON_CORP,
+        D.MODE_NAME,
+        TO_CHAR(A.BEGIN_DATE,'YYYY-MM-DD') AS BEGIN_DATE,
+        A.UTILIZE_TERM,
+	A.UTILIZE_STATUS
+    FROM
+	UTILIZE_APPLY A,UTILIZE_PERSON B,UTILIZE_TYPE C,UTILIZE_MODE D
+    WHERE
+        A.APPLY_ID=#value# AND
+        A.PERSON_ID=B.PERSON_ID AND
+        A.MODE_ID=D.MODE_ID AND
+        A.TYPE_ID=C.TYPE_ID
+   ]]>
+   </mapped-statement>
+
+   <!-- 删除利用信息 wanghua add 2004/02/17 -->
+   <mapped-statement name="deleteUtilInfoByApplyID" >
+   <![CDATA[
+      DELETE
+      FROM UTILIZE_APPLY
+      WHERE APPLY_ID=#value#
+   ]]>
+   </mapped-statement>
+
+   <!-- 获得所有利用者信息 wanghua add 2004/02/19 -->
+   <mapped-statement name="getAllUtilizePersonInfo" result-map="utilizePersonInfoForEdit">
+   <![CDATA[
+       SELECT A.PERSON_ID,A.PERSON_NAME,A.PERSON_CORP,A.PERSON_TEL,A.PERSON_ADDRESS,B.SYSPARAM_NAME AS CERTIFICATE_TYPE,A.CERTIFICATE_NUM,A.REMARK
+       FROM UTILIZE_PERSON A,SYSPARAM B
+       WHERE A.CERTIFICATE_TYPE=B.SYSPARAM_VALUE(+) AND B.SYSPARAM_TYPE='CERTIFICATE_TYPE'
+   ]]>
+   </mapped-statement>
+
+  <mapped-statement name="getApplyIDByFlowInsID" result-class="java.lang.String">
+    SELECT
+      APPLY_ID AS applyID
+    FROM
+      UTILIZE_APPLY
+    WHERE
+      FLOW_ID=#value#
+  </mapped-statement>
+
+   <!-- 更新利用期限 wanghua add 2004/02/12 -->
+   <mapped-statement name="updateUtilizeTerm">
+   <![CDATA[
+       UPDATE UTILIZE_APPLY
+       SET UTILIZE_TERM=#term#
+       WHERE APPLY_ID=#applyID#
+   ]]>
+   </mapped-statement>
+
+   <!-- 增加利用者信息 wanghua add 2004/03/31 -->
+   <mapped-statement name="insertUtilizePerson">
+   <![CDATA[
+       INSERT INTO UTILIZE_PERSON(PERSON_ID,PERSON_NAME,PERSON_CORP,PERSON_TEL,PERSON_ADDRESS,CERTIFICATE_TYPE,CERTIFICATE_NUM,REMARK)
+       VALUES ((SELECT NVL(MAX(NVL(PERSON_ID,0)),0)+1 FROM UTILIZE_PERSON),
+                #person_name#,#person_corp#,#person_tel#,#person_address#,#certificate_type#,#certificate_num#,#remark#
+              )
+   ]]>
+   </mapped-statement>
+
+   <!-- 更新利用者信息 wanghua add 2004/03/31 -->
+   <dynamic-mapped-statement name="updateUtilizePerson">
+       UPDATE UTILIZE_PERSON
+       SET PERSON_ID=#person_id#
+	   <dynamic>
+             <isNotEmpty prepend="," property="person_name">
+               PERSON_NAME=#person_name#
+             </isNotEmpty>
+             <isNotEmpty prepend="," property="person_corp">
+               PERSON_CORP=#person_corp#
+             </isNotEmpty>
+             <isNotEmpty prepend="," property="person_tel">
+               PERSON_TEL=#person_tel#
+             </isNotEmpty>
+             <isNotEmpty prepend="," property="person_address">
+               PERSON_ADDRESS=#person_address#
+             </isNotEmpty>
+             <isNotEmpty prepend="," property="certificate_num">
+               CERTIFICATE_NUM=#certificate_num#
+             </isNotEmpty>
+             <isNotEmpty prepend="," property="remark">
+               REMARK=#remark#
+             </isNotEmpty>
+           </dynamic>
+	WHERE PERSON_ID = #person_id#
+   </dynamic-mapped-statement>
+
+   <!-- 删除利用者信息 wanghua add 2004/03/31 -->
+   <mapped-statement name="deleteUtilizePerson">
+   <![CDATA[
+       DELETE FROM UTILIZE_PERSON WHERE PERSON_ID=#value#
+   ]]>
+   </mapped-statement>
+
+   <!-- 根据利用者ID得到利用者信息 wanghua add 2004/03/31 -->
+   <mapped-statement name="getUtilizePersonByID" result-map="utilizePersonInfoForEdit">
+   <![CDATA[
+       SELECT PERSON_ID,PERSON_NAME,PERSON_CORP,PERSON_TEL,PERSON_ADDRESS,B.SYSPARAM_NAME AS CERTIFICATE_TYPE,CERTIFICATE_NUM,A.REMARK
+       FROM UTILIZE_PERSON A,SYSPARAM B
+       WHERE A.PERSON_ID=#value# AND A.CERTIFICATE_TYPE=B.SYSPARAM_VALUE(+) AND B.SYSPARAM_TYPE='CERTIFICATE_TYPE'
+
+   ]]>
+   </mapped-statement>
+
+</sql-map>

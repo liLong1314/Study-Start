@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="Account">
+
+  <result-map name="account" class="com.sunyard.hgam.persistence.dao.beans.smm.Account">
+    <property name="userID" column="id" columnIndex="1"/>
+    <property name="userName" column="loginname" columnIndex="2"/>
+    <property name="name" column="name" columnIndex="3"/>
+    <property name="department" column="department" columnIndex="4"/>
+    <property name="email" column="email" columnIndex="5"/>
+    <property name="accessTimes" column="user_access_times" columnIndex="6"/>
+    <property name="lastAccessDate" column="user_last_access_date" columnIndex="7"/>
+    <property name="creationDate" column="user_create_date" columnIndex="8"/>
+    <property name="lastModifiedDate" column="user_last_modified_date" columnIndex="9"/>
+    <property name="remark" column="description" columnIndex="10"/>
+    <property name="roleID" column="roleid" columnIndex="11"/>
+  </result-map>
+
+  <dynamic-mapped-statement name="getAllAccount" result-map="account">
+    SELECT
+      users.id,
+      users.loginname,
+      users.name,
+      users.department,
+      users.email,
+      users.user_access_times,
+      users.user_last_access_date,
+      users.user_create_date,
+      users.user_last_modified_date,
+      users.description,
+      users.roleID
+    FROM
+      users
+    <dynamic prepend="WHERE">
+        users.isdelete='0'
+        <isNotEmpty prepend="and" property="userName">
+           loginname like '%' || #userName# || '%'
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="name">
+           name like '%' || #name# || '%'
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="department">
+           department like '%' || #department# || '%'
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="email">
+           email LIKE '%' || #email# || '%'
+        </isNotEmpty>
+    </dynamic>
+    order by loginname
+  </dynamic-mapped-statement>
+
+  <dynamic-mapped-statement name="getAccounts" result-map="account">
+    SELECT
+      users.id,
+      users.loginname,
+      users.name,
+      users.department,
+      users.email,
+      users.user_access_times,
+      users.user_last_access_date,
+      users.user_create_date,
+      users.user_last_modified_date,
+      users.description,
+      users.roleid
+    FROM
+      users
+    <dynamic prepend="WHERE">
+        users.isdelete='0'
+        <isNotEmpty prepend="and" property="userName">
+           loginname like '%' || #userName# || '%'
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="name">
+           name like '%' || #name# || '%'
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="department">
+           department like '%' || #department# || '%'
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="email">
+           email LIKE '%' || #email# || '%'
+        </isNotEmpty>
+	</dynamic>
+    order by loginname
+  </dynamic-mapped-statement>
+
+  <mapped-statement name="getAccountByUsernameAndPassword" result-map="account">
+    SELECT
+      users.id,
+      users.loginname,
+      users.name,
+      users.department,
+      users.email,
+      users.user_access_times,
+      users.user_last_access_date,
+      users.user_create_date,
+      users.user_last_modified_date,
+      users.description,
+      users.roleid
+    FROM
+      users
+    WHERE
+          users.loginname=#userName#
+      AND users.password=#password#
+      AND users.isdelete='0'
+  </mapped-statement>
+
+  <mapped-statement name="getAccountByUserID" result-map="account">
+    SELECT
+      users.id,
+      users.loginname,
+      users.name,
+      users.department,
+      users.email,
+      users.user_access_times,
+      users.user_last_access_date,
+      users.user_create_date,
+      users.user_last_modified_date,
+      users.description,
+      users.roleid
+    FROM
+      users
+    WHERE
+      users.id=#value#
+  </mapped-statement>
+
+  <mapped-statement name="getAccountByUsername" result-class="java.lang.String">
+    SELECT
+      users.id AS id
+    FROM
+      users
+    WHERE
+      users.loginname=#value#
+  </mapped-statement>
+
+  <mapped-statement name="insertAccount">
+    INSERT INTO users
+    (
+      id,
+      loginname,
+      password,
+      name,
+      department,
+      email,
+      user_access_times,
+      user_create_date,
+      description,
+      roleid
+    )
+    VALUES
+    (
+      (SELECT NVL(MAX(NVL(id,0))+1,1) FROM users),
+      #userName#,
+      #password#,
+      #name#,
+      #department#,
+      #email#,
+      #accessTimes#,
+      TO_DATE(#creationDate#,'YYYY-MM-DD HH24:MI:SS'),
+      #remark#,
+      #roleID#
+    )
+  </mapped-statement>
+
+  <dynamic-mapped-statement name="updateAccountLMD">
+    UPDATE users
+      <dynamic prepend="SET">
+        <isNotEmpty prepend="," property="userName">
+          loginname=#userName#
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="name">
+          name=#name#
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="department">
+          department=#department#
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="email">
+          email=#email#
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="lastModifiedDate">
+          user_last_modified_date=TO_DATE(#lastModifiedDate#,'YYYY-MM-DD HH24:MI:SS')
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="remark">
+          description=#remark#
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="roleID">
+          roleid=#roleID#
+        </isNotEmpty>
+      </dynamic>
+    WHERE id=#userID#
+  </dynamic-mapped-statement>
+
+  <dynamic-mapped-statement name="updateAccountPassword">
+    UPDATE users
+      <dynamic prepend="SET">
+        <isNotEmpty prepend="," property="password">
+          password=#password#
+        </isNotEmpty>
+      </dynamic>
+    WHERE id=#userID#
+  </dynamic-mapped-statement>
+
+  <dynamic-mapped-statement name="updateLoginInfo">
+    UPDATE users
+      <dynamic prepend="SET">
+        <isNotEmpty prepend="," property="accessTimes">
+          user_access_times=#accessTimes#
+        </isNotEmpty>
+        <isNotEmpty prepend="," property="lastAccessDate">
+          user_last_access_date=TO_DATE(#lastAccessDate#,'YYYY-MM-DD HH24:MI:SS')
+        </isNotEmpty>
+      </dynamic>
+    WHERE id=#userID#
+  </dynamic-mapped-statement>
+
+  <mapped-statement name="deleteAccount">
+    UPDATE users SET users.isdelete='1' WHERE users.id=#value#
+  </mapped-statement>
+
+  <!--原SQL，有错误，修订(郑先全，20040216)为新的-->
+  <dynamic-mapped-statement name="getUserFuncPerm_old" result-class="java.lang.String">
+    SELECT DISTINCT
+      PERMISSION.PERMISSION_CODE AS PERMCODE
+    FROM
+      PERMISSION,
+      USER_PERMISSION
+      <dynamic prepend=",">
+        <isNotEmpty property="groupID">
+          GROUP_PERMISSION
+        </isNotEmpty>
+      </dynamic>
+    WHERE
+      (
+      USER_PERMISSION.PERMISSION_ID=PERMISSION.PERMISSION_ID AND
+      PERMISSION.PERMISSION_TYPE='1' AND
+      USER_PERMISSION.USER_ID=#userID#
+      )
+      <dynamic prepend="OR">
+        <isNotEmpty property="groupID">
+          (
+          GROUP_PERMISSION.PERMISSION_ID=PERMISSION.PERMISSION_ID AND
+          PERMISSION.PERMISSION_TYPE='1' AND
+          GROUP_PERMISSION.GROUP_ID=#groupID#
+          )
+        </isNotEmpty>
+      </dynamic>
+  </dynamic-mapped-statement>
+  <dynamic-mapped-statement name="getUserFuncPerm" result-class="java.lang.String">
+    SELECT DISTINCT
+      PERMISSION.PERMISSION_CODE AS PERMCODE
+    FROM
+      PERMISSION,
+      USER_PERMISSION
+    WHERE
+      USER_PERMISSION.PERMISSION_ID=PERMISSION.PERMISSION_ID AND
+      PERMISSION.PERMISSION_TYPE='1' AND
+      USER_PERMISSION.USER_ID=#userID#
+    <dynamic prepend="UNION">
+    <isNotEmpty property="groupID">
+    SELECT DISTINCT
+      PERMISSION.PERMISSION_CODE AS PERMCODE
+    FROM
+      PERMISSION,
+      GROUP_PERMISSION
+    WHERE
+      	GROUP_PERMISSION.PERMISSION_ID=PERMISSION.PERMISSION_ID
+	AND PERMISSION.PERMISSION_TYPE='1'
+	AND GROUP_PERMISSION.GROUP_ID=#groupID#
+    </isNotEmpty>
+    </dynamic>
+  </dynamic-mapped-statement>
+
+  <!--原SQL，有错误，修订(郑先全，20040216)为新的-->
+  <dynamic-mapped-statement name="getUserDataPerm_old" result-class="java.lang.String">
+    SELECT DISTINCT
+      PERMISSION.PERMISSION_CODE AS PERMCODE
+    FROM
+      PERMISSION,
+      USER_PERMISSION
+      <dynamic prepend=",">
+        <isNotEmpty property="groupID">
+          GROUP_PERMISSION
+        </isNotEmpty>
+      </dynamic>
+    WHERE
+      (
+      USER_PERMISSION.PERMISSION_ID=PERMISSION.PERMISSION_ID AND
+      PERMISSION.PERMISSION_TYPE='2' AND
+      USER_PERMISSION.USER_ID=#userID#
+      )
+      <dynamic prepend="OR">
+        <isNotEmpty property="groupID">
+          (
+          GROUP_PERMISSION.PERMISSION_ID=PERMISSION.PERMISSION_ID AND
+          PERMISSION.PERMISSION_TYPE='2' AND
+          GROUP_PERMISSION.GROUP_ID=#groupID#
+          )
+        </isNotEmpty>
+      </dynamic>
+  </dynamic-mapped-statement>
+  <dynamic-mapped-statement name="getUserDataPerm" result-class="java.lang.String">
+    SELECT DISTINCT
+      PERMISSION.PERMISSION_CODE AS PERMCODE
+    FROM
+      PERMISSION,
+      USER_PERMISSION
+    WHERE
+      USER_PERMISSION.PERMISSION_ID=PERMISSION.PERMISSION_ID AND
+      PERMISSION.PERMISSION_TYPE='2' AND
+      USER_PERMISSION.USER_ID=#userID#
+    <dynamic prepend="UNION">
+    <isNotEmpty property="groupID">
+    SELECT DISTINCT
+      PERMISSION.PERMISSION_CODE AS PERMCODE
+    FROM
+      PERMISSION,
+      GROUP_PERMISSION
+    WHERE
+      	GROUP_PERMISSION.PERMISSION_ID=PERMISSION.PERMISSION_ID
+	AND PERMISSION.PERMISSION_TYPE='2'
+	AND GROUP_PERMISSION.GROUP_ID=#groupID#
+    </isNotEmpty>
+    </dynamic>
+  </dynamic-mapped-statement>
+
+  <result-map name="userGroup" class="com.sunyard.hgam.presentation.base.OptionBean">
+    <property name="value" column="VALUE" columnIndex="1"/>
+    <property name="label" column="LABEL" columnIndex="2"/>
+  </result-map>
+
+  <dynamic-mapped-statement name="getUserGroups" result-map="userGroup">
+    SELECT DISTINCT
+      "GROUP".ID AS VALUE,
+      "GROUP".NAME AS LABEL
+    FROM
+      "GROUP"
+      <dynamic prepend=",">
+        <isNotEmpty property="userID" >
+          ORGROLEUSER
+        </isNotEmpty>
+      </dynamic>
+    <dynamic prepend="WHERE">
+      <isNotEmpty prepend="AND" property="userID" >
+        ORGROLEUSER.ROLEID="GROUP".ID AND
+        ORGROLEUSER.USERID=#userID#
+      </isNotEmpty>
+    </dynamic>
+  </dynamic-mapped-statement>
+
+  <!-- get login name by password, wanghua add 2004-02-20 -->
+  <mapped-statement name="getPasswordByUsername" result-class="java.lang.String">
+    SELECT
+      users.password AS remark
+    FROM
+      users
+    WHERE
+      users.loginname=#value#
+  </mapped-statement>
+
+</sql-map>

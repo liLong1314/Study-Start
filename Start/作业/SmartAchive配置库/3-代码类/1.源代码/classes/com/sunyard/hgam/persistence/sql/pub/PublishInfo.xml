@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="PublishInfo">
+  <result-map name="publishInfo" class="com.sunyard.hgam.persistence.dao.beans.pub.PublishInfo">
+    <property name="info_id"		column="INFO_ID"/>
+    <property name="info_type"		column="INFO_TYPE"/>
+    <property name="info_title"		column="INFO_TITLE"/>
+    <property name="info_content"	column="INFO_CONTENT"/>
+    <property name="info_is_out"	column="INFO_IS_OUT"/>
+    <property name="info_publish_person"	column="INFO_PUBLISH_PERSON"/>
+    <property name="info_publish_datetime"	column="INFO_PUBLISH_DATETIME"/>
+    <property name="info_feedback_content"	column="INFO_FEEDBACK_CONTENT"/>
+    <property name="info_feedback_person"	column="INFO_FEEDBACK_PERSON"/>
+    <property name="info_feedback_datetime"	column="INFO_FEEDBACK_DATETIME"/>
+    <property name="info_is_confirm"		column="INFO_IS_CONFIRM"/>
+    <property name="info_confirm_idea"		column="INFO_CONFIRM_IDEA"/>
+    <property name="info_confirm_person"	column="INFO_CONFIRM_PERSON"/>
+    <property name="info_confirm_datetime"	column="INFO_CONFIRM_DATETIME"/>
+    <property name="info_status"	column="INFO_STATUS"/>
+    <property name="remark"		column="REMARK"/>
+   </result-map>
+
+   <!--插入发布信息-->
+   <dynamic-mapped-statement name="addPublishInfo">
+	INSERT INTO PUBLISH_INFO
+        ( INFO_ID,
+	  INFO_TYPE,
+	  INFO_PUBLISH_DATETIME
+	  <dynamic>
+            <isPropertyAvailable prepend="," property="info_is_out">
+              INFO_IS_OUT
+            </isPropertyAvailable>
+            <isNotEmpty prepend="," property="info_title">
+              INFO_TITLE
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="info_content">
+              INFO_CONTENT
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="info_publish_person">
+              INFO_PUBLISH_PERSON
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="info_status">
+              INFO_STATUS
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="remark">
+              REMARK
+            </isNotEmpty>
+	  </dynamic>
+	)
+	VALUES
+	(
+	  #info_id#,
+	  #info_type#,
+	  sysdate
+	  <dynamic>
+            <isPropertyAvailable property="info_is_out">
+            <isNotEmpty prepend="," property="info_is_out">
+              #info_is_out#
+            </isNotEmpty>
+            <isEmpty prepend="," property="info_is_out">
+              '0'
+            </isEmpty>
+            </isPropertyAvailable>
+            <isNotEmpty prepend="," property="info_title">
+              #info_title#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="info_content">
+              #info_content#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="info_publish_person">
+              #info_publish_person#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="info_status">
+              #info_status#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="remark">
+              #remark#
+            </isNotEmpty>
+	  </dynamic>
+	)
+   </dynamic-mapped-statement>
+
+   <!--取得最大的INFO_ID-->
+   <mapped-statement name="getMaxInfoId" result-class="java.lang.Integer">
+   <![CDATA[
+	SELECT NVL(MAX(INFO_ID),0) AS INFO_ID FROM PUBLISH_INFO
+   ]]>
+   </mapped-statement>
+
+   <!--根据ID取得发布信息-->
+   <mapped-statement name="getPublishInfoById" result-map="publishInfo">
+	SELECT
+	  A.INFO_ID,
+	  A.INFO_TYPE,
+	  A.INFO_TITLE,
+	  A.INFO_CONTENT,
+	  A.INFO_IS_OUT,
+	  A.INFO_PUBLISH_PERSON,
+	  A.INFO_PUBLISH_DATETIME,
+	  A.INFO_FEEDBACK_CONTENT,
+	  A.INFO_FEEDBACK_PERSON,
+	  A.INFO_FEEDBACK_DATETIME,
+	  A.INFO_IS_CONFIRM,
+	  A.INFO_CONFIRM_IDEA,
+	  A.INFO_CONFIRM_PERSON,
+	  A.INFO_CONFIRM_DATETIME,
+	  A.INFO_STATUS,
+	  A.REMARK
+	FROM PUBLISH_INFO A
+	WHERE A.INFO_ID=#value#
+   </mapped-statement>
+
+   <!--更新发布信息（发布）-->
+   <dynamic-mapped-statement name="updatePublishInfo">
+	UPDATE PUBLISH_INFO
+        SET INFO_ID = #info_id#
+	  <dynamic>
+            <isPropertyAvailable prepend="," property="info_type">
+              INFO_TYPE = #info_type#
+            </isPropertyAvailable>
+            <isPropertyAvailable prepend="," property="info_title">
+              INFO_TITLE = #info_title#
+            </isPropertyAvailable>
+            <isPropertyAvailable prepend="," property="info_content">
+              INFO_CONTENT = #info_content#
+            </isPropertyAvailable>
+            <isPropertyAvailable prepend="," property="info_is_out">
+              INFO_IS_OUT = #info_is_out#
+            </isPropertyAvailable>
+            <isPropertyAvailable prepend="," property="info_publish_person">
+              INFO_PUBLISH_PERSON = #info_publish_person#
+            </isPropertyAvailable>
+            <isPropertyAvailable prepend="," property="info_publish_datetime">
+              INFO_PUBLISH_DATETIME = sysdate
+            </isPropertyAvailable>
+            <isPropertyAvailable prepend="," property="remark">
+              REMARK = #remark#
+            </isPropertyAvailable>
+	  </dynamic>
+	WHERE INFO_ID = #info_id#
+   </dynamic-mapped-statement>
+
+   <!--更新发布信息（回复）-->
+   <dynamic-mapped-statement name="updatePublishInfoForFeedback">
+	UPDATE PUBLISH_INFO
+        SET INFO_ID = #info_id#
+	  <dynamic>
+            <isPropertyAvailable prepend="," property="info_feedback_content">
+              INFO_FEEDBACK_CONTENT = #info_feedback_content#
+            </isPropertyAvailable>
+            <isPropertyAvailable prepend="," property="info_feedback_person">
+              INFO_FEEDBACK_PERSON = #info_feedback_person#
+            </isPropertyAvailable>
+            <isPropertyAvailable prepend="," property="info_feedback_datetime">
+              INFO_FEEDBACK_DATETIME = sysdate
+            </isPropertyAvailable>
+	  </dynamic>
+	WHERE INFO_ID = #info_id#
+   </dynamic-mapped-statement>
+
+   <!--更新发布信息（审核）-->
+   <dynamic-mapped-statement name="updatePublishInfoForConfirm">
+	UPDATE PUBLISH_INFO
+        SET INFO_ID = #info_id#
+	  <dynamic>
+            <isPropertyAvailable prepend="," property="info_is_confirm">
+              INFO_IS_CONFIRM = #info_is_confirm#
+            </isPropertyAvailable>
+            <isPropertyAvailable prepend="," property="info_confirm_idea">
+              INFO_CONFIRM_IDEA = #info_confirm_idea#
+            </isPropertyAvailable>
+            <isPropertyAvailable prepend="," property="info_confirm_person">
+              INFO_FEEDBACK_PERSON = #info_confirm_person#
+            </isPropertyAvailable>
+            <isPropertyAvailable prepend="," property="info_confirm_datetime">
+              INFO_CONFIRM_DATETIME = sysdate
+            </isPropertyAvailable>
+            <isNotEmpty property="info_is_confirm">
+           	<isEqual prepend="," property="info_is_confirm" compareValue="1">
+              	INFO_STATUS = '1'
+            	</isEqual>
+           	<isEqual prepend="," property="info_is_confirm" compareValue="0">
+              	INFO_STATUS = '0'
+            	</isEqual>
+            </isNotEmpty>
+	  </dynamic>
+	WHERE INFO_ID = #info_id#
+   </dynamic-mapped-statement>
+
+   <!--删除发布信息-->
+   <mapped-statement name="deletePublishInfo">
+	DELETE FROM PUBLISH_INFO
+	WHERE INFO_ID = #value#
+   </mapped-statement>
+
+   <!--查询发布信息列表-->
+   <dynamic-mapped-statement name="queryPublishInfoList" result-map="publishInfo">
+   <![CDATA[
+	SELECT
+	  A.INFO_ID,
+	  B.SYSPARAM_NAME AS INFO_TYPE,
+	  A.INFO_TITLE,
+	  A.INFO_CONTENT,
+	  A.INFO_IS_OUT,
+	  A.INFO_PUBLISH_PERSON,
+	  TO_CHAR(A.INFO_PUBLISH_DATETIME,'YYYY-MM-DD HH24:MI:SS') AS INFO_PUBLISH_DATETIME,
+	  A.INFO_FEEDBACK_CONTENT,
+	  A.INFO_FEEDBACK_PERSON,
+	  A.INFO_FEEDBACK_DATETIME,
+	  A.INFO_IS_CONFIRM,
+	  A.INFO_CONFIRM_IDEA,
+	  A.INFO_CONFIRM_PERSON,
+	  A.INFO_CONFIRM_DATETIME,
+	  A.INFO_STATUS,
+	  A.REMARK
+	FROM PUBLISH_INFO A,SYSPARAM B
+	WHERE A.INFO_TYPE=B.SYSPARAM_VALUE(+)
+		AND B.SYSPARAM_TYPE='PUBLISH_INFO_TYPE'
+		AND A.INFO_TYPE<>'BUG'
+   ]]>
+	<dynamic>
+            <isNotEmpty prepend="AND" property="info_type">
+              A.INFO_TYPE = #info_type#
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="info_title">
+              A.INFO_TITLE like '%' || #info_title# || '%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="info_content">
+              A.INFO_CONTENT like '%' || #info_content# || '%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="info_is_out">
+              A.INFO_IS_OUT = #info_is_out#
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="info_status">
+              A.INFO_STATUS = #info_status#
+            </isNotEmpty>
+	</dynamic>
+	ORDER BY INFO_PUBLISH_DATETIME DESC
+   </dynamic-mapped-statement>
+
+   <!--查询发布信息列表-->
+   <dynamic-mapped-statement name="queryFeedbackList" result-map="publishInfo">
+	SELECT
+	  A.INFO_ID,
+	  A.INFO_TYPE,
+	  A.INFO_TITLE,
+	  A.INFO_CONTENT,
+	  A.INFO_IS_OUT,
+	  A.INFO_PUBLISH_PERSON,
+	  TO_CHAR(A.INFO_PUBLISH_DATETIME,'YYYY-MM-DD HH24:MI:SS') AS INFO_PUBLISH_DATETIME,
+	  A.INFO_FEEDBACK_CONTENT,
+	  A.INFO_FEEDBACK_PERSON,
+	  A.INFO_FEEDBACK_DATETIME,
+	  A.INFO_IS_CONFIRM,
+	  A.INFO_CONFIRM_IDEA,
+	  A.INFO_CONFIRM_PERSON,
+	  A.INFO_CONFIRM_DATETIME,
+	  A.INFO_STATUS,
+	  A.REMARK
+	FROM PUBLISH_INFO A
+	<dynamic prepend="WHERE">
+            <isNotEmpty prepend="AND" property="info_type">
+              A.INFO_TYPE = #info_type#
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="info_title">
+              A.INFO_TITLE like '%' || #info_title# || '%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="info_content">
+              A.INFO_CONTENT like '%' || #info_content# || '%'
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="info_is_out">
+              A.INFO_IS_OUT = #info_is_out#
+            </isNotEmpty>
+            <isNotEmpty prepend="AND" property="info_status">
+              A.INFO_STATUS = #info_status#
+            </isNotEmpty>
+	</dynamic>
+	ORDER BY INFO_PUBLISH_DATETIME DESC
+   </dynamic-mapped-statement>
+
+   <!--查询发布信息列表（用于首页）-->
+   <dynamic-mapped-statement name="queryPublishInfoListByType" result-map="publishInfo">
+   <![CDATA[
+	SELECT
+	  INFO_ID,
+	  INFO_TYPE,
+	  INFO_TITLE,
+	  INFO_CONTENT,
+	  INFO_IS_OUT,
+	  INFO_PUBLISH_PERSON,
+	  TO_CHAR(INFO_PUBLISH_DATETIME,'YYYY-MM-DD HH24:MI:SS') AS INFO_PUBLISH_DATETIME,
+	  INFO_FEEDBACK_CONTENT,
+	  INFO_FEEDBACK_PERSON,
+	  INFO_FEEDBACK_DATETIME,
+	  INFO_IS_CONFIRM,
+	  INFO_CONFIRM_IDEA,
+	  INFO_CONFIRM_PERSON,
+	  INFO_CONFIRM_DATETIME,
+	  INFO_STATUS,
+	  REMARK
+	FROM PUBLISH_INFO
+	WHERE ROWNUM<11
+	  AND INFO_STATUS='1'
+	  AND INFO_TYPE = #value#
+	ORDER BY INFO_PUBLISH_DATETIME DESC
+   ]]>
+   </dynamic-mapped-statement>
+
+  <result-map name="publishInfoAccessory" class="com.sunyard.hgam.persistence.dao.beans.pub.PublishInfoAccessory">
+    <property name="accessory_id"	column="ACCESSORY_ID"/>
+    <property name="info_id"		column="INFO_ID"/>
+    <property name="accessory_title"	column="ACCESSORY_TITLE"/>
+    <property name="accessory_filename"	column="ACCESSORY_FILENAME"/>
+    <property name="remark"		column="REMARK"/>
+   </result-map>
+
+   <!--插入发布信息对应的附件-->
+   <dynamic-mapped-statement name="addPublishInfoAccessory">
+	INSERT INTO PUBLISH_INFO_ACCESSORY
+        ( ACCESSORY_ID
+	  <dynamic>
+            <isNotEmpty prepend="," property="info_id">
+              INFO_ID
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="accessory_title">
+              ACCESSORY_TITLE
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="accessory_filename">
+              ACCESSORY_FILENAME
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="remark">
+              REMARK
+            </isNotEmpty>
+	  </dynamic>
+	)
+	SELECT
+	  NVL(MAX(ACCESSORY_ID),0)+1
+	  <dynamic>
+            <isNotEmpty prepend="," property="info_id">
+              #info_id#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="accessory_title">
+              #accessory_title#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="accessory_filename">
+              #accessory_filename#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="remark">
+              #remark#
+            </isNotEmpty>
+	  </dynamic>
+	FROM PUBLISH_INFO_ACCESSORY
+   </dynamic-mapped-statement>
+
+   <!--根据INFO_ID取得附件列表-->
+   <mapped-statement name="getPublishInfoAccessoryListByInfoId" result-map="publishInfoAccessory">
+	SELECT *
+	FROM PUBLISH_INFO_ACCESSORY
+	WHERE INFO_ID = #value#
+   </mapped-statement>
+
+   <!--删除发布信息对应的附件-->
+   <mapped-statement name="deletePublishInfoAccessoryByInfoId">
+	DELETE FROM PUBLISH_INFO_ACCESSORY
+	WHERE INFO_ID = #value#
+   </mapped-statement>
+</sql-map>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="SysParam">
+  <result-map name="sysParam" class="com.sunyard.hgam.persistence.dao.beans.smm.SysParam">
+    <property name="sysParamId" column="SYSPARAM_ID" />
+    <property name="sysParamType" column="SYSPARAM_TYPE" />
+    <property name="sysParamName" column="SYSPARAM_NAME" />
+    <property name="sysParamValue" column="SYSPARAM_VALUE" />
+    <property name="remark" column="REMARK" />
+  </result-map>
+
+  <mapped-statement name="getAllSysParam" result-map="sysParam">
+  <![CDATA[
+    SELECT
+      SYSPARAM_ID,
+      SYSPARAM_TYPE,
+      SYSPARAM_NAME,
+      SYSPARAM_VALUE,
+      REMARK
+    FROM
+      SYSPARAM
+    ORDER BY
+      SYSPARAM_ID
+  ]]>
+  </mapped-statement>
+
+  <dynamic-mapped-statement name="searchSysParam" result-map="sysParam">
+    SELECT
+      SYSPARAM_ID,
+      SYSPARAM_TYPE,
+      SYSPARAM_NAME,
+      SYSPARAM_VALUE,
+      REMARK
+    FROM
+      SYSPARAM
+    <dynamic prepend="WHERE">
+      <isNotEmpty prepend="AND" property="sysParamId">
+        SYSPARAM_ID=#sysParamId#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="sysParamType">
+        SYSPARAM_TYPE like #sysParamType#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="sysParamName">
+        SYSPARAM_NAME like #sysParamName#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="sysParamValue">
+        SYSPARAM_VALUE like #sysParamValue#
+      </isNotEmpty>
+    </dynamic>
+    ORDER BY
+      SYSPARAM_ID
+  </dynamic-mapped-statement>
+
+  <mapped-statement name="getSysParamByID" result-map="sysParam">
+  <![CDATA[
+    SELECT
+      SYSPARAM_ID,
+      SYSPARAM_TYPE,
+      SYSPARAM_NAME,
+      SYSPARAM_VALUE,
+      REMARK
+    FROM
+      SYSPARAM
+    WHERE
+      SYSPARAM_ID=#value#
+  ]]>
+  </mapped-statement>
+
+  <mapped-statement name="getSysParamByTypeAndValue" result-map="sysParam">
+  <![CDATA[
+    SELECT
+      SYSPARAM_ID,
+      SYSPARAM_TYPE,
+      SYSPARAM_NAME,
+      SYSPARAM_VALUE,
+      REMARK
+    FROM
+      SYSPARAM
+    WHERE
+      SYSPARAM_TYPE=#sysParamType# AND
+      SYSPARAM_VALUE=#sysParamValue#
+  ]]>
+  </mapped-statement>
+
+  <mapped-statement name="getSysParamByType" result-map="sysParam">
+  <![CDATA[
+    SELECT
+      SYSPARAM_ID,
+      SYSPARAM_TYPE,
+      SYSPARAM_NAME,
+      SYSPARAM_VALUE,
+      REMARK
+    FROM
+      SYSPARAM
+    WHERE
+      SYSPARAM_TYPE=#value#
+  ]]>
+  </mapped-statement>
+
+  <mapped-statement name="addSysParam">
+  <![CDATA[
+    INSERT INTO SYSPARAM (SYSPARAM_ID,SYSPARAM_TYPE,SYSPARAM_NAME,SYSPARAM_VALUE,REMARK)
+       VALUES ((SELECT NVL(MAX(NVL(SYSPARAM_ID,0))+1,1) FROM SYSPARAM),#sysParamType#,#sysParamName#,#sysParamValue#,#remark#)
+  ]]>
+  </mapped-statement>
+
+  <mapped-statement name="deleteSysParamByID">
+  <![CDATA[
+    DELETE FROM SYSPARAM WHERE SYSPARAM_ID=#value#
+  ]]>
+  </mapped-statement>
+
+  <mapped-statement name="updateSysParam">
+  <![CDATA[
+    UPDATE SYSPARAM SET
+      SYSPARAM_TYPE=#sysParamType#,
+      SYSPARAM_NAME=#sysParamName#,
+      SYSPARAM_VALUE=#sysParamValue#,
+      REMARK=#remark#
+    WHERE SYSPARAM_ID=#sysParamId#
+   ]]>
+  </mapped-statement>
+
+</sql-map>
+

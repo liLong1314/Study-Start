@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="SubRollCatalog">
+  <result-map name="subRollCatalog" class="com.sunyard.hgam.persistence.dao.beans.arm.SubRollCatalog">
+    <property name="rollCataId" column="ROLLCATA_ID" />
+    <property name="subCode" column="SUB_CODE" />
+    <property name="rollCataTitle" column="ROLLCATA_TITLE" />
+    <property name="rollCataMegn" column="ROLLCATA_MEGNUM" />
+    <property name="rollCataDate" column="ROLLCATA_DATE" />
+    <property name="rollCataStor" column="ROLLCATA_STORETIME" />
+    <property name="remark" column="REMARK" />
+  </result-map>
+<mapped-statement name="getAllSubRollCatalog" result-map="subRollCatalog">
+   <![CDATA[
+     SELECT
+       ROLLCATA_ID,
+       SUB_CODE,
+       ROLLCATA_TITLE,
+       ROLLCATA_MEGNUM,
+       ROLLCATA_DATE,
+       ROLLCATA_STORETIME,
+       REMARK
+     FROM
+       SUBROLLCATALOG
+   ]]>
+  </mapped-statement>
+<mapped-statement name="getSubRollCatalogByID" result-map="subRollCatalog">
+   <![CDATA[
+     SELECT
+       ROLLCATA_ID,
+       SUB_CODE,
+       ROLLCATA_TITLE,
+       ROLLCATA_MEGNUM,
+       ROLLCATA_DATE,
+       ROLLCATA_STORETIME,
+       REMARK
+     FROM
+       SUBROLLCATALOG
+     WHERE
+      ROLLCATA_ID=#value#
+   ]]>
+  </mapped-statement>
+<mapped-statement name="addSubRollCatalog">
+   <![CDATA[
+    INSERT INTO SUBROLLCATALOG(ROLLCATA_ID,
+                                 SUB_CODE,
+                              ROLLCATA_TITLE,
+                              ROLLCATA_MEGNUM,
+                              ROLLCATA_DATE,
+                              ROLLCATA_STORETIME,
+                              REMARK)
+       VALUES ((SELECT NVL(MAX(NVL(ROLLCATA_ID,0))+1,1) FROM SUBROLLCATALOG),
+                #subCode#,
+                #rollCataTitle#,
+               #rollCataMegn#,
+               #rollCataDate#,
+               #rollCataStor#,
+               #remark#)
+   ]]>
+   </mapped-statement>
+   <mapped-statement name="updateSubRollCatalog">
+  <![CDATA[
+    UPDATE SUBROLLCATALOG SET
+      SUB_CODE=#subCode#,
+      ROLLCATA_TITLE=#rollCataTitle#,
+      ROLLCATA_MEGNUM=#rollCataMegn#,
+      ROLLCATA_DATE=#rollCataDate#,
+      ROLLCATA_STORETIME=#rollCataStor#,
+      REMARK=#remark#
+      WHERE ROLLCATA_ID=#rollCataId#
+   ]]>
+  </mapped-statement>
+<dynamic-mapped-statement name="querySubRollCatalogList" result-map="subRollCatalog">
+   SELECT
+       ROLLCATA_ID,
+       SUB_CODE,
+       ROLLCATA_TITLE,
+       ROLLCATA_MEGNUM,
+       ROLLCATA_DATE,
+       ROLLCATA_STORETIME,
+       REMARK
+   FROM
+       SUBROLLCATALOG
+   <dynamic prepend="WHERE">
+      <isNotEmpty prepend="AND" property="subCode">
+      	SUB_CODE like '%' || #subCode# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="rollCataTitle">
+      	ROLLCATA_TITLE like '%' || #rollCataTitle# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="rollCataMegn">
+      	ROLLCATA_MEGNUM like '%' || #rollCataMegn# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="rollCataDate">
+      	ROLLCATA_DATE like '%' || #rollCataDate# || '%'
+      </isNotEmpty>
+   </dynamic>
+     ORDER BY
+      	SUB_CODE DESC
+ </dynamic-mapped-statement>
+</sql-map>
+
+
+
+

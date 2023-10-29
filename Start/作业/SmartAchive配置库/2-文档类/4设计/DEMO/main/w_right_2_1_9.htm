@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>无标题文档</title>
+<link href="../common/css/sunhoo.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+body {
+	background-image: url(../image/2_mainpagebg_01.gif);
+}
+-->
+</style></head>
+<body class="bg-page01">
+<script language="JavaScript">
+function copyToList(from,to){
+  fromList = eval('document.forms[0].' + from);
+  toList = eval('document.forms[0].' + to);
+  if (toList.options.length > 0 && toList.options[0].value == 'temp')
+  {
+    toList.options.length = 0;
+  }
+  var sel = false;
+  for (i=0;i<fromList.options.length;i++)
+  {
+    var current = fromList.options[i];
+    if (current.selected)
+    {
+      sel = true;
+      if (current.value == 'temp')
+      {
+        alert ('你不能选择这个项目!');
+        return;
+      }
+      txt = current.text;
+      val = current.value;
+      toList.options[toList.length] = new Option(txt,val);
+      fromList.options[i] = null;
+      i--;
+    }
+  }
+  if (!sel) alert ('你还没有选择任何项目');
+}
+function allSelect() 
+{
+  List = document.forms[0].chosen;
+  if (List.length && List.options[0].value == 'temp') return;
+  for (i=0;i<List.length;i++)
+  {
+     List.options[i].selected = true;
+  }
+}
+
+</script>
+<form action="" method="post" name="form1">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr> 
+      <td width="33"><img src="../image/2_table_l_t.gif" width="32" height="22"></td>
+      <td colspan="3" background="../image/2_table_c_t.gif">&nbsp;</td>
+      <td width="26"><img src="../image/2_table_r_t.gif" width="26" height="22"></td>
+    </tr>
+    <tr> 
+      <td background="../image/2_table_c_r.gif">&nbsp;</td>
+      <td width="52" align="right" bgcolor="#FFFFFF"> <img src="../image/dot01.gif" width="8" height="8"><br> 
+      </td>
+      <td width="8" align="center" bgcolor="#FFFFFF">&nbsp;</td>
+      <td width="667" align="left" bgcolor="#FFFFFF"> 您现在的位置： &gt;&gt; 系统管理 &gt;&gt; 
+        权限管理 &gt;&gt; 用户管理</td>
+      <td background="../image/2_table_c_l.gif">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td><img src="../image/2_table_r_b.gif" width="32" height="20"></td>
+      <td colspan="3" background="../image/2_table_c_b.gif"><img src="../image/2_table_c_b.gif" width="115" height="20"></td>
+      <td><img src="../image/2_table_l_b.gif" width="26" height="20"></td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr> 
+      <td width="4%"><img src="../image/2_table_l_t.gif" width="32" height="22"></td>
+      <td width="94%" background="../image/2_table_c_t.gif"><table width="237" border="0" cellspacing="0" cellpadding="0">
+          <tr align="center"> 
+            <td width="25" align="right" background="../image/2_table_c_t.gif" bgcolor="#FFFFFF"><img src="../image/dot01.gif" width="8" height="8"></td>
+            <td width="212"><table width="200" border="0" cellpadding="2" cellspacing="1" bgcolor="#99CC00">
+                <tr> 
+                  <td align="center" bgcolor="#F2F9E6" class="tishi">用户权限信息</td>
+                </tr>
+              </table></td>
+          </tr>
+        </table></td>
+      <td width="2%"><img src="../image/2_table_r_t.gif" width="26" height="22"></td>
+    </tr>
+    <tr> 
+      <td background="../image/2_table_c_r.gif">&nbsp;</td>
+      <td align="center" bgcolor="#FFFFFF"><br> <table width="100%" border="1">
+          <tr> 
+            <td height="112"> <table width="100%" border="0" cellpadding="2" cellspacing="1" bgcolor="#CCCCCC">
+                <tr bgcolor="#FFFFFF"> 
+                  <td width="50%" align="right">用户编号</td>
+                  <td width="50%">001</td>
+                </tr>
+                <tr bgcolor="#FFFFFF"> 
+                  <td align="right">用户名称</td>
+                  <td>张三</td>
+                </tr>
+                <tr bgcolor="#FFFFFF"> 
+                  <td align="right">隶属组</td>
+                  <td>信息科</td>
+                </tr>
+                <tr bgcolor="#FFFFFF"> 
+                  <td align="right">拥有权限</td>
+                  <td>采集、著录</td>
+                </tr>
+                <tr bgcolor="#FFFFFF"> 
+                  <td colspan="2" align="center"><input type="button" name="Submit22" onclick="window.location='w_right_2_1.htm'"value="返回"></td>
+                </tr>
+              </table></td>
+          </tr>
+        </table>
+        <br> </td>
+      <td background="../image/2_table_c_l.gif">&nbsp;</td>
+    </tr>
+    <tr> 
+      <td><img src="../image/2_table_r_b.gif" width="32" height="20"></td>
+      <td background="../image/2_table_c_b.gif"><img src="../image/2_table_c_b.gif" width="115" height="20"></td>
+      <td><img src="../image/2_table_l_b.gif" width="26" height="20"></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

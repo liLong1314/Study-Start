@@ -1,0 +1,183 @@
+<%@page import="java.util.*"%>
+<%
+java.text.SimpleDateFormat formatter=new java.text.SimpleDateFormat("yyyyMMddHHmmssSSS");
+java.util.Date currentTime_1 = new java.util.Date();
+String dateString = formatter.format(currentTime_1);
+
+Hashtable hs=(Hashtable)session.getAttribute("sysconfig");
+Hashtable hsFTP = (Hashtable)hs.get("FTP");
+String servername =(String) hsFTP.get("servername") ;
+String ftprooturl=(String) hsFTP.get("ftprooturl") ;
+String username = (String) hsFTP.get("username") ;
+String password = (String) hsFTP.get("password") ;
+String localdir=(String)hsFTP.get("localdir");
+%>
+<%@ page contentType="text/html;charset=GBK" language="java" %>
+<%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
+<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
+<%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
+
+<html:html locale="true">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>太保单证影像系统</title>
+<style type="text/css">
+
+</style>
+<link href="aaa.css" rel="stylesheet" type="text/css">
+<script language="JavaScript">
+
+    function init(ftprooturl)
+    {
+        //下载配置文件
+
+        if(!UploadCtrl1.ConnectServer('server',21,'anonymous','abc@abc.com'))
+        {
+            alert("连接FTP服务器失败，下载初始化文件失败！");
+            return;
+        }
+        var dateString=document.BeforScanForm.resultXMLPath.value;
+        var serverdir=ftprooturl+'/'+dateString;
+
+        if(!UploadCtrl1.GetFile(serverdir,'FolderStruct.xml','C:\Program Files\Sunyard\SVII','FolderStruct.xml'))
+        {
+            alert("下载初始化文件失败！");
+            return;
+        }
+
+        if(!UploadCtrl1.GetFile(serverdir,'Folder.zip','C:\Program Files\Sunyard\SVII','Folder.zip'))
+        {
+            alert("下载图像文件失败！");
+            return;
+        }
+        /*
+        if(!UploadCtrl1.deleteDirectory(serverdir))
+        {
+            alert("删除服务器中临时目录出错！");
+            return;
+        }
+        */
+        UploadCtrl1.DisconnectServer();
+
+        //根据配置文件初始化扫描控件
+        toInitFolder();
+}
+
+function toSubmit(dateString) {
+
+  var strScanResultXML;
+  if(confirm("请需要提交此次扫描的资料吗？")==false)
+    return;
+  //提取扫描图象文件及xml文件
+   strScanResultXML=WebScan1.FileSubmit();
+   if(strScanResultXML=="")
+   {
+     var errinfo=WebScan1.LastErrorGet();
+     window.alert(errinfo);
+   }
+   else
+   {
+       //压缩影像文件
+       document.BeforScanForm.resultXMLPath.value=dateString;
+       //alert(dateString);
+       //var zipfilepath=WebScan1.FileZip("");
+       var zipfile="C:\\Program Files\\Sunyard\\SVII\\Folder.zip";
+       var zipfilepath=WebScan1.FileZipWithName('',zipfile);
+       document.BeforScanForm.resultZipPath.value=zipfile;
+
+       //上传扫描文件及配置文件
+      if(!UploadCtrl1.ConnectServer('<%=servername%>',21,'<%=username%>','<%=password%>'))
+      {
+          alert("连接FTP服务器失败，本次保存失败！");
+          return;
+      }
+
+      if(!UploadCtrl1.CreateDirectory('<%=ftprooturl+"/"+dateString%>'))
+      {
+          alert("在ftp服务器上建临时目录时出错！本次保存失败");
+          return;
+      }
+      if(!UploadCtrl1.PutFile('<%=ftprooturl+"/"+dateString%>','SubmitTemp.xml','<%=localdir%>','SubmitTemp.xml'))
+      {
+          alert("上传扫描信息文件时出错，本次保存失败！");
+          return;
+      }
+      if(!UploadCtrl1.PutFile('<%=ftprooturl+"/"+dateString%>','Folder.zip','<%=localdir%>','Folder.zip'))
+      {
+          alert("上传扫描信息文件时出错，本次保存失败！");
+          return;
+      }
+      UploadCtrl1.DisconnectServer();
+      //提交保存
+     document.BeforScanForm.submit();
+
+    }
+
+}
+
+
+function toInitFolder() {
+    WebScan1.FileDelete('');
+    var breturn1=WebScan1.FileUnzip('C:\\ImgTemp','C:\\Program Files\\Sunyard\\SVII\\Folder.zip');
+    //window.alert(breturn1);
+    var breturn2=WebScan1.FolderSet('C:\\Program Files\\Sunyard\\SVII\\FolderStruct.xml',true);
+    //if(breturn!="1");
+    //{
+    //  var errinfo=WebScan1.LastErrorGet();
+    //  window.alert(errinfo);
+      //window.alert("提交时出错");
+    //  return ;
+  // }
+  //  window.alert("init finished");
+}
+
+</script>
+</head>
+
+<body leftmargin="0" topmargin="0" onload="javascript:init('<%=ftprooturl%>')">
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="100%" valign="top" background="images/bgcolor.gif"> <table width="90%" height="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="21">
+              <div align="right"></div>
+              <br>
+              <table width="180" height="21" border="0" align="right" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td width="4"><img src="images/an_left.gif" width="4" height="21"></td>
+                  <td width="76" background="images/an_bg.gif"><div align="center"><font>
+                      <span style="font-size=12;FILTER:DropShadow(Color=#ffffff, OffX=1, OffY=1,
+        Positive=1);height:12" ><a href="javascript:toSubmit('<%=dateString%>')">提　交</a></span></font></div></td>
+                  <td width="10"><img src="images/an_right.gif" width="4" height="21"></td>
+
+                   <td width="10"></td>
+                  <td width="4"><img src="images/an_left.gif" width="4" height="21"></td>
+                  <td width="76" background="images/an_bg.gif"><div align="center"><font>
+                      <span style="font-size=12;FILTER:DropShadow(Color=#ffffff, OffX=1, OffY=1,
+        Positive=1);height:12" ><a href="javascript:history.back()">返回上页</a></span></font></div></td>
+                  <td width="10"><img src="images/an_right.gif" width="4" height="21"></td>
+
+                </tr>
+              </table>
+            </td>
+        </tr>
+        <tr>
+          <td height="100%" valign="top"> <object classid="clsid:B66669B1-BEA5-4176-A9A2-3D4410157C37" id="WebScan1" data="DATA:application/x-oleobject;BASE64,sWlmtqW+dkGpoj1EEBV8NwADAADYEwAA2BMAAA==" width="100%" height="100%">
+            </object> </td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+
+<object classid="clsid:32019071-CB2B-421D-928B-F485FA051451" id="UploadCtrl1" width="14" height="14">
+  <param name="_ExtentX" value="370">
+  <param name="_ExtentY" value="370">
+</object>
+
+<html:form action="ScanImgChktodo.do?parameter=after">
+
+<html:hidden property="resultXMLPath"/>
+<html:hidden property="resultZipPath"/>
+</html:form>
+</body>
+</html:html>

@@ -1,0 +1,926 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="ArchivesFile">
+   <!--原来的字段，已经废弃-->
+   <result-map name="archivesFiles" class="com.sunyard.hgam.persistence.dao.beans.adc.ArchivesFile">
+    <property name="file_id" column="FILE_ID"/>
+    <property name="eform_id" column="EFORM_ID"/>
+    <property name="phase_id" column="PHASE_ID"/>
+    <property name="up_phase_id" column="UP_PHASE_ID"/>
+    <property name="parent_file_id" column="PARENT_FILE_ID"/>
+    <property name="archives_id" column="ARCHIVES_ID"/>
+    <property name="secret_id" column="SECRET_ID"/>
+    <property name="proj_id" column="PROJ_ID"/>
+    <property name="proj_name" column="PROJ_NAME"/>
+    <property name="file_num" column="FILE_NUM"/>
+    <property name="file_title" column="FILE_TITLE"/>
+    <property name="file_duty" column="FILE_DUTY"/>
+    <property name="file_date" column="FILE_DATE"/>
+    <property name="file_page_amount" column="FILE_PAGE_AMOUNT"/>
+    <property name="file_type" column="FILE_TYPE"/>
+    <property name="file_keywords" column="FILE_KEYWORDS"/>
+    <property name="file_seq" column="FILE_SEQ"/>
+    <property name="file_store_term" column="FILE_STORE_TERM"/>
+    <property name="is_identify" column="IS_IDENTIFY"/>
+    <property name="identify_result" column="IDENTIFY_RESULT"/>
+    <property name="is_borrow" column="IS_BORROW"/>
+    <property name="is_destroy" column="IS_DESTROY"/>
+    <property name="file_status" column="FILE_STATUS"/>
+    <property name="file_pathName" column="FILE_PATHNAME"/>
+    <property name="remark" column="REMARK"/>
+   </result-map>
+
+   <!--2003.12.25郑先全扩展后的字段(增加了11个)-->
+   <result-map name="archivesFile" class="com.sunyard.hgam.persistence.dao.beans.adc.ArchivesFile">
+    <property name="file_id" column="FILE_ID"/>
+    <property name="eform_id" column="EFORM_ID"/>
+    <property name="phase_id" column="PHASE_ID"/>
+    <property name="up_phase_id" column="UP_PHASE_ID"/>
+    <property name="parent_file_id" column="PARENT_FILE_ID"/>
+    <property name="archives_id" column="ARCHIVES_ID"/>
+    <property name="secret_id" column="SECRET_ID"/>
+    <property name="proj_id" column="PROJ_ID"/>
+    <property name="proj_name" column="PROJ_NAME"/>
+    <property name="file_num" column="FILE_NUM"/>
+    <property name="file_title" column="FILE_TITLE"/>
+    <property name="file_duty" column="FILE_DUTY"/>
+    <property name="file_date" column="FILE_DATE"/>
+    <property name="file_page_amount" column="FILE_PAGE_AMOUNT"/>
+    <property name="file_type" column="FILE_TYPE"/>
+    <property name="file_keywords" column="FILE_KEYWORDS"/>
+    <property name="file_seq" column="FILE_SEQ"/>
+    <property name="file_store_term" column="FILE_STORE_TERM"/>
+    <property name="is_identify" column="IS_IDENTIFY"/>
+    <property name="identify_result" column="IDENTIFY_RESULT"/>
+    <property name="is_borrow" column="IS_BORROW"/>
+    <property name="is_destroy" column="IS_DESTROY"/>
+    <property name="file_status" column="FILE_STATUS"/>
+    <property name="file_pathName" column="FILE_PATHNAME"/>
+    <property name="remark" column="REMARK"/>
+
+    <property name="file_page_seq" column="FILE_PAGE_SEQ"/>
+    <property name="file_spec" column="FILE_SPEC"/>
+    <property name="media_type" column="MEDIA_TYPE"/>
+    <property name="file_count" column="FILE_COUNT"/>
+    <property name="file_get_date" column="FILE_GET_DATE"/>
+    <property name="file_get_forward" column="FILE_GET_FORWARD"/>
+    <property name="file_get_person" column="FILE_GET_PERSON"/>
+    <property name="file_to_unit" column="FILE_TO_UNIT"/>
+    <property name="file_to_forward" column="FILE_TO_FORWARD"/>
+    <property name="file_to_createby" column="FILE_TO_CREATEBY"/>
+    <property name="file_to_signby" column="FILE_TO_SIGNBY"/>
+    <property name="is_private" column="IS_PRIVATE"/>
+    <property name="page_num_from_to" column="PAGE_NUM_FROM_TO"/>
+   </result-map>
+
+   <result-map name="phase" class="com.sunyard.hgam.persistence.dao.beans.adc.ArchivesFile">
+    <property name="phase_id" 		column="PHASE_ID"/>
+    <property name="phase_name" 	column="PHASE_NAME"/>
+    <property name="up_phase_id" 	column="UP_PHASE_ID"/>
+    <property name="proj_id" 		column="PROJ_ID"/>
+    <property name="accept_id" 		column="ACCEPT_ID"/>
+   </result-map>
+
+   <dynamic-mapped-statement name="addArchivesFile">
+	INSERT INTO ARCHIVES_FILE
+        (FILE_ID,
+	 IS_IDENTIFY,
+	 IS_BORROW,
+	 IS_DESTROY,
+	 FILE_STATUS
+	 <dynamic>
+            <isNotEmpty prepend="," property="archives_id">
+              ARCHIVES_ID
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="secret_id">
+              SECRET_ID
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_title">
+              FILE_TITLE
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_duty">
+              FILE_DUTY
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_date">
+              FILE_DATE
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_page_amount">
+              FILE_PAGE_AMOUNT
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_keywords">
+              FILE_KEYWORDS
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_store_term">
+              FILE_STORE_TERM
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="is_private">
+              IS_PRIVATE
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="eform_id">
+              EFORM_ID
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="up_phase_id">
+              UP_PHASE_ID
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="phase_id">
+              PHASE_ID
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="parent_file_id">
+              PARENT_FILE_ID
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="proj_id">
+              PROJ_ID
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="proj_name">
+              PROJ_NAME
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_num">
+              FILE_NUM
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_type">
+              FILE_TYPE
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_pathName">
+              FILE_PATHNAME
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_seq">
+              FILE_SEQ
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_page_seq">
+              FILE_PAGE_SEQ
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="page_num_from_to">
+              PAGE_NUM_FROM_TO
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_spec">
+              FILE_SPEC
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="media_type">
+              MEDIA_TYPE
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_count">
+              FILE_COUNT
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_get_date">
+              FILE_GET_DATE
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_get_forward">
+              FILE_GET_FORWARD
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_get_person">
+              FILE_GET_PERSON
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_to_unit">
+              FILE_TO_UNIT
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_to_forward">
+              FILE_TO_FORWARD
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_to_createby">
+              FILE_TO_CREATEBY
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_to_signby">
+              FILE_TO_SIGNBY
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="remark">
+              REMARK
+            </isNotEmpty>
+         </dynamic>
+	)
+	VALUES
+        (#file_id#,
+	 0,
+	 0,
+	 0,
+	 '4'
+	 <dynamic>
+            <isNotEmpty prepend="," property="archives_id">
+              #archives_id#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="secret_id">
+              #secret_id#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_title">
+              #file_title#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_duty">
+              #file_duty#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_date">
+              #file_date#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_page_amount">
+              #file_page_amount#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_keywords">
+              #file_keywords#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_store_term">
+              #file_store_term#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="is_private">
+              #is_private#
+            </isNotEmpty>
+
+            <isNotEmpty prepend="," property="eform_id">
+              #eform_id#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="up_phase_id">
+              #up_phase_id#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="phase_id">
+              #phase_id#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="parent_file_id">
+              #parent_file_id#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="proj_id">
+              #proj_id#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="proj_name">
+              #proj_name#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_num">
+              #file_num#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_type">
+              #file_type#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_pathName">
+              #file_pathName#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_seq">
+              #file_seq#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_page_seq">
+              #file_page_seq#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="page_num_from_to">
+              #page_num_from_to#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_spec">
+              #file_spec#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="media_type">
+              #media_type#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_count">
+              #file_count#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_get_date">
+              TO_DATE(#file_get_date#,'YYYY-MM-DD')
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_get_forward">
+              #file_get_forward#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_get_person">
+              #file_get_person#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_to_unit">
+              #file_to_unit#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_to_forward">
+              #file_to_forward#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_to_createby">
+              #file_to_createby#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_to_signby">
+              #file_to_signby#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="remark">
+              #remark#
+            </isNotEmpty>
+         </dynamic>
+	)
+   </dynamic-mapped-statement>
+
+   <!--文件更新BY ZHENGXQ-->
+   <dynamic-mapped-statement name="updateArchivesFile">
+	UPDATE ARCHIVES_FILE
+        SET FILE_ID = #file_id#,
+	  IS_IDENTIFY=0,
+	  IS_BORROW=0,
+	  IS_DESTROY=0,
+	  FILE_STATUS='4'
+	  <dynamic>
+            <isNotEmpty prepend="," property="archives_id">
+              ARCHIVES_ID = #archives_id#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="secret_id">
+              SECRET_ID = #secret_id#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_title">
+              FILE_TITLE = #file_title#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_duty">
+              FILE_DUTY = #file_duty#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_date">
+              FILE_DATE = #file_date#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_page_amount">
+              FILE_PAGE_AMOUNT = #file_page_amount#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_keywords">
+              FILE_KEYWORDS = #file_keywords#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_store_term">
+              FILE_STORE_TERM = #file_store_term#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="is_private">
+              IS_PRIVATE = #is_private#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="eform_id">
+              EFORM_ID = #eform_id#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="up_phase_id">
+              UP_PHASE_ID = #up_phase_id#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="phase_id">
+              PHASE_ID = #phase_id#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="parent_file_id">
+              PARENT_FILE_ID = #parent_file_id#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="proj_id">
+              PROJ_ID = #proj_id#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="proj_name">
+              PROJ_NAME = #proj_name#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_num">
+              FILE_NUM = #file_num#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_type">
+              FILE_TYPE = #file_type#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_pathName">
+              FILE_PATHNAME = #file_pathName#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_seq">
+              FILE_SEQ = #file_seq#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_page_seq">
+              FILE_PAGE_SEQ = #file_page_seq#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="page_num_from_to">
+              PAGE_NUM_FROM_TO = #page_num_from_to#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_spec">
+              FILE_SPEC = #file_spec#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="media_type">
+              MEDIA_TYPE = #media_type#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_count">
+              FILE_COUNT = #file_count#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_get_date">
+              FILE_GET_DATE = TO_DATE(#file_get_date#,'YYYY-MM-DD')
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_get_forward">
+              FILE_GET_FORWARD = #file_get_forward#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_get_person">
+              FILE_GET_PERSON = #file_get_person#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_to_unit">
+              FILE_TO_UNIT = #file_to_unit#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_to_forward">
+              FILE_TO_FORWARD = #file_to_forward#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_to_createby">
+              FILE_TO_CREATEBY = #file_to_createby#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="file_to_signby">
+              FILE_TO_SIGNBY = #file_to_signby#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="remark">
+              REMARK = #remark#
+            </isNotEmpty>
+	  </dynamic>
+	WHERE FILE_ID = #file_id#
+   </dynamic-mapped-statement>
+
+   <mapped-statement name="getMaxFileId" result-class="java.lang.Integer">
+   <![CDATA[
+	SELECT NVL(MAX(NVL(FILE_ID,0)),0) AS FILE_ID FROM ARCHIVES_FILE
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="queryArchivesFileByArchivesID" result-map="archivesFile">
+   <![CDATA[
+	SELECT
+	 FILE_ID,
+	 EFORM_ID,
+	 PHASE_ID,
+	 UP_PHASE_ID,
+	 PARENT_FILE_ID,
+	 ARCHIVES_ID,
+	 SECRET_ID,
+	 PROJ_ID,
+	 PROJ_NAME,
+	 FILE_NUM,
+	 FILE_TITLE,
+	 FILE_DUTY,
+	 FILE_DATE,
+	 FILE_PAGE_AMOUNT,
+	 FILE_TYPE,
+	 FILE_KEYWORDS,
+	 FILE_SEQ,
+	 FILE_STORE_TERM,
+	 IS_IDENTIFY,
+	 IDENTIFY_RESULT,
+	 IS_BORROW,
+	 IS_DESTROY,
+	 FILE_STATUS,
+	 FILE_PATHNAME,
+	 REMARK,
+	 FILE_PAGE_SEQ,
+	 PAGE_NUM_FROM_TO,
+	 FILE_SPEC,
+	 MEDIA_TYPE,
+	 FILE_COUNT,
+	 TO_CHAR(FILE_GET_DATE,'YYYY-MM-DD') AS FILE_GET_DATE,
+	 FILE_GET_FORWARD,
+	 FILE_GET_PERSON,
+	 FILE_TO_UNIT,
+	 FILE_TO_FORWARD,
+	 FILE_TO_CREATEBY,
+	 FILE_TO_SIGNBY,
+	 IS_PRIVATE,
+         PAGE_NUM_FROM_TO
+	FROM ARCHIVES_FILE
+      	WHERE FILE_STATUS>-1 AND ARCHIVES_ID= #value#
+	ORDER BY FILE_SEQ,FILE_ID
+   ]]>
+   </mapped-statement>
+
+   <!--要点：对于利用，不必通过ARCHIVES_ID约束阶段文件列表，而著录那边就要-->
+   <!--修订＝》需求：没有影像页就不要查看影像了。故增加文件所在影像页数量的查询，借用MEDIA_TYPE字段-->
+   <dynamic-mapped-statement name="queryArchivesFileByPhaseID" result-map="archivesFile">
+   <![CDATA[
+	SELECT
+	 A.FILE_ID,
+	 A.EFORM_ID,
+	 A.PHASE_ID,
+	 A.UP_PHASE_ID,
+	 A.PARENT_FILE_ID,
+	 B.ARCHIVES_NUM AS ARCHIVES_ID,
+	 A.SECRET_ID,
+	 A.PROJ_ID,
+	 A.PROJ_NAME,
+	 A.FILE_NUM,
+	 A.FILE_TITLE,
+	 A.FILE_DUTY,
+	 A.FILE_DATE,
+	 A.FILE_PAGE_AMOUNT,
+	 A.FILE_TYPE,
+	 A.FILE_KEYWORDS,
+	 A.FILE_SEQ,
+	 A.FILE_STORE_TERM,
+	 A.IS_IDENTIFY,
+	 A.IDENTIFY_RESULT,
+	 A.IS_BORROW,
+	 A.IS_DESTROY,
+	 A.FILE_STATUS,
+	 A.FILE_PATHNAME,
+	 A.REMARK,
+	 A.FILE_PAGE_SEQ,
+	 A.PAGE_NUM_FROM_TO,
+	 A.FILE_SPEC,
+	 (SELECT COUNT(*) FROM ARCHIVES_PAGE C WHERE A.FILE_ID=C.FILE_ID) MEDIA_TYPE,
+	 A.FILE_COUNT,
+	 TO_CHAR(A.FILE_GET_DATE,'YYYY-MM-DD') AS FILE_GET_DATE,
+	 A.FILE_GET_FORWARD,
+	 A.FILE_GET_PERSON,
+	 A.FILE_TO_UNIT,
+	 A.FILE_TO_FORWARD,
+	 A.FILE_TO_CREATEBY,
+	 A.FILE_TO_SIGNBY,
+	 A.IS_PRIVATE,
+         A.PAGE_NUM_FROM_TO
+	FROM ARCHIVES_FILE A,ARCHIVES B
+      	WHERE A.FILE_STATUS>-1
+	  AND A.ARCHIVES_ID=B.ARCHIVES_ID
+   ]]>
+	<dynamic>
+            <isNotEmpty prepend="AND" property="proj_id">
+              A.PROJ_ID=#proj_id#
+            </isNotEmpty>
+            <isEmpty prepend="AND" property="proj_id">
+              A.ARCHIVES_ID=#archives_id#
+            </isEmpty>
+            <isNotEqual prepend="AND" property="phase_id" compareValue="0">
+              A.PHASE_ID=#phase_id#
+            </isNotEqual>
+	</dynamic>
+	ORDER BY FILE_SEQ,FILE_ID
+   </dynamic-mapped-statement>
+
+   <mapped-statement name="queryArchivesFileByFileID" result-map="archivesFile">
+   <![CDATA[
+	SELECT
+	 FILE_ID,
+	 EFORM_ID,
+	 PHASE_ID,
+	 UP_PHASE_ID,
+	 PARENT_FILE_ID,
+	 ARCHIVES_ID,
+	 SECRET_ID,
+	 PROJ_ID,
+	 PROJ_NAME,
+	 FILE_NUM,
+	 FILE_TITLE,
+	 FILE_DUTY,
+	 FILE_DATE,
+	 FILE_PAGE_AMOUNT,
+	 FILE_TYPE,
+	 FILE_KEYWORDS,
+	 FILE_SEQ,
+	 FILE_STORE_TERM,
+	 IS_IDENTIFY,
+	 IDENTIFY_RESULT,
+	 IS_BORROW,
+	 IS_DESTROY,
+	 FILE_STATUS,
+	 FILE_PATHNAME,
+	 REMARK,
+	 FILE_PAGE_SEQ,
+	 PAGE_NUM_FROM_TO,
+	 FILE_SPEC,
+	 MEDIA_TYPE,
+	 FILE_COUNT,
+	 TO_CHAR(FILE_GET_DATE,'YYYY-MM-DD') AS FILE_GET_DATE,
+	 FILE_GET_FORWARD,
+	 FILE_GET_PERSON,
+	 FILE_TO_UNIT,
+	 FILE_TO_FORWARD,
+	 FILE_TO_CREATEBY,
+	 FILE_TO_SIGNBY,
+	 IS_PRIVATE,
+         PAGE_NUM_FROM_TO
+	FROM ARCHIVES_FILE
+      	WHERE FILE_ID= #value#
+   ]]>
+   </mapped-statement>
+
+   <dynamic-mapped-statement name="getReceivedArchivesFiles" result-map="archivesFile">
+   <![CDATA[
+	SELECT
+	 FILE_ID,
+	 EFORM_ID,
+	 PHASE_ID,
+	 UP_PHASE_ID,
+	 PARENT_FILE_ID,
+	 ARCHIVES_ID,
+	 SECRET_ID,
+	 PROJ_ID,
+	 PROJ_NAME,
+	 FILE_NUM,
+	 FILE_TITLE,
+	 FILE_DUTY,
+	 FILE_DATE,
+	 FILE_PAGE_AMOUNT,
+	 FILE_TYPE,
+	 FILE_KEYWORDS,
+	 FILE_SEQ,
+	 FILE_STORE_TERM,
+	 IS_IDENTIFY,
+	 IDENTIFY_RESULT,
+	 IS_BORROW,
+	 IS_DESTROY,
+	 FILE_STATUS,
+	 FILE_PATHNAME,
+	 REMARK,
+	 FILE_PAGE_SEQ,
+	 PAGE_NUM_FROM_TO,
+	 FILE_SPEC,
+	 MEDIA_TYPE,
+	 FILE_COUNT,
+	 TO_CHAR(FILE_GET_DATE,'YYYY-MM-DD') AS FILE_GET_DATE,
+	 FILE_GET_FORWARD,
+	 FILE_GET_PERSON,
+	 FILE_TO_UNIT,
+	 FILE_TO_FORWARD,
+	 FILE_TO_CREATEBY,
+	 FILE_TO_SIGNBY,
+	 IS_PRIVATE
+	FROM ARCHIVES_FILE
+      	WHERE FILE_STATUS>-1
+	  AND ARCHIVES_ID IS NULL
+          AND (FILE_STATUS = '2' OR FILE_STATUS = '4')
+   ]]>
+    <dynamic>
+      <isNotEmpty prepend="AND" property="file_num">
+         FILE_NUM LIKE '%' || #file_num# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="file_title">
+         FILE_TITLE LIKE '%' || #file_title# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="proj_id">
+         PROJ_ID LIKE '%' || #proj_id# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="proj_name">
+         PROJ_NAME LIKE '%' || #proj_name# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="accept_id">
+         ACCEPT_ID LIKE '%' || #accept_id# || '%'
+      </isNotEmpty>
+    </dynamic>
+    	ORDER BY
+      	FILE_SEQ,FILE_ID DESC
+  </dynamic-mapped-statement>
+
+   <mapped-statement name="updateReceivedArchivesFileByFileId">
+   <![CDATA[
+	UPDATE ARCHIVES_FILE
+        SET ARCHIVES_ID = #archives_id#
+      	WHERE FILE_ID = #file_id#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="queryTopArchivesProjPhaseList" result-map="phase">
+   <![CDATA[
+	SELECT
+	  A.PHASE_ID	AS PHASE_ID,
+	  B.PHASE_NAME	AS PHASE_NAME,
+	  A.UP_PHASE_ID	AS UP_PHASE_ID,
+	  A.ARCHIVES_ID	AS ARCHIVES_ID,
+	  A.PROJ_ID	AS PROJ_ID,
+	  A.ACCEPT_ID	AS ACCEPT_ID
+        FROM
+      	  ARCHIVES_FILE A,PROJECT_PHASE B
+	WHERE
+	  A.FILE_STATUS>-1
+	  AND A.PHASE_ID=B.PHASE_ID
+	  AND A.ARCHIVES_ID=#aARCHIVES_ID#
+	  AND A.PROJ_ID=#aPROJ_ID#
+	  AND A.UP_PHASE_ID IS NULL
+    	ORDER BY
+      	  A.ARCHIVES_ID DESC
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="queryOtherArchivesProjPhaseList" result-map="phase">
+   <![CDATA[
+	SELECT DISTINCT
+	  A.PHASE_ID	AS PHASE_ID,
+	  B.PHASE_NAME	AS PHASE_NAME,
+	  A.UP_PHASE_ID	AS UP_PHASE_ID,
+	  A.ARCHIVES_ID	AS ARCHIVES_ID,
+	  A.PROJ_ID	AS PROJ_ID,
+	  A.ACCEPT_ID	AS ACCEPT_ID
+        FROM
+      	  ARCHIVES_FILE A,PROJECT_PHASE B
+	WHERE
+	  A.FILE_STATUS>-1
+	  AND A.PHASE_ID=B.PHASE_ID
+	  AND A.ARCHIVES_ID=#archives_id#
+	  AND A.PROJ_ID=#proj_id#
+	  AND A.UP_PHASE_ID=#phase_id#
+    	ORDER BY
+      	  A.ARCHIVES_ID DESC
+   ]]>
+   </mapped-statement>
+
+   <!--树的重大调整：把原来的假定（相同ARCHIVES_ID不会出现两个相同的阶段）推翻（如有问题，请取回上一个VSS版本）-->
+   <mapped-statement name="queryAllTopProjPhaseList" result-map="phase">
+   <![CDATA[
+	SELECT DISTINCT
+	  A.PHASE_ID	AS PHASE_ID,
+	  B.PHASE_NAME	AS PHASE_NAME,
+	  A.UP_PHASE_ID	AS UP_PHASE_ID,
+	  A.PROJ_ID	AS PROJ_ID,
+	  NVL(A.ACCEPT_ID,'==')	AS ACCEPT_ID
+        FROM
+      	  ARCHIVES_FILE A,PROJECT_PHASE B
+	WHERE
+	  A.FILE_STATUS>-1
+	  AND A.ARCHIVES_ID IS NOT NULL
+	  AND A.PHASE_ID=B.PHASE_ID
+	  AND A.PROJ_ID=#aPROJ_ID#
+	  AND A.UP_PHASE_ID IS NULL
+    	ORDER BY
+      	  A.PHASE_ID,ACCEPT_ID
+   ]]>
+   </mapped-statement>
+
+   <!--树的重大调整：把原来的假定（相同ARCHIVES_ID不会出现两个相同的阶段）推翻（如有问题，请取回上一个VSS版本）-->
+   <mapped-statement name="queryAllOtherProjPhaseList" result-map="phase">
+   <![CDATA[
+	SELECT DISTINCT
+	  A.PHASE_ID	AS PHASE_ID,
+	  B.PHASE_NAME	AS PHASE_NAME,
+	  A.UP_PHASE_ID	AS UP_PHASE_ID,
+	  A.PROJ_ID	AS PROJ_ID,
+	  NVL(A.ACCEPT_ID,'==')	AS ACCEPT_ID
+        FROM
+      	  ARCHIVES_FILE A,PROJECT_PHASE B
+	WHERE
+	  A.FILE_STATUS>-1
+	  AND A.ARCHIVES_ID IS NOT NULL
+	  AND A.PHASE_ID=B.PHASE_ID
+	  AND A.PROJ_ID=#proj_id#
+	  AND A.UP_PHASE_ID=#phase_id#
+    	ORDER BY
+      	  A.UP_PHASE_ID,A.PHASE_ID,ACCEPT_ID
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="queryArchivesFileJianByArchivesID" result-map="archivesFile">
+   <![CDATA[
+	SELECT
+	 A.FILE_ID,
+	 A.EFORM_ID,
+	 A.PHASE_ID,
+	 A.UP_PHASE_ID,
+	 A.PARENT_FILE_ID,
+	 A.ARCHIVES_ID,
+	 A.SECRET_ID,
+	 A.PROJ_NAME,
+	 A.FILE_NUM,
+	 A.FILE_TITLE,
+	 A.FILE_DUTY,
+	 A.FILE_DATE,
+	 A.FILE_PAGE_AMOUNT,
+	 A.FILE_TYPE,
+	 A.FILE_KEYWORDS,
+	 A.FILE_SEQ,
+	 A.FILE_STORE_TERM,
+	 A.IS_IDENTIFY,
+	 A.IDENTIFY_RESULT,
+	 A.IS_BORROW,
+	 A.IS_DESTROY,
+	 A.FILE_STATUS,
+	 A.FILE_PATHNAME,
+	 A.REMARK,
+	 A.FILE_PAGE_SEQ,
+	 A.PAGE_NUM_FROM_TO,
+	 A.FILE_SPEC,
+	 A.FILE_COUNT,
+	 TO_CHAR(A.FILE_GET_DATE,'YYYY-MM-DD') AS FILE_GET_DATE,
+	 A.FILE_GET_FORWARD,
+	 A.FILE_GET_PERSON,
+	 A.FILE_TO_UNIT,
+	 A.FILE_TO_FORWARD,
+	 A.FILE_TO_CREATEBY,
+	 A.FILE_TO_SIGNBY,
+	 A.IS_PRIVATE,
+         A.PAGE_NUM_FROM_TO,
+         B.PIECE_NUM AS MEDIA_TYPE,
+         B.ARCHIVES_YEAR AS PROJ_ID
+	FROM ARCHIVES_FILE A, ARCHIVES B
+      	WHERE
+            A.FILE_STATUS>-1
+           AND A.ARCHIVES_ID=B.ARCHIVES_ID
+           AND A.ARCHIVES_ID= #value#
+	ORDER BY A.FILE_SEQ,A.FILE_ID
+   ]]>
+   </mapped-statement>
+
+<!-- hukp add  ,  -->
+   <mapped-statement name="getArchivesJianByProjId" result-map="archivesFile">
+   <![CDATA[
+	SELECT
+	 A.FILE_ID,
+	 A.EFORM_ID,
+	 A.PHASE_ID,
+	 A.UP_PHASE_ID,
+	 A.PARENT_FILE_ID,
+	 A.ARCHIVES_ID,
+	 A.SECRET_ID,
+	 A.PROJ_ID,
+
+	 A.PROJ_NAME,
+	 A.FILE_NUM,
+	 A.FILE_TITLE,
+	 A.FILE_DUTY,
+	 A.FILE_DATE,
+	 A.FILE_PAGE_AMOUNT,
+	 A.FILE_TYPE,
+	 A.FILE_KEYWORDS,
+	 A.FILE_SEQ,
+	 A.FILE_STORE_TERM,
+         A.IS_IDENTIFY,
+	 A.IDENTIFY_RESULT,
+	 A.IS_BORROW,
+	 A.IS_DESTROY,
+	 B.ARCHIVES_YEAR as  FILE_STATUS,
+	 A.FILE_PATHNAME,
+	 A.REMARK,
+	 A.FILE_PAGE_SEQ,
+	 A.PAGE_NUM_FROM_TO,
+	 A.FILE_SPEC,
+	 A.MEDIA_TYPE,
+	 A.FILE_COUNT,
+	 TO_CHAR(FILE_GET_DATE,'YYYY-MM-DD') AS FILE_GET_DATE,
+	 A.FILE_GET_FORWARD,
+	 A.FILE_GET_PERSON,
+	 A.FILE_TO_UNIT,
+	 A.FILE_TO_FORWARD,
+	 A.FILE_TO_CREATEBY,
+	 A.FILE_TO_SIGNBY,
+	 A.IS_PRIVATE
+      FROM ARCHIVES_FILE A,ARCHIVES B
+      WHERE A.archives_id=B.ARCHIVES_ID
+       AND B.ROLL_MODE='2' AND B.PIECE_NUM>=#begin_id# AND B.PIECE_NUM<=#end_id#
+       AND FILE_ID IN (
+          SELECT MIN(AA.FILE_ID) FROM ARCHIVES_FILE AA,ARCHIVES BB
+          WHERE AA.archives_id=BB.ARCHIVES_ID
+          AND BB.ROLL_MODE='2' AND BB.PIECE_NUM>=#begin_id# AND BB.PIECE_NUM<=#end_id#
+          GROUP BY AA.ARCHIVES_ID
+       )
+     ORDER BY ARCHIVES_ID, FILE_ID
+   ]]>
+   </mapped-statement>
+
+   <!-- wanghua add,2004-03-15 -->
+   <mapped-statement name="updateBorrowStatusByFileID">
+	UPDATE ARCHIVES_FILE
+        SET IS_BORROW=#isBorrow#
+        WHERE FILE_ID=#fileID#
+   </mapped-statement>
+
+   <!--查询档案/项目阶段的文件-->
+   <dynamic-mapped-statement name="queryArchivesFile" result-map="archivesFile">
+   <![CDATA[
+	SELECT
+	 A.FILE_ID,
+	 A.EFORM_ID,
+	 A.PHASE_ID,
+	 A.UP_PHASE_ID,
+	 A.PARENT_FILE_ID,
+	 B.ARCHIVES_NUM AS ARCHIVES_ID,
+	 A.SECRET_ID,
+	 A.PROJ_ID,
+	 A.PROJ_NAME,
+	 A.FILE_NUM,
+	 A.FILE_TITLE,
+	 A.FILE_DUTY,
+	 A.FILE_DATE,
+	 A.FILE_PAGE_AMOUNT,
+	 A.FILE_TYPE,
+	 A.FILE_KEYWORDS,
+	 A.FILE_SEQ,
+	 A.FILE_STORE_TERM,
+	 A.IS_IDENTIFY,
+	 A.IDENTIFY_RESULT,
+	 A.IS_BORROW,
+	 A.IS_DESTROY,
+	 A.FILE_STATUS,
+	 A.FILE_PATHNAME,
+	 A.REMARK,
+	 A.FILE_PAGE_SEQ,
+	 A.PAGE_NUM_FROM_TO,
+	 A.FILE_SPEC,
+	 (SELECT COUNT(*) FROM ARCHIVES_PAGE C WHERE A.FILE_ID=C.FILE_ID) MEDIA_TYPE,
+	 A.FILE_COUNT,
+	 TO_CHAR(A.FILE_GET_DATE,'YYYY-MM-DD') AS FILE_GET_DATE,
+	 A.FILE_GET_FORWARD,
+	 A.FILE_GET_PERSON,
+	 A.FILE_TO_UNIT,
+	 A.FILE_TO_FORWARD,
+	 A.FILE_TO_CREATEBY,
+	 A.FILE_TO_SIGNBY,
+	 A.IS_PRIVATE,
+         A.PAGE_NUM_FROM_TO
+	FROM ARCHIVES_FILE A,ARCHIVES B
+      	WHERE A.FILE_STATUS>-1
+	  AND A.ARCHIVES_ID=B.ARCHIVES_ID
+   ]]>
+    <dynamic>
+      <isNotEmpty prepend="AND" property="archives_id">
+         A.ARCHIVES_ID=#archives_id#
+      </isNotEmpty>
+      <isNotEmpty property="phase_id">
+      	<isNotEqual prepend="AND" property="phase_id" compareValue="0">
+         	A.PHASE_ID=#phase_id#
+      	</isNotEqual>
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="file_num">
+         A.FILE_NUM LIKE '%' || #file_num# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="file_title">
+         A.FILE_TITLE LIKE '%' || #file_title# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="proj_id">
+         A.PROJ_ID LIKE '%' || #proj_id# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="proj_name">
+         B.PROJ_NAME LIKE '%' || #proj_name# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="accept_id">
+         A.ACCEPT_ID LIKE '%' || #accept_id# || '%'
+      </isNotEmpty>
+    </dynamic>
+    	ORDER BY
+      	A.FILE_SEQ,A.FILE_ID DESC
+  </dynamic-mapped-statement>
+
+</sql-map>

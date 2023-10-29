@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="ArchiveList">
+  <result-map name="archive" class="com.sunyard.hgam.persistence.dao.beans.aum.Arch">
+    <property name="applyID" column="APPLY_ID" /><!-- 利用编号 -->
+    <property name="pageID" column="PAGE_ID" /><!-- 档案页编号 -->
+    <property name="eformInfoID" column="EFORM_INFO_ID" /><!-- 电子表单编号 -->
+    <property name="chargeID" column="CHARGE_ID" /><!-- 收费标准编号 -->
+    <property name="entryName" column="ENTRY_NAME" /><!-- 类目名称 -->
+    <property name="rollNum" column="ROLL_NUM" /><!-- 案卷号 -->
+    <property name="pieceNum" column="PIECE_NUM" /><!-- 件号 -->
+    <property name="archivesName" column="ARCHIVES_NAME" /><!-- 案卷题名 -->
+    <property name="fileTitle" column="FILE_TITLE" /><!-- 文件题名 -->
+    <property name="pageNum" column="PAGE_NUM" /><!-- 页号 -->
+    <property name="pageSize" column="PAGE_SIZE" /><!-- 页幅 -->
+    <property name="chargeVersion" column="CHARGE_VERSION" /><!-- 收费标准 -->
+    <property name="chargeMoney" column="CHARGE_MONEY" /><!-- 收费金额 -->
+  </result-map>
+
+
+   <mapped-statement name="getArchivesByApplyID" result-map="archive">
+   <![CDATA[
+    SELECT
+	APPLY_ID,
+	PAGE_ID,
+	EFORM_INFO_ID,
+	CHARGE_ID,
+	ROLL_NUM,
+	PIECE_NUM,
+	ARCHIVES_NAME,
+	FILE_TITLE,
+	PAGE_NUM,
+	PAGE_SIZE,
+	CHARGE_VERSION,
+	CHARGE_MONEY
+    FROM
+	UTILIZE_DETAIL,ARCHIVES_PAGE,EFORM_INFO,CHARGE_STANDARD
+    WHERE
+	UTILIZE_DETAIL.APPLY_ID = #value# AND
+	UTILIZE_DETAIL.PAGE_ID = ARCHIVES_PAGE.PAGE_ID AND UTILIZE_DETAIL.EFORM_INFO_ID = EFORM_INFO.EFORM_INFO_ID AND UTILIZE_DETAIL.CHARGE_ID = CHARGE_STANDARD.CHARGE_ID
+
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getAllArchives" result-map="archive">
+   <![CDATA[
+    SELECT
+	APPLY_ID,
+	PAGE_ID,
+	EFORM_INFO_ID,
+	CHARGE_ID,
+	ROLL_NUM,
+	PIECE_NUM,
+	ARCHIVES_NAME,
+	FILE_TITLE,
+	PAGE_NUM,
+	PAGE_SIZE,
+	CHARGE_VERSION,
+	CHARGE_MONEY
+    FROM
+	UTILIZE_DETAIL,ARCHIVES_PAGE,ARCHIVES,EFORM_INFO,CHARGE_STANDARD
+    WHERE
+	UTILIZE_DETAIL.PAGE_ID = ARCHIVES_PAGE.PAGE_ID AND
+        UTILIZE_DETAIL.EFORM_INFO_ID = EFORM_INFO.EFORM_INFO_ID AND
+        UTILIZE_DETAIL.CHARGE_ID = CHARGE_STANDARD.CHARGE_ID
+
+   ]]>
+   </mapped-statement>
+</sql-map>

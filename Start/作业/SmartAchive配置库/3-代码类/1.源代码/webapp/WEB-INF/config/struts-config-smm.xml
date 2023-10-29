@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+  <form-beans>
+    <form-bean name="themeForm" type="com.sunyard.hgam.presentation.form.smm.ThemeForm" />
+    <form-bean name="sysParamForm" type="com.sunyard.hgam.presentation.form.smm.SysParamForm" />
+
+    <form-bean
+        name="accountForm"
+        type="com.sunyard.hgam.presentation.form.smm.AccountForm" />
+
+    <form-bean
+        name="ACCOUNT_INFORMATION"
+        type="com.sunyard.hgam.presentation.form.smm.AccountForm" />
+
+    <form-bean
+        name="groupForm"
+        type="com.sunyard.hgam.presentation.form.smm.GroupForm" />
+
+    <form-bean
+        name="permissionForm"
+        type="com.sunyard.hgam.presentation.form.smm.PermissionForm" />
+
+    <form-bean
+        name="accountPermissionForm"
+        type="com.sunyard.hgam.presentation.form.smm.AccountPermissionForm" />
+
+    <form-bean
+        name="orgForm"
+        type="com.sunyard.hgam.presentation.form.smm.OrgForm" />
+
+    <!--电子表单相关-->
+    <form-bean
+        name="EformDefineForm"
+        type="com.sunyard.hgam.presentation.form.adc.EformDefineForm" />
+    <form-bean
+        name="EformFieldDefineForm"
+        type="com.sunyard.hgam.presentation.form.adc.EformFieldDefineForm" />
+  </form-beans>
+
+  <action-mappings>
+    <!--数据字典管理-->
+    <!--主题词管理-->
+    <action type="com.sunyard.hgam.presentation.action.smm.ViewAllThemeAction" path="/smm/viewalltheme">
+      <forward name="success" path="/smm/thememain.jsp" />
+    </action>
+    <action name="themeForm" type="com.sunyard.hgam.presentation.action.smm.SearchThemeAction" input="/smm/thememain.jsp" path="/smm/searchTheme">
+      <forward name="success" path="/smm/thememain.jsp" />
+    </action>
+    <action name="themeForm" type="com.sunyard.hgam.presentation.action.smm.ThemeAddAction" input="/smm/themeadd.jsp" scope="request" path="/smm/ThemeAdd">
+      <forward name="success" path="/smm/viewalltheme.do?page=refresh" redirect="true"/>
+    </action>
+    <action type="com.sunyard.hgam.presentation.action.smm.ThemeModViewAction" path="/smm/thememodview">
+      <forward name="success" path="/smm/thememodify.jsp" />
+    </action>
+    <action name="themeForm" type="com.sunyard.hgam.presentation.action.smm.ThemeModifyAction" input="/smm/thememodify.jsp" scope="request" path="/smm/thememodify">
+      <forward name="success" path="/smm/viewalltheme.do?page=refresh" redirect="true"/>
+    </action>
+    <action name="themeForm" type="com.sunyard.hgam.presentation.action.smm.ThemeDelAction" scope="request" path="/smm/ThemeDel">
+      <forward name="success" path="/smm/viewalltheme.do?page=refresh" redirect="true"/>
+    </action>
+    <!--系统参数管理-->
+    <action type="com.sunyard.hgam.presentation.action.smm.ViewAllSysParamAction" path="/smm/viewallsysparam">
+      <forward name="success" path="/smm/sysparammain.jsp" />
+    </action>
+    <action name="sysParamForm" type="com.sunyard.hgam.presentation.action.smm.SysParamAddAction" input="/smm/sysParamadd.jsp" scope="request" path="/smm/SysParamAdd">
+      <forward name="success" path="/smm/viewallsysparam.do?page=refresh" redirect="true"/>
+    </action>
+    <action name="sysParamForm" type="com.sunyard.hgam.presentation.action.smm.SearchSysParamAction" input="/smm/sysparammain.jsp" scope="request" path="/smm/searchSysparam">
+      <forward name="success" path="/smm/sysparammain.jsp" />
+    </action>
+    <action type="com.sunyard.hgam.presentation.action.smm.SysParamModViewAction" path="/smm/sysParammodview">
+      <forward name="success" path="/smm/sysParammodify.jsp" />
+    </action>
+    <action name="sysParamForm" type="com.sunyard.hgam.presentation.action.smm.SysParamModifyAction" input="/smm/sysParammodify.jsp" scope="request" path="/smm/sysParammodify">
+      <forward name="success" path="/smm/viewallsysparam.do?page=refresh" redirect="true"/>
+    </action>
+    <action name="sysParamForm" type="com.sunyard.hgam.presentation.action.smm.SysParamDelAction" scope="request" path="/smm/SysParamDel">
+      <forward name="success" path="/smm/viewallsysparam.do?page=refresh" redirect="true"/>
+    </action>
+  	<!-- 用户权限管理 -->
+    <action
+        type="com.sunyard.hgam.presentation.action.smm.GetAllAccountAction"
+        path="/smm/viewAllAccounts">
+      <forward name="success" path="/smm/viewAllAccounts.jsp" />
+    </action>
+
+    <action
+        name="accountForm"
+        type="com.sunyard.hgam.presentation.action.smm.NewAccountAction"
+        input="/smm/newAccount.jsp"
+        scope="request" path="/smm/newAccount">
+      <forward name="success" path="/smm/viewAllAccounts.do" />
+    </action>
+
+    <action
+        path="/smm/newAccount"
+        name="accountForm"
+        type="com.sunyard.hgam.presentation.action.smm.NewAccountAction"
+        input="/smm/newAccount.jsp"
+        scope="request">
+      <forward name="success" path="/smm/newAccount.jsp"/>
+      <forward name="failure" path="/smm/newAccount.jsp"/>
+    </action>
+
+    <action
+        path="/smm/queryAccount"
+        name="accountForm"
+        type="com.sunyard.hgam.presentation.action.smm.GetAllAccountAction"
+        input="/smm/queryAccount.jsp"
+        scope="request">
+      <forward name="success" path="/smm/queryAccount.jsp"/>
+      <forward name="failure" path="/smm/queryAccount.jsp"/>
+    </action>
+
+    <action
+        path="/smm/viewAccount"
+        type="com.sunyard.hgam.presentation.action.smm.ViewAccountAction">
+      <forward name="success" path="/smm/viewAccount.jsp"/>
+      <forward name="func" path="/smm/viewAccount_func.jsp"/>
+      <forward name="data" path="/smm/viewAccount_data.jsp"/>
+      <forward name="failure" path="/smm/queryAccount.jsp"/>
+    </action>
+
+    <action
+        path="/smm/modifyAccount"
+        name="accountForm"
+        input="/smm/viewAccount.jsp"
+        type="com.sunyard.hgam.presentation.action.smm.ModifyAccountAction"
+        scope="request">
+      <forward name="success" path="/smm/viewAccount.jsp"/>
+      <forward name="func" path="/smm/viewAccount_func.jsp"/>
+      <forward name="data" path="/smm/viewAccount_data.jsp"/>
+      <forward name="failure" path="/smm/viewAccount.jsp"/>
+    </action>
+
+    <action
+        path="/smm/chpasswd"
+        name="accountForm"
+        type="com.sunyard.hgam.presentation.action.smm.ChangePasswordAction"
+        input="/smm/chpwd.jsp"
+        scope="request">
+      <forward name="success" path="/smm/chpwd.jsp"/>
+      <forward name="failure" path="/smm/chpwd.jsp"/>
+    </action>
+
+    <action
+        path="/smm/deleteAccount"
+        name="accountForm"
+        input="/smm/viewAccount.jsp"
+        type="com.sunyard.hgam.presentation.action.smm.deleteAccountAction"
+        scope="request">
+      <forward name="success" path="/smm/queryAccount.do?flag=1"/>
+      <forward name="failure" path="/smm/viewAccount.jsp"/>
+    </action>
+
+    <action
+        path="/smm/modifyAccountPermission"
+        name="accountForm"
+        input="/smm/viewAccount.jsp"
+        type="com.sunyard.hgam.presentation.action.smm.ModifyAccountPermissionAction"
+        scope="request">
+      <forward name="func" path="/smm/viewAccount.do?flag=1&amp;target=func"/>
+      <forward name="data" path="/smm/viewAccount.do?flag=1&amp;target=data"/>
+      <forward name="success" path="/smm/viewAccount.do?flag=1"/>
+      <forward name="failure" path="/smm/viewAccount.do?flag=1"/>
+    </action>
+
+    <action
+      	path="/smm/newGroup"
+      	name="groupForm"
+      	type="com.sunyard.hgam.presentation.action.smm.NewGroupAction"
+      	input="/smm/newGroup.jsp"
+      	scope="request">
+      <forward name="success" path="/smm/newGroup.jsp"/>
+      <forward name="failure" path="/smm/newGroup.jsp"/>
+    </action>
+
+    <action
+      	path="/smm/queryGroup"
+      	name="groupForm"
+      	type="com.sunyard.hgam.presentation.action.smm.GetGroupsAction"
+      	input="/smm/queryGroup.jsp"
+      	scope="request">
+      <forward name="success" path="/smm/queryGroup.jsp"/>
+      <forward name="failure" path="/smm/queryGroup.jsp"/>
+    </action>
+
+    <action
+      	path="/smm/viewGroup"
+      	type="com.sunyard.hgam.presentation.action.smm.ViewGroupAction">
+      <forward name="success" path="/smm/viewGroup.jsp"/>
+      <forward name="func" path="/smm/viewGroup_func.jsp"/>
+      <forward name="data" path="/smm/viewGroup_data.jsp"/>
+      <forward name="failure" path="/smm/queryGroup.jsp"/>
+    </action>
+
+    <action
+      	path="/smm/modifyGroup"
+      	name="groupForm"
+      	input="/smm/viewGroup.jsp"
+      	type="com.sunyard.hgam.presentation.action.smm.ModifyGroupAction"
+      	scope="request">
+      <forward name="success" path="/smm/viewGroup.jsp"/>
+      <forward name="failure" path="/smm/viewGroup.jsp"/>
+    </action>
+
+    <action
+      	path="/smm/deleteGroup"
+      	name="groupForm"
+      	input="/smm/viewGroup.jsp"
+      	type="com.sunyard.hgam.presentation.action.smm.deleteGroupAction"
+      	scope="request">
+      <forward name="success" path="/smm/queryGroup.do?flag=1"/>
+      <forward name="failure" path="/smm/viewGroup.jsp"/>
+    </action>
+
+    <action
+      	path="/smm/modifyGroupPermission"
+      	name="groupForm"
+      	input="/smm/viewGroup.jsp"
+      	type="com.sunyard.hgam.presentation.action.smm.ModifyGroupPermissionAction"
+      	scope="request">
+      <forward name="success" path="/smm/viewGroup.do?flag=1"/>
+      <forward name="func" path="/smm/viewGroup.do?flag=1&amp;target=func"/>
+      <forward name="data" path="/smm/viewGroup.do?flag=1&amp;target=data"/>
+      <forward name="failure" path="/smm/viewGroup.do?flag=1"/>
+    </action>
+
+    <action
+      	path="/smm/modifyGroupUser"
+      	name="groupForm"
+      	input="/smm/viewGroup.jsp"
+      	type="com.sunyard.hgam.presentation.action.smm.ModifyGroupUserAction"
+      	scope="request">
+      <forward name="success" path="/smm/viewGroup.do?flag=1"/>
+      <forward name="failure" path="/smm/viewGroup.do?flag=1"/>
+    </action>
+
+    <action
+        name="accountForm"
+        type="com.sunyard.hgam.presentation.action.smm.LoginAction"
+        input="/main/left_index.jsp"
+        scope="request"
+        path="/smm/login">
+      <forward name="success" path="/index.jsp" redirect="true" />
+      <forward name="failure" path="/public/prompt.jsp"/>
+    </action>
+
+    <action
+        type="com.sunyard.hgam.presentation.action.smm.LogoutAction"
+        path="/smm/logout" />
+
+    <action
+        name="ACCOUNT_INFORMATION"
+        type="com.sunyard.hgam.presentation.action.smm.RoleSwitchAction"
+        path="/smm/roleSwitch">
+      <forward name="success" path="/index.jsp" redirect="true" />
+    </action>
+
+    <action
+        path="/smm/queryOrg"
+        name="orgForm"
+        type="com.sunyard.hgam.presentation.action.smm.GetAllOrganizationAction"
+        input="/smm/queryOrg.jsp"
+        scope="request">
+      <forward name="success" path="/smm/queryOrg.jsp"/>
+      <forward name="failure" path="/smm/queryOrg.jsp"/>
+    </action>
+
+    <action
+        name="orgForm"
+        path="/smm/newOrg"
+        type="com.sunyard.hgam.presentation.action.smm.NewOrgAction"
+        input="/smm/newOrg.jsp"
+        scope="request">
+      <forward name="success" path="/smm/newOrg.jsp"/>
+      <forward name="failure" path="/smm/newOrg.jsp"/>
+    </action>
+
+    <action
+        path="/smm/newOrgModifyForm"
+        type="com.sunyard.hgam.presentation.action.smm.OrgNewModifyFormAction">
+      <forward name="success" path="/smm/modifyOrg.jsp"/>
+    </action>
+
+    <action
+        name="orgForm"
+        path="/smm/modifyOrg"
+        type="com.sunyard.hgam.presentation.action.smm.OrgModifyAction"
+        input="/smm/modifyOrg.jsp"
+        scope="request">
+      <forward name="success" path="/smm/modifyOrg.jsp"/>
+    </action>
+
+    <action
+        path="/smm/viewOrg"
+        type="com.sunyard.hgam.presentation.action.smm.ViewOrgAction">
+      <forward name="success" path="/smm/viewOrg.jsp"/>
+      <forward name="failure" path="/smm/viewOrg.jsp"/>
+    </action>
+
+    <action
+        path="/smm/selectOrg"
+        type="com.sunyard.hgam.presentation.action.smm.SelectOrgAction">
+      <forward name="success" path="/smm/selectOrg.jsp"/>
+    </action>
+
+    <action
+        path="/smm/deleteOrg"
+        type="com.sunyard.hgam.presentation.action.smm.DeleteOrgAction">
+      <forward name="success" path="/smm/queryOrg.do?page=refresh" redirect="true"/>
+      <forward name="failure" path="/smm/viewOrg.jsp"/>
+    </action>
+
+    <!-- 日志管理 -->
+    <action
+        type="com.sunyard.hgam.presentation.action.smm.ViewAllUserLog"
+        path="/smm/viewUserLog">
+      <forward name="success" path="/smm/logBrowse.jsp" />
+    </action>
+
+    <action
+      type="com.sunyard.hgam.presentation.action.smm.DeleteUserLogAction"
+      path="/smm/deleteUserLog">
+      <forward name="success" path="/smm/viewUserLog.do?page=refresh" redirect="true" />
+    </action>
+
+    <!-- 电子表单管理 -->
+    <!-- 电子表单列表 -->
+    <action name="EformDefineForm" scope="request"
+        type="com.sunyard.hgam.presentation.action.smm.QueryEformDefineListAction"
+        path="/smm/queryEformDefineList">
+      <forward name="SUCCESS" path="/smm/eform_define_query.jsp" />
+    </action>
+    <!-- 电子表单增加 -->
+    <action name="EformDefineForm" scope="request"
+        type="com.sunyard.hgam.presentation.action.smm.addEformDefineAction"
+        path="/smm/addEformDefine">
+      <forward name="SUCCESS" path="/smm/queryEformDefineList.do?page=refresh" />
+      <forward name="FAILURE" path="/smm/eform_define_add.jsp" />
+    </action>
+    <!-- 电子表单查看 -->
+    <action name="EformDefineForm" scope="request"
+        type="com.sunyard.hgam.presentation.action.smm.ViewEformDefineAction"
+        path="/smm/viewEformDefine">
+      <forward name="SUCCESS" path="/smm/eform_define_edit.jsp" />
+    </action>
+    <!-- 电子表单修订 -->
+    <action name="EformDefineForm" scope="request"
+        type="com.sunyard.hgam.presentation.action.smm.UpdateEformDefineAction"
+        path="/smm/updateEformDefine">
+      <forward name="SUCCESS" path="/smm/queryEformDefineList.do?page=refresh" />
+    </action>
+    <!-- 电子表单删除 -->
+    <action name="EformDefineForm" scope="request"
+        type="com.sunyard.hgam.presentation.action.smm.deleteEformDefineAction"
+        path="/smm/deleteEformDefine">
+      <forward name="SUCCESS" path="/smm/queryEformDefineList.do?page=refresh" />
+      <forward name="FAILURE" path="/smm/viewEformDefine.do" />
+    </action>
+    <!-- 电子表单字段查看 -->
+    <action name="EformDefineForm" scope="request"
+        type="com.sunyard.hgam.presentation.action.smm.ViewEformFieldListAction"
+        path="/smm/viewEformFieldList">
+      <forward name="SUCCESS" path="/smm/eform_field_list.jsp" />
+    </action>
+    <!-- 电子表单字段更新 -->
+    <action name="EformDefineForm" scope="request"
+        type="com.sunyard.hgam.presentation.action.smm.UpdateEformFieldListAction"
+        path="/smm/updateEformFieldList">
+      <forward name="SUCCESS" path="/smm/viewEformFieldList.do?page=refresh" />
+    </action>
+    <!-- 电子表单字段选择列表 -->
+    <action name="EformFieldDefineForm" scope="request"
+        type="com.sunyard.hgam.presentation.action.smm.ViewEformFieldListForSelectAction"
+        path="/smm/viewEformFieldListForSelect">
+      <forward name="SUCCESS" path="/smm/eform_field_list_for_select.jsp" />
+    </action>
+    <!-- 电子表单字段选择列表 -->
+    <action name="EformFieldDefineForm" scope="request"
+        type="com.sunyard.hgam.presentation.action.smm.SelectEformFieldAction"
+        path="/smm/selectEformField">
+      <forward name="SUCCESS" path="/smm/viewEformFieldList.do" />
+    </action>
+
+    <!-- 字段列表 -->
+    <action name="EformFieldDefineForm" scope="request"
+        type="com.sunyard.hgam.presentation.action.smm.QueryFieldDefineListAction"
+        path="/smm/queryFieldDefineList">
+      <forward name="SUCCESS" path="/smm/field_define_query.jsp" />
+    </action>
+    <!-- 字段增加 -->
+    <action name="EformFieldDefineForm" scope="request"
+        type="com.sunyard.hgam.presentation.action.smm.addFieldDefineAction"
+        path="/smm/addFieldDefine">
+      <forward name="SUCCESS" path="/smm/queryFieldDefineList.do?page=refresh" />
+    </action>
+    <!-- 字段查看 -->
+    <action name="EformFieldDefineForm" scope="request"
+        type="com.sunyard.hgam.presentation.action.smm.ViewFieldDefineAction"
+        path="/smm/viewFieldDefine">
+      <forward name="SUCCESS" path="/smm/field_define_edit.jsp" />
+    </action>
+    <!-- 字段修订 -->
+    <action name="EformFieldDefineForm" scope="request"
+        type="com.sunyard.hgam.presentation.action.smm.UpdateFieldDefineAction"
+        path="/smm/updateFieldDefine">
+      <forward name="SUCCESS" path="/smm/queryFieldDefineList.do?page=refresh" />
+    </action>
+    <!--字段删除 -->
+    <action name="EformFieldDefineForm" scope="request"
+        type="com.sunyard.hgam.presentation.action.smm.deleteFieldDefineAction"
+        path="/smm/deleteFieldDefine">
+      <forward name="SUCCESS" path="/smm/queryFieldDefineList.do?page=refresh" />
+      <forward name="FAILURE" path="/smm/viewFieldDefine.do" />
+    </action>
+    <!-- 查看字段所用的电子表单列表 -->
+    <action name="EformFieldDefineForm" scope="request"
+        type="com.sunyard.hgam.presentation.action.smm.ViewFieldEformListAction"
+        path="/smm/viewFieldEformList">
+      <forward name="SUCCESS" path="/smm/field_define_for_eform.jsp" />
+    </action>
+
+  </action-mappings>
+</struts-config>

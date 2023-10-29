@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+
+<sql-map name="Theme">
+  <result-map name="theme" class="com.sunyard.hgam.persistence.dao.beans.smm.Theme">
+    <property name="themeId" column="THEME_ID" />
+    <property name="themeName" column="THEME_NAME" />
+    <property name="themeCode" column="THEME_CODE" />
+    <property name="themeMessage" column="THEME_MESSAGE" />
+    <property name="remark" column="REMARK" />
+   </result-map>
+
+
+   <mapped-statement name="getAllTheme" result-map="theme">
+   <![CDATA[
+    SELECT
+	THEME_ID,
+	THEME_NAME,
+	THEME_CODE,
+	THEME_MESSAGE,
+        REMARK
+    FROM
+	THEME
+    ]]>
+   </mapped-statement>
+
+  <dynamic-mapped-statement name="searchTheme" result-map="theme">
+    SELECT
+      THEME_ID,
+      THEME_NAME,
+      THEME_CODE,
+      THEME_MESSAGE,
+      REMARK
+    FROM
+      THEME
+   <dynamic prepend="WHERE">
+     <isNotEmpty prepend="and" property="themeName">
+       THEME_NAME LIKE #themeName#
+     </isNotEmpty>
+     <isNotEmpty prepend="and" property="themeCode">
+       THEME_CODE LIKE #themeCode#
+     </isNotEmpty>
+     <isNotEmpty prepend="and" property="themeMessage">
+       THEME_MESSAGE LIKE #themeMessage#
+     </isNotEmpty>
+    </dynamic>
+  </dynamic-mapped-statement>
+
+  <mapped-statement name="getThemeByID" result-map="theme">
+   <![CDATA[
+    SELECT
+      THEME_ID,
+	THEME_NAME,
+	THEME_CODE,
+	THEME_MESSAGE,
+        REMARK
+    FROM
+      THEME
+    WHERE
+     THEME_ID=#value#
+   ]]>
+   </mapped-statement>
+
+
+   <mapped-statement name="addTheme">
+   <![CDATA[
+    INSERT INTO THEME(THEME_ID,THEME_NAME,THEME_CODE,THEME_MESSAGE,REMARK)
+       VALUES ((SELECT NVL(MAX(NVL(THEME_ID,0))+1,1) FROM THEME),#themeName#,#themeCode#,#themeMessage#,#remark#)
+   ]]>
+   </mapped-statement>
+
+  <mapped-statement name="deleteThemeByID">
+  <![CDATA[
+    DELETE FROM THEME WHERE THEME_ID=#value#
+   ]]>
+  </mapped-statement>
+  <mapped-statement name="updateTheme">
+  <![CDATA[
+    UPDATE THEME SET
+        THEME_NAME=#themeName#,
+        THEME_CODE=#themeCode#,
+	THEME_MESSAGE=#themeMessage#,
+        REMARK=#remark#
+      WHERE THEME_ID=#themeId#
+   ]]>
+  </mapped-statement>
+</sql-map>

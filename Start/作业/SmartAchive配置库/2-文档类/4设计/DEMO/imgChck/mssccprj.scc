@@ -1,0 +1,9 @@
+SCC = This is a Source Code Control file
+
+[ImgProc.vbp]
+SCC_Aux_Path = "\\server\规划局综合档案管理系统\"
+SCC_Project_Name = "$/杭州市规划局档案综合管理系统/1.00/文档类/4设计/DEMO/imgChck", POGAAAAA
+
+[测试ImgProcEx.vbp]
+SCC_Aux_Path = "\\server\规划局综合档案管理系统\"
+SCC_Project_Name = "$/杭州市规划局档案综合管理系统/1.00/文档类/4设计/DEMO/imgChck", POGAAAAA

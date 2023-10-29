@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="Study">
+  <result-map name="study" class="com.sunyard.hgam.persistence.dao.beans.arm.Study">
+    <property name="studyId" column="STUDY_ID"/>
+    <property name="studyType" column="STUDY_TYPE"/>
+    <property name="studyTitle" column="STUDY_TITLE"/>
+    <property name="studyPre" column="STUDY_PRE"/>
+    <property name="studyContent" column="STUDY_CONTENT"/>
+    <property name="studyAuthor" column="STUDY_AUTHOR"/>
+    <property name="studyDate" column="STUDY_DATE"/>
+    <property name="remark" column="REMARK"/>
+   </result-map>
+
+   <mapped-statement name="getAllStudy" result-map="study">
+   <![CDATA[
+    SELECT
+	STUDY_ID,
+        STUDY_TYPE,
+        STUDY_TITLE,
+        STUDY_PRE,
+        STUDY_CONTENT,
+        STUDY_AUTHOR,
+        TO_CHAR(STUDY_DATE,'YYYY-MM-DD') AS STUDY_DATE,
+        REMARK
+    FROM
+	ARCHSTUDY
+   ]]>
+   </mapped-statement>
+
+   <dynamic-mapped-statement name="searchStudy" result-map="study">
+    SELECT
+	STUDY_ID,
+        STUDY_TYPE,
+        STUDY_TITLE,
+        STUDY_PRE,
+        STUDY_CONTENT,
+        STUDY_AUTHOR,
+        TO_CHAR(STUDY_DATE,'YYYY-MM-DD') AS STUDY_DATE,
+        REMARK
+    FROM
+	ARCHSTUDY
+    <dynamic prepend="WHERE">
+      <isNotEmpty prepend="AND" property="studyType">
+      	STUDY_TYPE like '%' || #studyType# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="studyTitle">
+      	STUDY_TITLE like '%' || #studyTitle# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="studyAuthor">
+      	STUDY_AUTHOR like '%' || #studyAuthor# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="studyDate">
+      	STUDY_DATE=TO_DATE(#studyDate#,'YYYY-MM-DD')
+      </isNotEmpty>
+    </dynamic>
+  </dynamic-mapped-statement>
+
+   <mapped-statement name="addStudy">
+   <![CDATA[
+    INSERT INTO ARCHSTUDY(
+	STUDY_ID,
+	STUDY_TYPE,
+        STUDY_TITLE,
+        STUDY_PRE,
+        STUDY_CONTENT,
+        STUDY_AUTHOR,
+        STUDY_DATE,
+	REMARK)
+       VALUES (
+	(SELECT NVL(MAX(NVL(STUDY_ID,0))+1,1) FROM ARCHSTUDY),
+	#studyType#,
+	#studyTitle#,
+        #studyPre#,
+        #studyContent#,
+        #studyAuthor#,
+        TO_DATE(#studyDate#,'YYYY-MM-DD'),
+	#remark#)
+   ]]>
+   </mapped-statement>
+
+
+   <mapped-statement name="getStudyByID" result-map="study">
+   <![CDATA[
+    SELECT
+	STUDY_ID,
+        STUDY_TYPE,
+        STUDY_TITLE,
+        STUDY_PRE,
+        STUDY_CONTENT,
+        STUDY_AUTHOR,
+        TO_CHAR(STUDY_DATE,'YYYY-MM-DD') AS STUDY_DATE,
+        REMARK
+    FROM
+	ARCHSTUDY
+    WHERE
+	STUDY_ID=#value#
+   ]]>
+   </mapped-statement>
+
+  <mapped-statement name="deleteStudyByID">
+  <![CDATA[
+    DELETE FROM ARCHSTUDY WHERE STUDY_ID=#value#
+   ]]>
+  </mapped-statement>
+
+  <mapped-statement name="updateStudy">
+  <![CDATA[
+    UPDATE ARCHSTUDY SET
+        STUDY_TYPE=#studyType#,
+        STUDY_TITLE=#studyTitle#,
+        STUDY_PRE= #studyPre#,
+        STUDY_CONTENT=#studyContent#,
+        STUDY_AUTHOR=#studyAuthor#,
+        STUDY_DATE=TO_DATE(#studyDate#,'YYYY-MM-DD'),
+       	REMARK=#remark#
+      WHERE STUDY_ID=#studyId#
+   ]]>
+  </mapped-statement>
+</sql-map>

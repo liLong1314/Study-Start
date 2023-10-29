@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="OtherCataLog">
+  <result-map name="otherCataLog" class="com.sunyard.hgam.persistence.dao.beans.arm.OtherCataLog">
+    <property name="cataLogId" column="CATALOG_ID" />
+    <property name="cataDate" column="CATA_DATE" />
+    <property name="cataNum" column="CATA_NUM" />
+    <property name="cataUnit" column="CATA_UNIT" />
+    <property name="cataAddress" column="CATA_ADDRESS" />
+    <property name="cataItem" column="CATA_ITEM" />
+    <property name="cataBuid" column="CATA_BUILD" />
+    <property name="cataSec" column="CATA_SEC" />
+    <property name="cataValue" column="CATA_VALUE" />
+    <property name="cataCardDate" column="CATA_CARDDATE" />
+    <property name="cataCardNum" column="CATA_CARDNUM" />
+    <property name="cataMan" column="CATA_MAN" />
+    <property name="cataArea" column="CATA_AREA" />
+    <property name="remark" column="REMARK" />
+  </result-map>
+<mapped-statement name="getAllOtherCataLog" result-map="otherCataLog">
+   <![CDATA[
+     SELECT
+       CATALOG_ID,
+       TO_CHAR(CATA_DATE,'YYYY-MM-DD') AS CATA_DATE,
+       CATA_NUM,
+       CATA_UNIT,
+       CATA_ADDRESS,
+       CATA_ITEM,
+       CATA_BUILD,
+       CATA_SEC,
+       CATA_VALUE,
+       TO_CHAR(CATA_CARDDATE,'YYYY-MM-DD') AS CATA_CARDDATE,
+       CATA_CARDNUM,
+       CATA_MAN,
+       CATA_AREA,
+       REMARK
+     FROM
+       OTHER_CATALOG
+   ]]>
+  </mapped-statement>
+<mapped-statement name="getOtherCataLogByID" result-map="otherCataLog">
+   <![CDATA[
+     SELECT
+       CATALOG_ID,
+       TO_CHAR(CATA_DATE,'YYYY-MM-DD') AS CATA_DATE,
+       CATA_NUM,
+       CATA_UNIT,
+       CATA_ADDRESS,
+       CATA_ITEM,
+       CATA_BUILD,
+       CATA_SEC,
+       CATA_VALUE,
+       TO_CHAR(CATA_CARDDATE,'YYYY-MM-DD') AS CATA_CARDDATE,
+       CATA_CARDNUM,
+       CATA_MAN,
+       CATA_AREA,
+       REMARK
+     FROM
+       OTHER_CATALOG
+     WHERE
+      CATALOG_ID=#value#
+   ]]>
+  </mapped-statement>
+<mapped-statement name="addOtherCataLog">
+   <![CDATA[
+    INSERT INTO OTHER_CATALOG(CATALOG_ID,
+                                 CATA_DATE,
+                                 CATA_NUM,
+                                 CATA_UNIT,
+                                 CATA_ADDRESS,
+                                 CATA_ITEM,
+                                 CATA_BUILD,
+                                 CATA_SEC,
+                                 CATA_VALUE,
+                                 CATA_CARDDATE,
+                                 CATA_CARDNUM,
+                                 CATA_MAN,
+                                 CATA_AREA,
+                                 REMARK)
+       VALUES ((SELECT NVL(MAX(NVL(CATALOG_ID,0))+1,1) FROM OTHER_CATALOG),
+                TO_DATE(#cataDate#,'YYYY-MM-DD'),
+                #cataNum#,
+                #cataUnit#,
+               #cataAddress#,
+               #cataItem#,
+               #cataBuid#,
+               #cataSec#,
+              #cataValue#,
+              TO_DATE(#cataCardDate#,'YYYY-MM-DD'),
+              #cataCardNum#,
+              #cataMan#,
+               #cataArea#,
+              #remark#)
+   ]]>
+   </mapped-statement>
+   <mapped-statement name="updateOtherCataLog">
+  <![CDATA[
+    UPDATE OTHER_CATALOG SET
+      CATA_DATE=TO_DATE(#cataDate#,'YYYY-MM-DD'),
+      CATA_NUM=#cataOrder#,
+      CATA_CARDNUM=#cataNum#,
+      CATA_ADDRESS=#cataUnit#,
+      CATA_AREA=#cataAdress#,
+      CATA_ARKNUM=#cataItem#,
+      CATA_UNIT=#cataBuid#,
+      CATA_ITEM=#cataUnit#,
+      CATA_MAPNUM=#cataValue#,
+      CATA_LEVEL=TO_DATE(#cataCardDate#,'YYYY-MM-DD'),
+      CATA_STRUTS=#cataCardNum#,
+      CATA_ENDDATE=#cataMan#,
+       CATA_AREA =#cataArea#,
+      REMARK=#remark#
+      WHERE CATALOG_ID=#cataLogId#
+   ]]>
+  </mapped-statement>
+  <dynamic-mapped-statement name="queryOtherCataLogList" result-map="otherCataLog">
+    SELECT
+      CATALOG_ID,
+       TO_CHAR(CATA_DATE,'YYYY-MM-DD') AS CATA_DATE,
+       CATA_NUM,
+       CATA_UNIT,
+       CATA_ADDRESS,
+       CATA_ITEM,
+       CATA_BUILD,
+       CATA_SEC,
+       CATA_VALUE,
+       TO_CHAR(CATA_CARDDATE,'YYYY-MM-DD') AS CATA_CARDDATE,
+       CATA_CARDNUM,
+       CATA_MAN,
+       CATA_AREA,
+       REMARK
+     FROM
+       OTHER_CATALOG
+     <dynamic prepend="WHERE">
+       <isNotEmpty prepend="AND" property="cataUnit">
+         CATA_UNIT like '%' || #cataUnit# || '%'
+       </isNotEmpty>
+              <isNotEmpty prepend="AND" property="cataItem">
+         CATA_ITEM like '%' || #cataItem# || '%'
+       </isNotEmpty>
+              <isNotEmpty prepend="AND" property="cataCardNum">
+         CATA_CARDNUM like '%' || #cataCardNum# || '%'
+       </isNotEmpty>
+     </dynamic>
+</dynamic-mapped-statement>
+</sql-map>
+
+

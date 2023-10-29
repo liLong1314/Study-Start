@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+
+  <form-beans>
+	<form-bean name="secretForm" type="com.sunyard.hgam.presentation.form.arm.SecretForm" />
+	<form-bean name="entryForm" type="com.sunyard.hgam.presentation.form.arm.EntryForm" />
+	<form-bean name="temperatureForm" type="com.sunyard.hgam.presentation.form.arm.TemperatureForm" />
+	<form-bean name="safetyForm" type="com.sunyard.hgam.presentation.form.arm.SafetyForm" />
+	<form-bean name="lawForm" type="com.sunyard.hgam.presentation.form.arm.LawForm" />
+	<form-bean name="containForm" type="com.sunyard.hgam.presentation.form.arm.ContainForm" />
+	<form-bean name="identifyForm" type="com.sunyard.hgam.presentation.form.arm.IdentifyForm" />
+	<form-bean name="destroyForm" type="com.sunyard.hgam.presentation.form.arm.DestroyForm" />
+	<form-bean name="archOperForm" type="com.sunyard.hgam.presentation.form.arm.ArchOperForm" />
+	<form-bean name="wholeForm" type="com.sunyard.hgam.presentation.form.arm.WholeForm" />
+         <form-bean name="buildingCataLogForm" type="com.sunyard.hgam.presentation.form.arm.BuildingCataLogForm" />
+        <form-bean name="searchBuildingCataLogForm" type="com.sunyard.hgam.presentation.form.arm.BuildingCataLogForm" />
+        <form-bean name="otherCataLogForm" type="com.sunyard.hgam.presentation.form.arm.OtherCataLogForm" />
+        <form-bean name="searchOtherCataLogForm" type="com.sunyard.hgam.presentation.form.arm.OtherCataLogForm" />
+        <form-bean name="watchExamineForm" type="com.sunyard.hgam.presentation.form.arm.WatchExamineForm" />
+        <form-bean name="identifyForm" type="com.sunyard.hgam.presentation.form.arm.IdentifyForm" />
+	<form-bean name="searchWatchExamineForm" type="com.sunyard.hgam.presentation.form.arm.WatchExamineForm" />
+	<form-bean name="subRollCatalogForm" type="com.sunyard.hgam.presentation.form.arm.SubRollCatalogForm" />
+	<form-bean name="searchSubRollCatalogForm" type="com.sunyard.hgam.presentation.form.arm.SubRollCatalogForm" />
+	<form-bean name="CheckArchivesPageForm" type="com.sunyard.hgam.presentation.form.adc.CheckArchivesPageForm" />
+        <form-bean name="searchIdentifyForm" type="com.sunyard.hgam.presentation.form.arm.IdentifyForm" />
+        <form-bean name="searchDestroyForm" type="com.sunyard.hgam.presentation.form.arm.DestroyForm" />
+        <form-bean name="studyForm" type="com.sunyard.hgam.presentation.form.arm.StudyForm" />
+        <form-bean name="watchExamineDenoteForm" type="com.sunyard.hgam.presentation.form.arm.WatchExamineDenoteForm" />
+  </form-beans>
+  <action-mappings>
+  <!-- 全宗管理部分 -->
+	<!-- 全宗卷信息管理 -->
+	<action type="com.sunyard.hgam.presentation.action.arm.WholeViewAction"
+		path="/arm/WholeView">
+	<forward name="success" path="/arm/wholemain.jsp" />
+	</action>
+
+	<action	type="com.sunyard.hgam.presentation.action.arm.WholeModViewAction"
+		path="/arm/WholeModView">
+	<forward name="success" path="/arm/wholemodify.jsp"/>
+	</action>
+
+	<action type="com.sunyard.hgam.presentation.action.arm.WholeInfoViewAction"
+		path="/arm/WholeInfoView">
+	<forward name="success" path="/arm/wholeinfo.jsp" />
+	</action>
+
+	<action	name="wholeForm"
+		type="com.sunyard.hgam.presentation.action.arm.WholeAddAction"
+		input="/arm/wholeadd.jsp"
+		scope="request"
+		path="/arm/WholeAdd">
+	<forward name="success" path="/arm/WholeView.do?page=refresh" redirect="true"/>
+	</action>
+
+	<action	name="wholeForm"
+		type="com.sunyard.hgam.presentation.action.arm.WholeModifyAction"
+		input="/arm/wholemodify.jsp"
+		scope="request"
+		path="/arm/WholeModify">
+	<forward name="success" path="/arm/WholeView.do?page=refresh" redirect="true"/>
+	</action>
+
+	<action type="com.sunyard.hgam.presentation.action.arm.WholeDelAction"
+		scope="request"
+		path="/arm/WholeDel">
+	<forward name="success" path="/arm/WholeView.do?page=refresh" redirect="true"/>
+	</action>
+
+	<!-- 密级管理 -->
+	<action type="com.sunyard.hgam.presentation.action.arm.SecretAllViewAction"
+		path="/arm/SecretAllView">
+	<forward name="success" path="/arm/secretmain.jsp"/>
+	</action>
+
+	<action	type="com.sunyard.hgam.presentation.action.arm.SecretModViewAction"
+		path="/arm/SecretModView">
+	<forward name="success" path="/arm/secretmodify.jsp"/>
+	</action>
+
+	<action	name="secretForm"
+		type="com.sunyard.hgam.presentation.action.arm.SecretAddAction"
+		input="/arm/secretadd.jsp"
+		scope="request"
+		path="/arm/SecretAdd">
+	<forward name="success" path="/arm/SecretAllView.do?page=refresh" redirect="true"/>
+	</action>
+
+	<action	name="secretForm"
+		type="com.sunyard.hgam.presentation.action.arm.SecretModifyAction"
+		input="/arm/secretmodify.jsp"
+		scope="request"
+		path="/arm/SecretModify">
+	<forward name="success" path="/arm/SecretAllView.do?page=refresh"  redirect="true"/>
+	</action>
+
+	<action	name="secretForm"
+		type="com.sunyard.hgam.presentation.action.arm.SecretDelAction"
+		scope="request"
+		path="/arm/SecretDel">
+	<forward name="success" path="/arm/SecretAllView.do?page=refresh"  redirect="true"/>
+	</action>
+
+	<!-- 类目管理 -->
+	<action type="com.sunyard.hgam.presentation.action.arm.EntryViewAction"
+		path="/arm/EntryView">
+	<forward name="FirstEntry" path="/arm/entrymain.jsp" />
+	<forward name="SecondEntry" path="/arm/entrySmain.jsp" />
+	</action>
+
+	<action	type="com.sunyard.hgam.presentation.action.arm.EntryModViewAction"
+		path="/arm/EntryModView">
+	<forward name="FirstEntry" path="/arm/entryFmodify.jsp"/>
+	<forward name="SecondEntry" path="/arm/entrySmodify.jsp"/>
+	</action>
+
+	<action	name="entryForm"
+		type="com.sunyard.hgam.presentation.action.arm.EntryAddAction"
+		scope="request"
+		path="/arm/EntryAdd">
+	<forward name="FirstEntry" path="/arm/EntryView.do?flag=1" />
+	<forward name="SecondEntry" path="/arm/EntryView.do?flag=2" />
+	</action>
+
+	<action	name="entryForm"
+		type="com.sunyard.hgam.presentation.action.arm.EntryModifyAction"
+		input="/arm/entryFmodify.jsp"
+		scope="request"
+		path="/arm/EntryModify">
+	<forward name="FirstEntry" path="/arm/EntryView.do?flag=1" />
+	<forward name="SecondEntry" path="/arm/EntryView.do?flag=2" />
+	</action>
+
+	<action	name="entryForm"
+		type="com.sunyard.hgam.presentation.action.arm.EntryDelAction"
+		scope="request"
+		path="/arm/EntryDel">
+	<forward name="FirstEntry" path="/arm/EntryView.do?flag=1" />
+	<forward name="SecondEntry" path="/arm/EntryView.do?flag=2" />
+	</action>
+	<!-- 历史目录册管理 -->
+       <action type="com.sunyard.hgam.presentation.action.arm.ViewAllBuildingCataLogAction"
+		path="/arm/viewAllbuildingCataLog">
+      <forward name="success" path="/arm/buildingCataLog.jsp" />
+      </action>
+      <action	name="buildingCataLogForm"
+		type="com.sunyard.hgam.presentation.action.arm.BuildingCataLogAddAction"
+		input="/arm/buildingCataLogAdd.jsp"
+		scope="request"
+		path="/arm/buidingCataLogAdd">
+	<forward name="success" path="/arm/viewAllbuildingCataLog.do" redirect="true"/>
+	</action>
+      <action	name="buildingCataLogForm"
+		type="com.sunyard.hgam.presentation.action.arm.BuildingCataLogViewAction"
+		input="/arm/buildingCataLogEdit.jsp"
+		scope="request"
+		path="/arm/buidingCataLogView">
+	<forward name="success" path="/arm/buildingCataLogEdit.jsp"/>
+	</action>
+      <action	name="buildingCataLogForm"
+		type="com.sunyard.hgam.presentation.action.arm.BuildingCataLogUpdateAction"
+		input="/arm/buildingCataLogEdit.jsp"
+		scope="request"
+		path="/arm/buidingCataLogUpdate">
+	<forward name="success" path="/arm/viewAllbuildingCataLog.do"/>
+	</action>
+      <action	name="buildingCataLogForm"
+		type="com.sunyard.hgam.presentation.action.arm.BuildingCataLogDeleteAction"
+		input="/arm/buildingCataLogEdit.jsp"
+		scope="request"
+		path="/arm/buidingCataLogDelete">
+	<forward name="success" path="/arm/viewAllbuildingCataLog.do"/>
+	</action>
+        <action name="searchBuildingCataLogForm"
+                type="com.sunyard.hgam.presentation.action.arm.QueryBuildingCataLogListAction"
+               scope="request"
+               path="/arm/queryBuildingCataLogList">
+       <forward name="success" path="/arm/buildingCataLog.jsp"/>
+       </action>
+
+         <action type="com.sunyard.hgam.presentation.action.arm.ViewAllOtherCataLogAction"
+		path="/arm/viewAllotherCataLog">
+         <forward name="success" path="/arm/otherCataLog.jsp" />
+         </action>
+         <action  name="otherCataLogForm"
+                  type="com.sunyard.hgam.presentation.action.arm.OtherCataLogAddAction"
+		  input="/arm/otherCataLogAdd.jsp"
+		  scope="request"
+		  path="/arm/otherCataLogAdd">
+	<forward name="success" path="/arm/viewAllotherCataLog.do" redirect="true"/>
+	</action>
+         <action name="searchOtherCataLogForm"
+                type="com.sunyard.hgam.presentation.action.arm.QueryOtherCataLogListAction"
+               scope="request"
+               path="/arm/queryOtherCataLogList">
+       <forward name="success" path="/arm/otherCataLog.jsp"/>
+       </action>
+
+	<!-- 监督检查管理 -->
+       <action type="com.sunyard.hgam.presentation.action.arm.ViewAllWatchExamineAction"
+               path="/arm/viewallwatchexamine">
+       <forward name="success" path="/arm/watchExamineMain.jsp"/>
+       </action>
+        <action  name="watchExamineForm"
+                  type="com.sunyard.hgam.presentation.action.arm.WatchExamineAddAction"
+		  input="/arm/watchExamineAdd.jsp"
+		  scope="request"
+		  path="/arm/watchExamineAdd">
+	<forward name="success" path="/arm/viewallsubwatchexamine.do" redirect="true"/>
+       </action>
+       <action	type="com.sunyard.hgam.presentation.action.arm.WatchExamineModViewAction"
+		path="/arm/watchExaminemodview">
+	<forward name="success" path="/arm/watchExamineMod.jsp"/>
+	</action>
+       <action type="com.sunyard.hgam.presentation.action.arm.ViewAllSubRollCatalogAction"
+               path="/arm/viewallwatchsubrollcatalog">
+       <forward name="success" path="/arm/watchsubRollCatalogMain.jsp"/>
+        </action>
+       <action type="com.sunyard.hgam.presentation.action.arm.ViewAllSubRollCatalogAction"
+               path="/arm/viewallsubrollcatalog">
+       <forward name="success" path="/arm/subRollCatalogMain.jsp"/>
+       </action>
+        <action  name="subRollCatalogForm"
+                  type="com.sunyard.hgam.presentation.action.arm.SubRollCatalogAddAction"
+		  input="/arm/subRollCatalogAdd.jsp"
+		  scope="request"
+		  path="/arm/subRollCatalogAdd">
+	<forward name="success" path="/arm/viewallsubrollcatalog.do" redirect="true"/>
+       </action>
+      <action name="searchWatchExamineForm"
+                type="com.sunyard.hgam.presentation.action.arm.QueryWatchExamineListAction"
+               scope="request"
+               path="/arm/queryWatchExamineList">
+       <forward name="success" path="/arm/watchExamineMain.jsp"/>
+       </action>
+      <action name="searchSubRollCatalogForm"
+                type="com.sunyard.hgam.presentation.action.arm.QuerySubRollCatalogListAction"
+               scope="request"
+               path="/arm/querySubRollCatalogList">
+       <forward name="success" path="/arm/subRollCatalogMain.jsp"/>
+      </action>
+	   <action type="com.sunyard.hgam.presentation.action.arm.WatchExamineViewAction" path="/arm/watchExamineView">
+           <forward name="success" path="/arm/watchExamineInfo.jsp" />
+      </action>
+      <action name="watchExamineDenoteForm"
+              type="com.sunyard.hgam.presentation.action.arm.WatchExamineDenoteAddAction"
+              input="/arm/watchExamineDenote.jsp"
+              scope="request"
+              path="/arm/watchExamineDenoteAdd">
+	<forward name="success" path="/arm/viewallwatchexamine.do" redirect="true"/>
+       </action>
+       <action type="com.sunyard.hgam.presentation.action.arm.WatchExamineDenoteViewAction" path="/arm/watchExamineDenoteView">
+           <forward name="success" path="/arm/watchExamineDenoteInfo.jsp" />
+	   </action>
+       <action type="com.sunyard.hgam.presentation.action.arm.ViewAllSubWatchExamineAction"
+               path="/arm/viewallsubwatchexamine">
+       <forward name="success" path="/arm/subWatchExamineMain.jsp"/>
+       </action>
+       <action name="searchWatchExamineForm"
+                type="com.sunyard.hgam.presentation.action.arm.QueryWatchExamineListAction"
+               scope="request"
+               path="/arm/querysubWatchExamineList">
+       <forward name="success" path="/arm/subWatchExamineMain.jsp"/>
+       </action>
+
+  <!-- 档案信息管理 -->
+	<!-- 构建类目树 -->
+	<action type="com.sunyard.hgam.presentation.action.arm.ViewTreeListAction"
+		path="/arm/ViewAllEntryTreeList">
+	<forward name="ArchVerify" path="/arm/archverifytree.jsp" />
+	<forward name="ArchIdentify" path="/arm/archidenttree.jsp" />
+	<forward name="ArchDestroy" path="/arm/archdestroytree.jsp" />
+	<forward name="ArchChange" path="/arm/archchangetree.jsp" />
+	<forward name="Query" path="/aum/querytree.jsp" />
+	<forward name="FAILURE" path="/error.jsp" />
+	</action>
+
+	<!-- 公共方法 -->
+	<action type="com.sunyard.hgam.presentation.action.arm.ArchViewAction"
+		path="/arm/ArchView">
+	<forward name="ArchVerify" path="/arm/archverifymain.jsp" />
+	<forward name="ArchIdentify" path="/arm/archidentmain.jsp" />
+	<forward name="ArchDestroy" path="/arm/archdestroymain.jsp" />
+	<forward name="ArchChange" path="/arm/archchangemain.jsp" />
+	</action>
+
+	<action name="archOperForm"
+		type="com.sunyard.hgam.presentation.action.arm.ArchSearchAction"
+		path="/arm/ArchSearch">
+	<forward name="ArchVerify" path="/arm/archverifymain.jsp" />
+	<forward name="ArchIdentify" path="/arm/archidentmain.jsp" />
+	<forward name="ArchDestroy" path="/arm/archdestroymain.jsp" />
+	<forward name="ArchChange" path="/arm/archchangemain.jsp" />
+	</action>
+
+	<action type="com.sunyard.hgam.presentation.action.arm.FileViewAction"
+		path="/arm/FileView">
+	<forward name="ArchVerify" path="/arm/archverifyfile.jsp" />
+	<forward name="ArchIdentify" path="/arm/archidentfile.jsp" />
+	<forward name="ArchDestroy" path="/arm/archdestroyfile.jsp" />
+	</action>
+
+	<!-- 档案校验 -->
+	<action type="com.sunyard.hgam.presentation.action.arm.ArchPageViewAction"
+		path="/arm/ArchPageView">
+	<forward name="success" path="/arm/archverifypage.jsp" />
+	</action>
+
+	<action name="CheckArchivesPageForm"
+		type="com.sunyard.hgam.presentation.action.arm.ArchImageShowAction"
+		path="/arm/ArchImageShow">
+	<forward name="success" path="/arm/archverifyimage.jsp" />
+	</action>
+
+	<action	name="archOperForm"
+		type="com.sunyard.hgam.presentation.action.arm.ArchBreakAction"
+		input="/arm/archverifymain.jsp"
+		scope="request"
+		path="/arm/ArchBreak">
+	<forward name="success" path="/arm/ArchView.do?flag=1" redirect="true"/>
+	</action>
+
+	<!-- 鉴定管理 -->
+	<action	name="identifyForm"
+		type="com.sunyard.hgam.presentation.action.arm.FileIdentifyAction"
+		input="/arm/archidentfile.jsp"
+		scope="request"
+		path="/arm/FileIdentify">
+	<forward name="success" path="/arm/FileView.do?flag=2" redirect="true"/>
+	</action>
+
+	<action type="com.sunyard.hgam.presentation.action.arm.FileIdentStatAction"
+		path="/arm/FileIdentStat">
+	<forward name="success" path="/arm/archidentstat.jsp" />
+	</action>
+        <action name="searchIdentifyForm"
+                type="com.sunyard.hgam.presentation.action.arm.FileIdentifySearchAction"
+               scope="request"
+               path="/arm/queryIdentifyList">
+       <forward name="success" path="/arm/archidentstat.jsp"/>
+      </action>
+
+	<!-- 销毁管理 -->
+	<action	name="destroyForm"
+		type="com.sunyard.hgam.presentation.action.arm.FileDestroyAction"
+		input="/arm/archdestroyfile.jsp"
+		scope="request"
+		path="/arm/FileDestroy">
+	<forward name="success" path="/arm/FileView.do?flag=3" redirect="true"/>
+	</action>
+
+	<action type="com.sunyard.hgam.presentation.action.arm.FileDestroyStatAction"
+		path="/arm/FileDestroyStat">
+	<forward name="success" path="/arm/archdestroystat.jsp" />
+	</action>
+        <action name="searchDestroyForm"
+                type="com.sunyard.hgam.presentation.action.arm.FileDestroySearchAction"
+               scope="request"
+               path="/arm/queryDestroyList">
+       <forward name="success" path="/arm/archdestroystat.jsp"/>
+      </action>
+
+	<!-- 变更管理 -->
+	<action type="com.sunyard.hgam.presentation.action.arm.ArchChangeViewAction"
+		path="/arm/ArchChangeView">
+	<forward name="changeadd" path="/arm/archchangeadd.jsp" />
+	<forward name="changeinfo" path="/arm/archchangeinfo.jsp" />
+	</action>
+
+	<action	name="archOperForm"
+		type="com.sunyard.hgam.presentation.action.arm.ArchChangeAddAction"
+		input="/arm/archchangeadd.jsp"
+		scope="request"
+		path="/arm/ArchChangeAdd">
+	<forward name="success" path="/arm/ArchChangeStat.do" />
+	</action>
+
+	<action type="com.sunyard.hgam.presentation.action.arm.ArchChangeStatAction"
+		path="/arm/ArchChangeStat">
+	<forward name="success" path="/arm/archchangestat.jsp" />
+	</action>
+
+	<!-- 编研管理 -->
+	<action type="com.sunyard.hgam.presentation.action.arm.StudyAllViewAction"
+		path="/arm/StudyAllView">
+	<forward name="success" path="/arm/studymain.jsp"/>
+	</action>
+	<action type="com.sunyard.hgam.presentation.action.arm.StudyModViewAction"
+		path="/arm/StudyModView">
+	<forward name="success" path="/arm/studymodify.jsp"/>
+	</action>
+	<action name="studyForm"
+		type="com.sunyard.hgam.presentation.action.arm.StudySearchAction"
+		path="/arm/StudySearch">
+	<forward name="success" path="/arm/studymain.jsp"/>
+	</action>
+	<action name="studyForm"
+		type="com.sunyard.hgam.presentation.action.arm.StudyAddAction"
+		input="/arm/studyadd.jsp"
+		scope="request"
+		path="/arm/StudyAdd">
+	<forward name="success" path="/arm/StudySearch.do?page=refresh" redirect="true"/>
+	</action>
+	<action name="studyForm"
+		type="com.sunyard.hgam.presentation.action.arm.StudyModifyAction"
+		input="/arm/studymodify.jsp"
+		scope="request"
+		path="/arm/StudyModify">
+	<forward name="success" path="/arm/StudySearch.do?page=refresh" redirect="true"/>
+        </action>
+	<action name="studyForm"
+		type="com.sunyard.hgam.presentation.action.arm.StudyDelAction"
+		scope="request"
+		path="/arm/StudyDel">
+	<forward name="success" path="/arm/StudySearch.do?page=refresh" redirect="true"/>
+	</action>
+<!-- 库房管理 -->
+	<!-- 温湿度管理 -->
+	<action type="com.sunyard.hgam.presentation.action.arm.TemperatureViewAction"
+		path="/arm/TemperatureView">
+	<forward name="success" path="/arm/temmain.jsp" />
+	</action>
+
+	<action name="temperatureForm"
+		type="com.sunyard.hgam.presentation.action.arm.TemperatureSearchAction"
+		path="/arm/TemperatureSearch">
+	<forward name="success" path="/arm/temmain.jsp" />
+	</action>
+
+	<action	type="com.sunyard.hgam.presentation.action.arm.TemperatureModViewAction"
+		path="/arm/TemperatureModView">
+	<forward name="success" path="/arm/temmodify.jsp"/>
+	</action>
+
+	<action	name="temperatureForm"
+		type="com.sunyard.hgam.presentation.action.arm.TemperatureAddAction"
+		input="/arm/temadd.jsp"
+		scope="request"
+		path="/arm/TemperatureAdd">
+	<forward name="success" path="/arm/TemperatureSearch.do?page=refresh" redirect="true"/>
+	</action>
+
+	<action	name="temperatureForm"
+		type="com.sunyard.hgam.presentation.action.arm.TemperatureModifyAction"
+		input="/arm/temmodify.jsp"
+		scope="request"
+		path="/arm/TemperatureModify">
+	<forward name="success" path="/arm/TemperatureSearch.do?page=refresh" redirect="true"/>
+	</action>
+
+	<action	name="temperatureForm"
+		type="com.sunyard.hgam.presentation.action.arm.TemperatureDelAction"
+		scope="request"
+		path="/arm/TemperatureDel">
+	<forward name="success" path="/arm/TemperatureSearch.do?page=refresh" redirect="true"/>
+	</action>
+
+	<!-- 安全管理 -->
+	<action type="com.sunyard.hgam.presentation.action.arm.SafetyViewAction"
+		path="/arm/SafetyView">
+	<forward name="success" path="/arm/safetymain.jsp" />
+	</action>
+
+	<action	name="safetyForm"
+		type="com.sunyard.hgam.presentation.action.arm.SafetySearchAction"
+		path="/arm/SafetySearch">
+	<forward name="success" path="/arm/safetymain.jsp" />
+	</action>
+
+	<action	type="com.sunyard.hgam.presentation.action.arm.SafetyModViewAction"
+		path="/arm/SafetyModView">
+	<forward name="success" path="/arm/safetymodify.jsp"/>
+	</action>
+
+	<action	name="safetyForm"
+		type="com.sunyard.hgam.presentation.action.arm.SafetyAddAction"
+		input="/arm/safetyadd.jsp"
+		scope="request"
+		path="/arm/SafetyAdd">
+	<forward name="success" path="/arm/SafetySearch.do?page=refresh" redirect="true"/>
+	</action>
+
+	<action	name="safetyForm"
+		type="com.sunyard.hgam.presentation.action.arm.SafetyModifyAction"
+		input="/arm/safetymodify.jsp"
+		scope="request"
+		path="/arm/SafetyModify">
+	<forward name="success" path="/arm/SafetySearch.do?page=refresh" redirect="true"/>
+	</action>
+
+	<action	name="safetyForm"
+		type="com.sunyard.hgam.presentation.action.arm.SafetyDelAction"
+		scope="request"
+		path="/arm/SafetyDel">
+	<forward name="success" path="/arm/SafetySearch.do?page=refresh" redirect="true"/>
+	</action>
+
+	<!-- 密集架管理 -->
+	<action type="com.sunyard.hgam.presentation.action.arm.ContainViewAction"
+		path="/arm/ContainView">
+	<forward name="success" path="/arm/containmain.jsp" />
+	</action>
+
+	<action	name="containForm"
+		type="com.sunyard.hgam.presentation.action.arm.ContainSearchAction"
+		path="/arm/ContainSearch">
+	<forward name="success" path="/arm/containmain.jsp" />
+	</action>
+
+	<action	name="containForm"
+		type="com.sunyard.hgam.presentation.action.arm.ContainAddAction"
+		input="/arm/containadd.jsp"
+		scope="request"
+		path="/arm/ContainAdd">
+	<forward name="success" path="/arm/ContainSearch.do?page=refresh" redirect="true"/>
+	</action>
+
+	<action	name="containForm"
+		type="com.sunyard.hgam.presentation.action.arm.ContainDelAction"
+		scope="request"
+		path="/arm/ContainDel">
+	<forward name="success" path="/arm/ContainSearch.do?page=refresh" redirect="true"/>
+	</action>
+
+  <!-- 规范化管理 -->
+	<!-- 法律法规管理 -->
+	<action type="com.sunyard.hgam.presentation.action.arm.LawViewAction"
+		path="/arm/LawView">
+	<forward name="success" path="/arm/lawmain.jsp" />
+	</action>
+
+	<action	name="lawForm"
+		type="com.sunyard.hgam.presentation.action.arm.LawSearchAction"
+		path="/arm/LawSearch">
+	<forward name="success" path="/arm/lawmain.jsp"/>
+	</action>
+
+	<action	type="com.sunyard.hgam.presentation.action.arm.LawModViewAction"
+		path="/arm/LawModView">
+	<forward name="success" path="/arm/lawmodify.jsp"/>
+	</action>
+
+	<action	name="lawForm"
+		type="com.sunyard.hgam.presentation.action.arm.LawAddAction"
+		input="/arm/lawadd.jsp"
+		scope="request"
+		path="/arm/LawAdd">
+	<forward name="success" path="/arm/LawSearch.do?page=refresh" redirect="true"/>
+	</action>
+
+	<action	name="lawForm"
+		type="com.sunyard.hgam.presentation.action.arm.LawModifyAction"
+		input="/arm/lawmodify.jsp"
+		scope="request"
+		path="/arm/LawModify">
+	<forward name="success" path="/arm/LawSearch.do?page=refresh" redirect="true"/>
+	</action>
+
+	<action	name="lawForm"
+		type="com.sunyard.hgam.presentation.action.arm.LawDelAction"
+		scope="request"
+		path="/arm/LawDel">
+	<forward name="success" path="/arm/LawSearch.do?page=refresh" redirect="true"/>
+	</action>
+  </action-mappings>
+
+</struts-config>

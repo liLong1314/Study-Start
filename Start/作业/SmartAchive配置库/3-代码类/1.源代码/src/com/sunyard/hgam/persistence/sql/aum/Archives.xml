@@ -1,0 +1,702 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="Archives">
+  <result-map name="archives" class="com.sunyard.hgam.persistence.dao.beans.adc.Archives">
+    <property name="aARCHIVES_ID"	column="ARCHIVES_ID"/>
+    <property name="aENTRY_ID"		column="ENTRY_ID"/>
+    <property name="aCONTAINER_ID"	column="CONTAINER_ID"/>
+    <property name="aREF_ARCHIVES_ID"	column="REF_ARCHIVES_ID"/>
+    <property name="aFONDS_NUM"		column="FONDS_NUM"/>
+    <property name="aCATALOG_NUM"	column="CATALOG_NUM"/>
+    <property name="aROLL_NUM"		column="ROLL_NUM"/>
+    <property name="aPIECE_NUM"		column="PIECE_NUM"/>
+    <property name="aARCHIVES_NUM"	column="ARCHIVES_NUM"/>
+    <property name="aARC_NUM"		column="ARC_NUM"/>
+    <property name="aARCHIVES_ROOM_CODE"	column="ARCHIVES_ROOM_CODE"/>
+    <property name="aROLL_MODE"		column="ROLL_MODE"/>
+    <property name="aMAKE_DATE"		column="MAKE_DATE"/>
+    <property name="aMAKE_MAN"		column="MAKE_MAN"/>
+    <property name="aREDUCE_NUM"		column="REDUCE_NUM"/>
+    <property name="aITEM_NUM"		column="ITEM_NUM"/>
+    <property name="aREG_NUM"		column="REG_NUM"/>
+    <property name="aARCHIVES_STATUS"	column="ARCHIVES_STATUS"/>
+    <property name="aARCHIVES_TYPE"	column="ARCHIVES_TYPE"/>
+    <property name="aARCHIVES_CONTENT"	column="ARCHIVES_CONTENT"/>
+    <property name="aARCHIVES_YEAR"	column="ARCHIVES_YEAR"/>
+    <property name="aARCHIVES_NAME"	column="ARCHIVES_NAME"/>
+    <property name="aPROJ_ID"		column="PROJ_ID"/>
+    <property name="aPROJ_NAME"		column="PROJ_NAME"/>
+    <property name="aBEGIN_DATE"		column="BEGIN_DATE"/>
+    <property name="aEND_DATE"		column="END_DATE"/>
+    <property name="aORGAN"		column="ORGAN"/>
+    <property name="aSTORE_TERM"		column="STORE_TERM"/>
+    <property name="aARCHIVES_FOUND_DATE"	column="ARCHIVES_FOUND_DATE"/>
+    <property name="aARCHIVES_FOUND_UNIT"	column="ARCHIVES_FOUND_UNIT"/>
+    <property name="aARCHIVES_FOUND_MAN"	column="ARCHIVES_FOUND_MAN"/>
+    <property name="aARCHIVES_MAKE_PERIOD"	column="ARCHIVES_MAKE_PERIOD"/>
+    <property name="aARCHIVES_UNIT"	column="ARCHIVES_UNIT"/>
+    <property name="aPAGE_AMOUNT"	column="PAGE_AMOUNT"/>
+    <property name="aROLL_AMOUNT"	column="ROLL_AMOUNT"/>
+    <property name="aROLL_SEQ"		column="ROLL_SEQ"/>
+    <property name="aMEDIA_TYPE"		column="MEDIA_TYPE"/>
+    <property name="aPHOTO_NUM"		column="PHOTO_NUM"/>
+    <property name="aNEGATIVE_NUM"	column="NEGATIVE_NUM"/>
+    <property name="aIS_BORROW"		column="IS_BORROW"/>
+    <property name="aIS_CHANGE"		column="IS_CHANGE"/>
+    <property name="aIS_PRIVATE"		column="IS_PRIVATE"/>
+    <property name="aIS_OPERATION"	column="IS_OPERATION"/>
+    <property name="aOPER_ID"		column="OPER_ID"/>
+    <property name="aREMARK"		column="REMARK"/>
+    <property name="aARCHIVES_AMOUNT"	column="ARCHIVES_AMOUNT"/>
+    <property name="aPAGE_NUM_FROM_TO"	column="PAGE_NUM_FROM_TO"/>
+    <property name="aARC_DATE"	column="ARC_DATE"/>
+    <property name="aARC_PIECE_NUM"	column="ARC_PIECE_NUM"/>
+    <property name="aSECRET_ID"	column="SECRET_ID"/>
+
+    <property name="aIS_EXIST_ARCHIVES_NUM"	column="IS_EXIST_ARCHIVES_NUM"/>
+    <property name="aIS_EXIST_ROLL_NUM"	column="IS_EXIST_ROLL_NUM"/>
+    <property name="aIS_EXIST_PIECE_NUM"	column="IS_EXIST_PIECE_NUM"/>
+   </result-map>
+
+  <result-map name="archives2" class="com.sunyard.hgam.persistence.dao.beans.adc.Archives">
+    <property name="aARCHIVES_ID"	column="ARCHIVES_ID"/>
+    <property name="aENTRY_ID"		column="ENTRY_ID"/>
+    <property name="aCONTAINER_ID"	column="CONTAINER_ID"/>
+    <property name="aREF_ARCHIVES_ID"	column="REF_ARCHIVES_ID"/>
+    <property name="aFONDS_NUM"		column="FONDS_NUM"/>
+    <property name="aCATALOG_NUM"	column="CATALOG_NUM"/>
+    <property name="aROLL_NUM"		column="ROLL_NUM"/>
+    <property name="aPIECE_NUM"		column="PIECE_NUM"/>
+    <property name="aARCHIVES_NUM"	column="ARCHIVES_NUM"/>
+    <property name="aARC_NUM"		column="ARC_NUM"/>
+    <property name="aARCHIVES_ROOM_CODE"	column="ARCHIVES_ROOM_CODE"/>
+    <property name="aROLL_MODE"		column="ROLL_MODE"/>
+    <property name="aMAKE_DATE"		column="MAKE_DATE"/>
+    <property name="aMAKE_MAN"		column="MAKE_MAN"/>
+    <property name="aREDUCE_NUM"		column="REDUCE_NUM"/>
+    <property name="aITEM_NUM"		column="ITEM_NUM"/>
+    <property name="aREG_NUM"		column="REG_NUM"/>
+    <property name="aARCHIVES_STATUS"	column="ARCHIVES_STATUS"/>
+    <property name="aARCHIVES_TYPE"	column="ARCHIVES_TYPE"/>
+    <property name="aARCHIVES_CONTENT"	column="ARCHIVES_CONTENT"/>
+    <property name="aARCHIVES_YEAR"	column="ARCHIVES_YEAR"/>
+    <property name="aARCHIVES_NAME"	column="ARCHIVES_NAME"/>
+    <property name="aPROJ_ID"		column="PROJ_ID"/>
+    <property name="aPROJ_NAME"		column="PROJ_NAME"/>
+    <property name="aBEGIN_DATE"		column="BEGIN_DATE"/>
+    <property name="aEND_DATE"		column="END_DATE"/>
+    <property name="aORGAN"		column="ORGAN"/>
+    <property name="aSTORE_TERM"		column="STORE_TERM"/>
+    <property name="aARCHIVES_FOUND_DATE"	column="ARCHIVES_FOUND_DATE"/>
+    <property name="aARCHIVES_FOUND_UNIT"	column="ARCHIVES_FOUND_UNIT"/>
+    <property name="aARCHIVES_FOUND_MAN"	column="ARCHIVES_FOUND_MAN"/>
+    <property name="aARCHIVES_MAKE_PERIOD"	column="ARCHIVES_MAKE_PERIOD"/>
+    <property name="aARCHIVES_UNIT"	column="ARCHIVES_UNIT"/>
+    <property name="aPAGE_AMOUNT"	column="PAGE_AMOUNT"/>
+    <property name="aROLL_AMOUNT"	column="ROLL_AMOUNT"/>
+    <property name="aROLL_SEQ"		column="ROLL_SEQ"/>
+    <property name="aMEDIA_TYPE"		column="MEDIA_TYPE"/>
+    <property name="aPHOTO_NUM"		column="PHOTO_NUM"/>
+    <property name="aNEGATIVE_NUM"	column="NEGATIVE_NUM"/>
+    <property name="aIS_BORROW"		column="IS_BORROW"/>
+    <property name="aIS_CHANGE"		column="IS_CHANGE"/>
+    <property name="aIS_PRIVATE"		column="IS_PRIVATE"/>
+    <property name="aIS_OPERATION"	column="IS_OPERATION"/>
+    <property name="aOPER_ID"		column="OPER_ID"/>
+    <property name="aREMARK"		column="REMARK"/>
+    <property name="aARCHIVES_AMOUNT"	column="ARCHIVES_AMOUNT"/>
+    <property name="aPAGE_NUM_FROM_TO"	column="PAGE_NUM_FROM_TO"/>
+    <property name="aARC_DATE"	column="ARC_DATE"/>
+    <property name="aARC_PIECE_NUM"	column="ARC_PIECE_NUM"/>
+    <property name="aSECRET_ID"	column="SECRET_ID"/>
+   </result-map>
+
+   <result-map name="archivesQuery" class="com.sunyard.hgam.persistence.dao.beans.adc.Archives">
+    <property name="aARCHIVES_ID"	column="ARCHIVES_ID"/>
+    <property name="aENTRY_ID"		column="ENTRY_ID"/>
+    <property name="aCATALOG_NUM"	column="CATALOG_NUM"/>
+    <property name="aROLL_NUM"		column="ROLL_NUM"/>
+    <property name="aPIECE_NUM"		column="PIECE_NUM"/>
+    <property name="aARCHIVES_NUM"	column="ARCHIVES_NUM"/>
+    <property name="aROLL_MODE"		column="ROLL_MODE"/>
+    <property name="aSTORE_TERM"	column="STORE_TERM"/>
+    <property name="aARCHIVES_STATUS"	column="ARCHIVES_STATUS"/>
+    <property name="aARCHIVES_YEAR"	column="ARCHIVES_YEAR"/>
+    <property name="aARCHIVES_NAME"	column="ARCHIVES_NAME"/>
+    <property name="aPROJ_ID"		column="PROJ_ID"/>
+    <property name="aPROJ_NAME"		column="PROJ_NAME"/>
+   </result-map>
+
+   <mapped-statement name="addWenshuRollArchives">
+   <![CDATA[
+	INSERT INTO ARCHIVES
+         (ARCHIVES_ID,
+	  ENTRY_ID,
+	  FONDS_NUM,
+	  ROLL_NUM,
+	  ARCHIVES_NUM,
+	  ARCHIVES_ROOM_CODE,
+	  ROLL_MODE,
+	  MAKE_DATE,
+	  MAKE_MAN,
+	  ARCHIVES_STATUS,
+	  ARCHIVES_YEAR,
+	  ARCHIVES_NAME,
+	  BEGIN_DATE,
+	  END_DATE,
+	  STORE_TERM,
+	  ARCHIVES_FOUND_UNIT,
+	  ARCHIVES_FOUND_MAN,
+	  ARCHIVES_MAKE_PERIOD,
+	  ARCHIVES_UNIT,
+	  ARCHIVES_AMOUNT,
+	  SPECIFICATION,
+	  MEDIA_TYPE,
+	  IS_BORROW,
+	  IS_CHANGE,
+	  IS_PRIVATE,
+	  IS_OPERATION,
+	  REMARK,
+	  SECRET_ID
+	)
+	VALUES
+	 (#aARCHIVES_ID#,
+	  #aENTRY_ID#,
+	  #aFONDS_NUM#,
+	  #aROLL_NUM#,
+	  #aARCHIVES_NUM#,
+	  #aARCHIVES_ROOM_CODE#,
+	  #aROLL_MODE#,
+	  sysdate,
+	  #aMAKE_MAN#,
+	  #aARCHIVES_STATUS#,
+	  #aARCHIVES_YEAR#,
+	  #aARCHIVES_NAME#,
+	  #aBEGIN_DATE#,
+	  #aEND_DATE#,
+	  #aSTORE_TERM#,
+	  #aARCHIVES_FOUND_UNIT#,
+	  #aARCHIVES_FOUND_MAN#,
+	  #aARCHIVES_MAKE_PERIOD#,
+	  #aARCHIVES_UNIT#,
+	  #aARCHIVES_AMOUNT#,
+	  #aSPECIFICATION#,
+	  #aMEDIA_TYPE#,
+	  0,
+	  0,
+	  #aIS_PRIVATE#,
+	  #aIS_OPERATION#,
+	  #aREMARK#,
+	  #aSECRET_ID#
+	)
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="addYewuRollArchives">
+   <![CDATA[
+	INSERT INTO ARCHIVES
+         (ARCHIVES_ID,
+	  ENTRY_ID,
+	  FONDS_NUM,
+	  ROLL_NUM,
+	  ARCHIVES_NUM,
+	  ARC_NUM,
+	  ARC_DATE,
+	  ARCHIVES_ROOM_CODE,
+	  ROLL_MODE,
+	  MAKE_DATE,
+	  MAKE_MAN,
+	  REDUCE_NUM,
+	  REG_NUM,
+	  ARCHIVES_STATUS,
+	  ARCHIVES_YEAR,
+	  ARCHIVES_NAME,
+	  PROJ_ID,
+	  PROJ_NAME,
+	  STORE_TERM,
+	  ARCHIVES_FOUND_DATE,
+	  ARCHIVES_FOUND_UNIT,
+	  ARCHIVES_FOUND_MAN,
+	  ARCHIVES_MAKE_PERIOD,
+	  ARCHIVES_UNIT,
+	  ARCHIVES_AMOUNT,
+	  SPECIFICATION,
+	  PAGE_AMOUNT,
+	  PAGE_NUM_FROM_TO,
+	  ROLL_AMOUNT,
+	  ROLL_SEQ,
+	  MEDIA_TYPE,
+	  IS_BORROW,
+	  IS_CHANGE,
+	  IS_PRIVATE,
+	  IS_OPERATION,
+	  REMARK,
+	  SECRET_ID
+	)
+	VALUES
+	 (#aARCHIVES_ID#,
+	  #aENTRY_ID#,
+	  #aFONDS_NUM#,
+	  #aROLL_NUM#,
+	  #aARCHIVES_NUM#,
+	  #aARC_NUM#,
+	  #aARC_DATE#,
+	  #aARCHIVES_ROOM_CODE#,
+	  #aROLL_MODE#,
+	  sysdate,
+	  #aMAKE_MAN#,
+	  #aREDUCE_NUM#,
+	  #aREG_NUM#,
+	  #aARCHIVES_STATUS#,
+	  #aARCHIVES_YEAR#,
+	  #aARCHIVES_NAME#,
+	  #aPROJ_ID#,
+	  #aPROJ_NAME#,
+	  #aSTORE_TERM#,
+	  #aARCHIVES_FOUND_DATE#,
+	  #aARCHIVES_FOUND_UNIT#,
+	  #aARCHIVES_FOUND_MAN#,
+	  #aARCHIVES_MAKE_PERIOD#,
+	  #aARCHIVES_UNIT#,
+	  #aARCHIVES_AMOUNT#,
+	  #aSPECIFICATION#,
+	  #aPAGE_AMOUNT#,
+	  #aPAGE_NUM_FROM_TO#,
+	  #aROLL_AMOUNT#,
+	  #aROLL_SEQ#,
+	  #aMEDIA_TYPE#,
+	  0,
+	  0,
+	  #aIS_PRIVATE#,
+	  #aIS_OPERATION#,
+	  #aREMARK#,
+	  #aSECRET_ID#
+	)
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="addPieceArchives">
+   <![CDATA[
+	INSERT INTO ARCHIVES
+         (ARCHIVES_ID,
+	  ENTRY_ID,
+	  FONDS_NUM,
+	  PIECE_NUM,
+	  ARC_PIECE_NUM,
+	  ARCHIVES_NUM,
+	  ARC_NUM,
+	  ROLL_MODE,
+	  MAKE_DATE,
+	  MAKE_MAN,
+	  REDUCE_NUM,
+	  ARCHIVES_STATUS,
+	  ARCHIVES_YEAR,
+	  STORE_TERM,
+	  ARCHIVES_FOUND_UNIT,
+	  MEDIA_TYPE,
+	  IS_BORROW,
+	  IS_CHANGE,
+	  IS_OPERATION,
+	  REMARK,
+	  SECRET_ID,
+          ARCHIVES_NAME
+	)
+	VALUES
+	 (#aARCHIVES_ID#,
+	  #aENTRY_ID#,
+	  #aFONDS_NUM#,
+	  #aPIECE_NUM#,
+	  #aARC_PIECE_NUM#,
+	  #aARCHIVES_NUM#,
+	  #aARC_NUM#,
+	  #aROLL_MODE#,
+	  sysdate,
+	  #aMAKE_MAN#,
+	  #aREDUCE_NUM#,
+	  #aARCHIVES_STATUS#,
+	  #aARCHIVES_YEAR#,
+	  #aSTORE_TERM#,
+	  #aARCHIVES_FOUND_UNIT#,
+	  #aMEDIA_TYPE#,
+	  0,
+	  0,
+	  #aIS_OPERATION#,
+	  #aREMARK#,
+	  #aSECRET_ID#,
+          #aARCHIVES_NAME#
+	)
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getMaxArchivesId" result-class="java.lang.Integer">
+   <![CDATA[
+	SELECT NVL(MAX(NVL(ARCHIVES_ID,0)),0) AS ARCHIVES_ID FROM ARCHIVES
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getMaxRollNum" result-class="java.lang.Integer">
+   <![CDATA[
+	SELECT NVL(MAX(NVL(ROLL_NUM,0)),0) AS ROLL_NUM FROM ARCHIVES
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getMaxPieceNum" result-class="java.lang.Integer">
+   <![CDATA[
+	SELECT NVL(MAX(NVL(PIECE_NUM,0)),0) AS PIECE_NUM FROM ARCHIVES
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getIsExistArchivesNum" result-class="java.lang.Integer">
+   <![CDATA[
+	SELECT COUNT(ARCHIVES_NUM) AS IS_EXIST_ARCHIVES_NUM
+	FROM ARCHIVES
+	WHERE ARCHIVES_NUM = #value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getIsExistRollNum" result-class="java.lang.Integer">
+   <![CDATA[
+	SELECT COUNT(ROLL_NUM) AS IS_EXIST_ROLL_NUM
+	FROM ARCHIVES
+	WHERE ROLL_NUM = #value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getIsExistPieceNum" result-class="java.lang.Integer">
+   <![CDATA[
+	SELECT COUNT(PIECE_NUM) AS IS_EXIST_PIECE_NUM
+	FROM ARCHIVES
+	WHERE PIECE_NUM = #value#
+   ]]>
+   </mapped-statement>
+
+   <dynamic-mapped-statement name="getArchivesList" result-map="archives2">
+    SELECT *
+    FROM ARCHIVES
+    WHERE ARCHIVES_STATUS!=1
+    <dynamic>
+      <isNotEmpty prepend="AND" property="rollID">
+      	ROLLID=#rollID#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="pieceNo">
+      	PIECENO=#pieceNo#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="pieceNum">
+      	PIECENUM=#pieceNum#
+      </isNotEmpty>
+    </dynamic>
+    ORDER BY
+      ROLLID DESC
+  </dynamic-mapped-statement>
+
+   <dynamic-mapped-statement name="queryArchivesList" result-map="archives2" >
+	SELECT
+		*
+	FROM
+	ARCHIVES
+	WHERE ARCHIVES_STATUS!=1
+    <dynamic>
+      <isNotEmpty prepend="AND" property="aARCHIVES_ID">
+      	ARCHIVES_ID=#aARCHIVES_ID#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="aARCHIVES_NUM">
+      	ARCHIVES_NUM like '%' || #aARCHIVES_NUM# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="aCATALOG_NUM">
+      	CATALOG_NUM=#aCATALOG_NUM#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="aROLL_NUM">
+      	ROLL_NUM=#aROLL_NUM#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="aPIECE_NUM">
+         PIECE_NUM=#aPIECE_NUM#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="aROLL_MODE">
+         ROLL_MODE=#aROLL_MODE#
+      </isNotEmpty>
+      <!--
+      <isNotEmpty property="aARCHIVES_STATUS">
+        <isNotEqual prepend="AND" property="aARCHIVES_STATUS" compareValue="0">
+          ARCHIVES_STATUS=#aARCHIVES_STATUS#
+        </isNotEqual>
+        <isEqual prepend="AND" property="aARCHIVES_STATUS" compareValue="0">
+	  <![CDATA[
+            ARCHIVES_STATUS<>'1'
+	  ]]>
+        </isEqual>
+      </isNotEmpty>
+      -->
+      <isNotEmpty prepend="AND" property="aARCHIVES_NAME">
+         ARCHIVES_NAME LIKE '%' || #aARCHIVES_NAME# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="aENTRY_ID">
+         ENTRY_ID=#aENTRY_ID#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="aIS_OPERATION">
+         IS_OPERATION=#aIS_OPERATION#
+      </isNotEmpty>
+    </dynamic>
+    	ORDER BY
+      	ARCHIVES_ID DESC
+  </dynamic-mapped-statement>
+
+   <dynamic-mapped-statement name="queryArchivesListCheck" result-map="archives2" >
+	SELECT
+		*
+	FROM
+	ARCHIVES
+    <dynamic prepend="WHERE">
+      <isNotEmpty prepend="AND" property="aARCHIVES_ID">
+      	ARCHIVES_ID=#aARCHIVES_ID#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="aARCHIVES_NUM">
+      	ARCHIVES_NUM like '%' || #aARCHIVES_NUM# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="aCATALOG_NUM">
+      	CATALOG_NUM=#aCATALOG_NUM#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="aROLL_NUM">
+      	ROLL_NUM=#aROLL_NUM#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="aPIECE_NUM">
+         PIECE_NUM=#aPIECE_NUM#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="aROLL_MODE">
+         ROLL_MODE=#aROLL_MODE#
+      </isNotEmpty>
+      <isNotEmpty property="aARCHIVES_STATUS">
+        <isNotEqual prepend="AND" property="aARCHIVES_STATUS" compareValue="0">
+          ARCHIVES_STATUS=#aARCHIVES_STATUS#
+        </isNotEqual>
+        <isEqual prepend="AND" property="aARCHIVES_STATUS" compareValue="0">
+	  <![CDATA[
+            ARCHIVES_STATUS<>'1'
+	  ]]>
+        </isEqual>
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="aARCHIVES_NAME">
+         ARCHIVES_NAME LIKE '%' || #aARCHIVES_NAME# || '%'
+      </isNotEmpty>
+    </dynamic>
+    	ORDER BY
+      	ARCHIVES_ID DESC
+  </dynamic-mapped-statement>
+
+   <mapped-statement name="getArchivesByArchivesID" result-map="archives2">
+   <![CDATA[
+	SELECT
+	  ARCHIVES_ID,
+	  ENTRY_ID,
+	  CONTAINER_ID,
+	  REF_ARCHIVES_ID,
+	  FONDS_NUM,
+	  CATALOG_NUM,
+	  ROLL_NUM,
+	  PIECE_NUM,
+	  ARCHIVES_NUM,
+	  ARC_NUM,
+	  ARCHIVES_ROOM_CODE,
+	  ROLL_MODE,
+	  MAKE_DATE,
+	  MAKE_MAN,
+	  REDUCE_NUM,
+	  ITEM_NUM,
+	  REG_NUM,
+	  ARCHIVES_STATUS,
+	  ARCHIVES_TYPE,
+	  ARCHIVES_CONTENT,
+	  ARCHIVES_YEAR,
+	  ARCHIVES_NAME,
+	  PROJ_ID,
+	  PROJ_NAME,
+	  BEGIN_DATE,
+	  END_DATE,
+	  ORGAN,
+	  STORE_TERM,
+	  ARCHIVES_FOUND_DATE,
+	  ARCHIVES_FOUND_UNIT,
+	  ARCHIVES_FOUND_MAN,
+	  ARCHIVES_MAKE_PERIOD,
+	  ARCHIVES_UNIT,
+	  PAGE_AMOUNT,
+	  ROLL_AMOUNT,
+	  ROLL_SEQ,
+	  MEDIA_TYPE,
+	  PHOTO_NUM,
+	  NEGATIVE_NUM,
+	  IS_BORROW,
+	  IS_CHANGE,
+	  IS_PRIVATE,
+	  IS_OPERATION,
+	  OPER_ID,
+	  REMARK,
+	  ARCHIVES_AMOUNT,
+	  PAGE_NUM_FROM_TO,
+	  ARC_DATE,
+	  ARC_PIECE_NUM,
+	  SECRET_ID
+	FROM ARCHIVES
+	WHERE ARCHIVES_ID = #value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="updateArchivesStatusByArchivesID" >
+   <![CDATA[
+	UPDATE ARCHIVES
+	 SET ARCHIVES_STATUS= #aARCHIVES_STATUS#
+	 WHERE ARCHIVES_ID= #aARCHIVES_ID#
+   ]]>
+   </mapped-statement>
+
+   <dynamic-mapped-statement name="updateArchives">
+	UPDATE ARCHIVES
+        SET ARCHIVES_ID = #aARCHIVES_ID#,
+	    MAKE_DATE = SYSDATE
+	  <dynamic>
+            <isNotEmpty prepend="," property="aREF_ARCHIVES_ID">
+              REF_ARCHIVES_ID = #aREF_ARCHIVES_ID#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aENTRY_ID">
+              ENTRY_ID = #aENTRY_ID#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aCONTAINER_ID">
+              CONTAINER_ID = #aCONTAINER_ID#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aFONDS_NUM">
+              FONDS_NUM = #aFONDS_NUM#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aCATALOG_NUM">
+              CATALOG_NUM = #aCATALOG_NUM#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aROLL_NUM">
+              ROLL_NUM = #aROLL_NUM#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aPIECE_NUM">
+              PIECE_NUM = #aPIECE_NUM#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aARC_PIECE_NUM">
+              ARC_PIECE_NUM = #aARC_PIECE_NUM#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aARCHIVES_NUM">
+              ARCHIVES_NUM = #aARCHIVES_NUM#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aARC_NUM">
+              ARC_NUM = #aARC_NUM#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aARC_DATE">
+              ARC_DATE = #aARC_DATE#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aARCHIVES_ROOM_CODE">
+              ARCHIVES_ROOM_CODE = #aARCHIVES_ROOM_CODE#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aROLL_MODE">
+              ROLL_MODE = #aROLL_MODE#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aMAKE_MAN">
+              MAKE_MAN = #aMAKE_MAN#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aREDUCE_NUM">
+              REDUCE_NUM = #aREDUCE_NUM#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aITEM_NUM">
+              ITEM_NUM = #aITEM_NUM#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aREG_NUM">
+              REG_NUM = #aREG_NUM#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aARCHIVES_STATUS">
+              ARCHIVES_STATUS = #aARCHIVES_STATUS#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aARCHIVES_TYPE">
+              ARCHIVES_TYPE = #aARCHIVES_TYPE#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aARCHIVES_CONTENT">
+              ARCHIVES_CONTENT = #aARCHIVES_CONTENT#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aARCHIVES_YEAR">
+              ARCHIVES_YEAR = #aARCHIVES_YEAR#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aARCHIVES_NAME">
+              ARCHIVES_NAME = #aARCHIVES_NAME#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aPROJ_ID">
+              PROJ_ID = #aPROJ_ID#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aPROJ_NAME">
+              PROJ_NAME = #aPROJ_NAME#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aBEGIN_DATE">
+              BEGIN_DATE = #aBEGIN_DATE#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aEND_DATE">
+              END_DATE = #aEND_DATE#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aORGAN">
+              ORGAN = #aORGAN#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aSTORE_TERM">
+              STORE_TERM = #aSTORE_TERM#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aARCHIVES_FOUND_DATE">
+              ARCHIVES_FOUND_DATE = #aARCHIVES_FOUND_DATE#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aARCHIVES_FOUND_UNIT">
+              ARCHIVES_FOUND_UNIT = #aARCHIVES_FOUND_UNIT#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aARCHIVES_FOUND_MAN">
+              ARCHIVES_FOUND_MAN = #aARCHIVES_FOUND_MAN#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aARCHIVES_MAKE_PERIOD">
+              ARCHIVES_MAKE_PERIOD = #aARCHIVES_MAKE_PERIOD#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aARCHIVES_UNIT">
+              ARCHIVES_UNIT = #aARCHIVES_UNIT#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aARCHIVES_AMOUNT">
+              ARCHIVES_AMOUNT = #aARCHIVES_AMOUNT#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aSPECIFICATION">
+              SPECIFICATION = #aSPECIFICATION#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aPAGE_NUM_FROM_TO">
+              PAGE_NUM_FROM_TO = #aPAGE_NUM_FROM_TO#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aROLL_AMOUNT">
+              ROLL_AMOUNT = #aROLL_AMOUNT#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aROLL_SEQ">
+              ROLL_SEQ = #aROLL_SEQ#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aMEDIA_TYPE">
+              MEDIA_TYPE = #aMEDIA_TYPE#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aPHOTO_NUM">
+              PHOTO_NUM = #aPHOTO_NUM#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aNEGATIVE_NUM">
+              NEGATIVE_NUM = #aNEGATIVE_NUM#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aOPER_ID">
+              OPER_ID = #aOPER_ID#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aIS_BORROW">
+              IS_BORROW = #aIS_BORROW#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aIS_CHANGE">
+              IS_CHANGE = #aIS_CHANGE#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aIS_PRIVATE">
+              IS_PRIVATE = #aIS_PRIVATE#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aIS_OPERATION">
+              IS_OPERATION = #aIS_OPERATION#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="aREMARK">
+              REMARK = #aREMARK#
+            </isNotEmpty>
+	  </dynamic>
+	WHERE ARCHIVES_ID = #aARCHIVES_ID#
+   </dynamic-mapped-statement>
+</sql-map>

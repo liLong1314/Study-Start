@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+  <form-beans>
+    <!-- 档案扫描录入部分 -->
+    <form-bean name="ScanArchivesViewForm" type="com.sunyard.hgam.presentation.form.adc.ScanArchivesViewForm" />
+    <form-bean name="ScanFileViewForm" type="com.sunyard.hgam.presentation.form.adc.ScanFileViewForm" />
+    <form-bean name="ArchivesPageForm" type="com.sunyard.hgam.presentation.form.adc.ArchivesPageForm" />
+    <!-- 检查部分 -->
+    <form-bean name="CheckArchivesViewForm" type="com.sunyard.hgam.presentation.form.adc.ScanArchivesViewForm" />
+    <form-bean name="CheckArchivesPageViewForm" type="com.sunyard.hgam.presentation.form.adc.CheckArchivesPageViewForm" />
+    <form-bean name="CheckArchivesPageForm" type="com.sunyard.hgam.presentation.form.adc.CheckArchivesPageForm" />
+    <!-- 归档部分 -->
+    <form-bean name="QueryArchivesViewForm" type="com.sunyard.hgam.presentation.form.adc.QueryArchivesViewForm" />
+  </form-beans>
+  <action-mappings>
+    <!-- 档案扫描录入部分 -->
+    <action name="ScanArchivesViewForm" type="com.sunyard.hgam.presentation.action.adc.ScanArchivesViewAction" scope="request" path="/adc/ScanArchivesView">
+      <forward name="QUERYARCHIVES" path="/adc/archivesPageScan/ScanArchivesView.jsp" />
+      <forward name="VIEWARCHIVES" path="/adc/archivesPageScan/ScanArchivesView.jsp" />
+    </action>
+    <action name="ScanFileViewForm" type="com.sunyard.hgam.presentation.action.adc.ScanFileViewAction" scope="request" path="/adc/ScanFileView">
+      <forward name="VIEWARCHIVESFILES" path="/adc/archivesPageScan/ScanFileView.jsp" />
+      <forward name="QUERYARCHIVESFILES" path="/adc/archivesPageScan/ScanFileView.jsp" />
+    </action>
+    <action name="ArchivesPageForm" type="com.sunyard.hgam.presentation.action.adc.ArchivesPageAction" scope="request" path="/adc/ScanPage">
+      <forward name="SaveScanPage" path="/adc/archivesPageScan/ScanPage.jsp" />
+      <forward name="ARCHIVESPAGE" path="/adc/archivesPageScan/ScanPage.jsp" />
+      <forward name="success" path="/adc/ScanFileView.do" />
+    </action>
+
+    <!-- 检查部分 -->
+    <action name="CheckArchivesViewForm" type="com.sunyard.hgam.presentation.action.adc.ScanArchivesViewAction" scope="request" path="/adc/checkArchivesView">
+      <forward name="QUERYARCHIVES" path="/adc/check/CheckArchivesView.jsp" />
+      <forward name="VIEWARCHIVES" path="/adc/check/CheckArchivesView.jsp" />
+    </action>
+    <action name="CheckArchivesPageViewForm" type="com.sunyard.hgam.presentation.action.adc.CheckArchivesPageViewAction" scope="session" path="/adc/CheckArchivesPageView">
+      <forward name="ShowPage" path="/adc/check/CheckArchivesPageView.jsp" />
+    </action>
+    <action name="CheckArchivesPageForm" type="com.sunyard.hgam.presentation.action.adc.CheckArchivesPageAction" scope="request" path="/adc/CheckArchivesPage">
+      <forward name="ShowPage" path="/adc/check/CheckArchivesPage.jsp" />
+      <forward name="SaveFinished" path="/adc/check/CheckArchivesPage.jsp" />
+      <forward name="nonePage" path="/adc/check/CheckArchivesPage.jsp" />
+    </action>
+
+    <!-- 归档部分 -->
+    <action name="QueryArchivesViewForm" type="com.sunyard.hgam.presentation.action.adc.QueryArchivesViewAction"
+	scope="request" path="/adc/queryArchivesView">
+      <forward name="QueryAllArchives" path="/adc/roll/QueryArchivesView.jsp" />
+    </action>
+  </action-mappings>
+</struts-config>

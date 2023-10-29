@@ -1,0 +1,300 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<script src="alai_tree.js"></script>
+<script src="alai_tree_win2k.js"></script>
+<title>类目树</title>
+<style>
+body{font-size:9pt;}
+</style>
+</head>
+<body background="../image/2_mainpagebg_01.gif">
+<hr>
+<table border="0">
+    <tr>
+      <td><div id="divTree"></div></td>
+    </tr>
+</table>
+
+<script>
+/*
+//win2k风格模板
+var tree=new alai_tree_win2k(divTree)
+tree.pathParse(pathlist.innerText.replace(/\s/g,""),true)
+tree.expandToTier(2)
+*/
+</script>
+<script>
+/*开始构建目录树*/
+var tree1=new alai_tree_win2k(divTree)
+/********************************************
+ 以下代码演示灵活地使用各种添加目录节点的方法
+*********************************************/
+var root=tree1.root
+
+var n11=root.add("规划审批类")
+		//1
+		n111=n11.add("建筑工程审批")
+		n111.onclick="doClick('../main/t_right_1_1.htm')"
+		//2
+		n112=n11.add("规划用地审批")
+		n112.onclick="doClick('../main/t_right_1_1.htm')"
+		//3
+		n113=n11.add("许可证存根")
+		n113.onclick="doClick('../main/t_right_1_1.htm')"
+		//4
+		n114=n11.add("杂项工程审批")
+		n114.onclick="doClick('../main/t_right_1_1.htm')"
+		//5
+		n115=n11.add("临时工程审批")
+		n115.onclick="doClick('../main/t_right_1_1.htm')"
+		//6
+		n116=n11.add("竣工验收审批")
+		n116.onclick="doClick('../main/t_right_1_1.htm')"
+		
+				
+		
+		n12=root.add("测绘类")
+		//1
+		n121=n12.add("建筑工程审批")
+		n121.onclick="doClick('../main/t_right_1_1.htm')"
+		//2
+		n122=n12.add("规划用地审批")
+		n122.onclick="doClick('../main/t_right_1_1.htm')"
+		//3
+		n123=n12.add("许可证存根")
+		n123.onclick="doClick('../main/t_right_1_1.htm')"
+		//4
+		n124=n12.add("杂项工程审批")
+		n124.onclick="doClick('../main/t_right_1_1.htm')"
+		//5
+		n125=n12.add("临时工程审批")
+		n125.onclick="doClick('../main/t_right_1_1.htm')"
+		//6
+		n126=n12.add("竣工验收审批")
+		n126.onclick="doClick('../main/t_right_1_1.htm')"
+		
+		
+		n13=root.add("党群工作类")
+		//1
+		n131=n13.add("建筑工程审批")
+		n131.onclick="doClick('../main/t_right_1_1.htm')"
+		//2
+		n132=n13.add("规划用地审批")
+		n132.onclick="doClick('../main/t_right_1_1.htm')"
+		//3
+		n133=n13.add("许可证存根")
+		n133.onclick="doClick('../main/t_right_1_1.htm')"
+		//4
+		n134=n13.add("杂项工程审批")
+		n134.onclick="doClick('../main/t_right_1_1.htm')"
+		//5
+		n135=n13.add("临时工程审批")
+		n135.onclick="doClick('../main/t_right_1_1.htm')"
+		//6
+		n136=n13.add("竣工验收审批")
+		n136.onclick="doClick('../main/t_right_1_1.htm')"
+		
+		
+		n14=root.add("行政工作类")
+		//1
+		n141=n14.add("建筑工程审批")
+		n141.onclick="doClick('../main/t_right_1_1.htm')"
+		//2
+		n142=n14.add("规划用地审批")
+		n142.onclick="doClick('../main/t_right_1_1.htm')"
+		//3
+		n143=n14.add("许可证存根")
+		n143.onclick="doClick('../main/t_right_1_1.htm')"
+		//4
+		n144=n14.add("杂项工程审批")
+		n144.onclick="doClick('../main/t_right_1_1.htm')"
+		//5
+		n145=n14.add("临时工程审批")
+		n145.onclick="doClick('../main/t_right_1_1.htm')"
+		//6
+		n146=n14.add("竣工验收审批")
+		n146.onclick="doClick('../main/t_right_1_1.htm')"
+		
+		
+		
+		n15=root.add("规划业务管理类")
+		//1
+		n151=n15.add("建筑工程审批")
+		n151.onclick="doClick('../main/t_right_1_1.htm')"
+		//2
+		n152=n15.add("规划用地审批")
+		n152.onclick="doClick('../main/t_right_1_1.htm')"
+		//3
+		n153=n15.add("许可证存根")
+		n153.onclick="doClick('../main/t_right_1_1.htm')"
+		//4
+		n154=n15.add("杂项工程审批")
+		n154.onclick="doClick('../main/t_right_1_1.htm')"
+		//5
+		n155=n15.add("临时工程审批")
+		n155.onclick="doClick('../main/t_right_1_1.htm')"
+		//6
+		n156=n15.add("竣工验收审批")
+		n156.onclick="doClick('../main/t_right_1_1.htm')"
+		
+		
+		
+		n16=root.add("会计类")
+		//1
+		n161=n16.add("建筑工程审批")
+		n161.onclick="doClick('../main/t_right_1_1.htm')"
+		//2
+		n162=n16.add("规划用地审批")
+		n162.onclick="doClick('../main/t_right_1_1.htm')"
+		//3
+		n163=n16.add("许可证存根")
+		n163.onclick="doClick('../main/t_right_1_1.htm')"
+		//4
+		n164=n16.add("杂项工程审批")
+		n164.onclick="doClick('../main/t_right_1_1.htm')"
+		//5
+		n165=n16.add("临时工程审批")
+		n165.onclick="doClick('../main/t_right_1_1.htm')"
+		//6
+		n166=n16.add("竣工验收审批")
+		n166.onclick="doClick('../main/t_right_1_1.htm')"
+
+
+
+		n17=root.add("规划监察类")
+		//1
+		n171=n17.add("建筑工程审批")
+		n171.onclick="doClick('../main/t_right_1_1.htm')"
+		//2
+		n172=n17.add("规划用地审批")
+		n172.onclick="doClick('../main/t_right_1_1.htm')"
+		//3
+		n173=n17.add("许可证存根")
+		n173.onclick="doClick('../main/t_right_1_1.htm')"
+		//4
+		n174=n17.add("杂项工程审批")
+		n174.onclick="doClick('../main/t_right_1_1.htm')"
+		//5
+		n175=n17.add("临时工程审批")
+		n175.onclick="doClick('../main/t_right_1_1.htm')"
+		//6
+		n176=n17.add("竣工验收审批")
+		n176.onclick="doClick('../main/t_right_1_1.htm')"
+		
+
+
+		n18=root.add("特种载体类")
+		//1
+		n181=n18.add("建筑工程审批")
+		n181.onclick="doClick('../main/t_right_1_1.htm')"
+		//2
+		n182=n18.add("规划用地审批")
+		n182.onclick="doClick('../main/t_right_1_1.htm')"
+		//3
+		n183=n18.add("许可证存根")
+		n183.onclick="doClick('../main/t_right_1_1.htm')"
+		//4
+		n184=n18.add("杂项工程审批")
+		n184.onclick="doClick('../main/t_right_1_1.htm')"
+		//5
+		n185=n18.add("临时工程审批")
+		n185.onclick="doClick('../main/t_right_1_1.htm')"
+		//6
+		n186=n18.add("竣工验收审批")
+		n186.onclick="doClick('../main/t_right_1_1.htm')"
+
+
+
+		n19=root.add("设备类")
+		//1
+		n191=n19.add("建筑工程审批")
+		n191.onclick="doClick('../main/t_right_1_1.htm')"
+		//2
+		n192=n19.add("规划用地审批")
+		n192.onclick="doClick('../main/t_right_1_1.htm')"
+		//3
+		n193=n19.add("许可证存根")
+		n193.onclick="doClick('../main/t_right_1_1.htm')"
+		//4
+		n194=n19.add("杂项工程审批")
+		n194.onclick="doClick('../main/t_right_1_1.htm')"
+		//5
+		n195=n19.add("临时工程审批")
+		n195.onclick="doClick('../main/t_right_1_1.htm')"
+		//6
+		n196=n19.add("竣工验收审批")
+		n196.onclick="doClick('../main/t_right_1_1.htm')"
+
+
+
+		n110=root.add("基建类")
+		//1
+		n1101=n110.add("建筑工程审批")
+		n1101.onclick="doClick('../main/t_right_1_1.htm')"
+		//2
+		n1102=n110.add("规划用地审批")
+		n1102.onclick="doClick('../main/t_right_1_1.htm')"
+		//3
+		n1103=n110.add("许可证存根")
+		n1103.onclick="doClick('../main/t_right_1_1.htm')"
+		//4
+		n1104=n110.add("杂项工程审批")
+		n1104.onclick="doClick('../main/t_right_1_1.htm')"
+		//5
+		n1105=n110.add("临时工程审批")
+		n1105.onclick="doClick('../main/t_right_1_1.htm')"
+		//6
+		n1106=n110.add("竣工验收审批")
+		n1106.onclick="doClick('../main/t_right_1_1.htm')"
+
+
+
+		n111=root.add("科研项目类")
+		//1
+		n1111=n111.add("建筑工程审批")
+		n1111.onclick="doClick('../main/t_right_1_1.htm')"
+		//2
+		n1112=n111.add("规划用地审批")
+		n1112.onclick="doClick('../main/t_right_1_1.htm')"
+		//3
+		n1113=n111.add("许可证存根")
+		n1113.onclick="doClick('../main/t_right_1_1.htm')"
+		//4
+		n1114=n111.add("杂项工程审批")
+		n1114.onclick="doClick('../main/t_right_1_1.htm')"
+		//5
+		n1115=n111.add("临时工程审批")
+		n1115.onclick="doClick('../main/t_right_1_1.htm')"
+		//6
+		n1116=n111.add("竣工验收审批")
+		n1116.onclick="doClick('../main/t_right_1_1.htm')"
+
+
+
+
+
+
+
+tree1.target="-blank"
+/*收缩目录树*/
+tree1.expandToTier(1)
+
+/*简单的目录树事件处理*/
+tree1.onmouseover=function(node)
+{
+	node.label.style.textDecoration="underline"
+}
+tree1.onmouseout=function(node)
+{
+	node.label.style.textDecoration="none"
+}
+
+function doClick(url){
+	//window.parent.abc.location=url;
+	window.parent.hmain.location=url;
+}
+</script>
+<hr>
+</body>
+</html>

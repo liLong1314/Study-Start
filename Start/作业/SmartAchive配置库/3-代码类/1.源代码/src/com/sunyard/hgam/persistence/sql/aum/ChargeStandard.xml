@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="ChargeStandard">
+  <result-map name="chargeStandard" class="com.sunyard.hgam.persistence.dao.beans.aum.ChargeStandard">
+    <property name="charge_id" column="CHARGE_ID" />
+    <property name="sentryid" column="SENTRYID" />
+    <property name="charge_mode" column="CHARGE_MODE" />
+    <property name="charge_version" column="CHARGE_VERSION" />
+    <property name="charge_begin_date" column="CHARGE_BEGIN_DATE" />
+    <property name="charge_end_date" column="CHARGE_END_DATE" />
+    <property name="charge_money" column="CHARGE_MONEY" />
+    <property name="charge_base" column="CHARGE_BASE" />
+    <property name="remark" column="REMARK" />
+  </result-map>
+
+   <!-- 查询部分(不是结果集) -->
+   <mapped-statement name="getMaxId" result-class="java.lang.Integer">
+   <![CDATA[
+	SELECT NVL(MAX(NVL(CHARGE_ID,0)),0) FROM Charge_Standard
+   ]]>
+   </mapped-statement>
+
+   <!-- 增加 -->
+   <mapped-statement name="insert">
+   <![CDATA[
+   INSERT INTO Charge_Standard(
+       CHARGE_ID, SENTRYID, CHARGE_MODE, CHARGE_VERSION, CHARGE_BEGIN_DATE,
+       CHARGE_END_DATE, CHARGE_MONEY, CHARGE_BASE, REMARK)
+     VALUES(
+       #charge_id#,
+       #sentryid#, #charge_mode#, #charge_version#, TO_DATE(#charge_begin_date#, 'yyyy-mm-dd'),
+       TO_DATE(#charge_end_date#, 'yyyy-mm-dd'), #charge_money#, #charge_base#, #remark#)
+   ]]>
+   </mapped-statement>
+
+   <!-- 修改 -->
+   <mapped-statement name="updateByChargeID">
+   <![CDATA[
+   update Charge_Standard
+   SET
+	SENTRYID= #sentryid#,
+	CHARGE_MODE= #charge_mode#,
+	CHARGE_VERSION= #charge_version#,
+	CHARGE_BEGIN_DATE= TO_DATE(#charge_begin_date#, 'YYYY-MM-DD'),
+        CHARGE_END_DATE= TO_DATE(#charge_end_date#, 'YYYY-MM-DD'),
+	CHARGE_MONEY= #charge_money#,
+	CHARGE_BASE= #charge_base#,
+	REMARK=#remark#
+    WHERE CHARGE_ID= #charge_id#
+   ]]>
+   </mapped-statement>
+
+   <!-- 删除 -->
+   <mapped-statement name="deleteByChargeID">
+   <![CDATA[
+   DELETE FROM Charge_Standard
+   WHERE CHARGE_ID= #value#
+   ]]>
+   </mapped-statement>
+
+   <!-- 查询 -->
+   <mapped-statement name="queryChargeStandard" result-map="chargeStandard">
+   <![CDATA[
+    SELECT
+       CHARGE_ID, SENTRYID, CHARGE_MODE, CHARGE_VERSION,
+       TO_CHAR(CHARGE_BEGIN_DATE, 'YYYY-MM-DD') CHARGE_BEGIN_DATE,
+       TO_CHAR(CHARGE_END_DATE, 'YYYY-MM-DD') CHARGE_END_DATE,
+       CHARGE_MONEY, CHARGE_BASE, REMARK
+    FROM Charge_Standard
+    ORDER BY CHARGE_ID
+   ]]>
+   </mapped-statement>
+
+   <!-- 查询 -->
+   <mapped-statement name="queryChargeStandardByChargeID" result-map="chargeStandard">
+   <![CDATA[
+    SELECT
+       CHARGE_ID, SENTRYID, CHARGE_MODE, CHARGE_VERSION,
+       TO_CHAR(CHARGE_BEGIN_DATE, 'YYYY-MM-DD') CHARGE_BEGIN_DATE,
+       TO_CHAR(CHARGE_END_DATE, 'YYYY-MM-DD') CHARGE_END_DATE,
+       CHARGE_MONEY, CHARGE_BASE, REMARK
+    FROM Charge_Standard
+    WHERE CHARGE_ID = #value#
+   ]]>
+   </mapped-statement>
+
+</sql-map>

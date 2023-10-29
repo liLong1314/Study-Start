@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map-config
+    PUBLIC "-//iBATIS.com//DTD SQL Map Config 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-config.dtd">
+
+<sql-map-config>
+
+  <properties resource="properties/ibatis/config/db.properties" />
+
+  <settings
+    maxExecute="0"
+    maxExecutePerConnection="0"
+    maxTransactions="0"
+    cacheModelsEnabled="false"
+    statementCacheSize="200"
+    useBeansMetaClasses="true"
+    useGlobalTransactions="false" />
+
+  <datasource name="DataSource"
+              factory-class="com.ibatis.db.sqlmap.datasource.SimpleDataSourceFactory"
+              default="true" >
+    <property name="JDBC.Driver" value="${SimpleDriver}"/>
+    <property name="JDBC.ConnectionURL" value="${SimpleUrl}"/>
+    <property name="JDBC.Username" value="${SimpleUsername}"/>
+    <property name="JDBC.Password" value="${SimplePassword}"/>
+    <property name="Pool.MaximumActiveConnections" value="50"/>
+    <property name="Pool.MaximumIdleConnections" value="30"/>
+    <property name="Pool.MaximumWait" value="1000"/>
+  </datasource>
+
+  <!-- 在此添加 sql mapping 配置文件 -->
+  <!-- rcv part -->
+  <sql-map resource="com/sunyard/hgam/persistence/sql/rcv/IfaceArchivesFile.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/rcv/SettleArchivesFile.xml"/>
+  <!-- adc part -->
+  <sql-map resource="com/sunyard/hgam/persistence/sql/adc/EntryTreeList.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/adc/Archives.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/adc/ArchivesFile.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/adc/ArchivesPage.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/adc/Eform.xml"/>
+
+  <!-- arm part -->
+  <sql-map resource="com/sunyard/hgam/persistence/sql/arm/Secret.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/arm/Entry.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/arm/Temperature.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/arm/Safety.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/arm/Law.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/arm/Contain.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/arm/ArchOper.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/arm/FileOper.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/arm/PageOper.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/arm/Identify.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/arm/Destroy.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/arm/Whole.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/arm/Study.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/arm/BuildingCataLog.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/arm/OtherCataLog.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/arm/WatchExamine.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/arm/SubRollCatalog.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/arm/WatchExamineDenote.xml"/>
+  <!-- aum part -->
+  <sql-map resource="com/sunyard/hgam/persistence/sql/aum/UtilizeInfo.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/aum/ArchiveList.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/aum/ConfirmInfo.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/aum/ChargeStandard.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/aum/UtilizeDetail.xml"/>
+  <!-- smm part -->
+  <sql-map resource="com/sunyard/hgam/persistence/sql/smm/Account.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/smm/Permission.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/smm/AccountPermission.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/smm/Group.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/smm/GroupPermission.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/smm/GroupUser.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/smm/SysParam.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/smm/Log.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/smm/Theme.xml"/>
+  <sql-map resource="com/sunyard/hgam/persistence/sql/smm/Organization.xml"/>
+  <!-- pub part -->
+  <sql-map resource="com/sunyard/hgam/persistence/sql/pub/PublishInfo.xml"/>
+
+
+</sql-map-config>

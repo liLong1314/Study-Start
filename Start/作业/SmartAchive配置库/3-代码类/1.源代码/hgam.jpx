@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--JBuilder XML Project-->
+<project>
+  <property category="build" name="CopyExtensions.1" value="xml"/>
+  <property category="idl" name="ProcessIDL" value="false"/>
+  <property category="javaFormatting" name="packageThreshold" value="0"/>
+  <property category="javadoc" name="custom.tags.1" value="todo;a;To Do:"/>
+  <property category="jspc" name="checkEnabled" value="0"/>
+  <property category="runtime" name="DefaultConfiguration" value="-1"/>
+  <property category="runtime.0" name="BuildTargetOnRun" value="com.borland.jbuilder.build.ProjectBuilder$ProjectBuildAction;make"/>
+  <property category="runtime.0" name="ConfigurationName" value="Tomcat"/>
+  <property category="runtime.0" name="RunnableType" value="com.borland.jbuilder.runtime.ServerRunner"/>
+  <property category="runtime.0" name="appserver.parameters" value=""/>
+  <property category="runtime.0" name="appserver.servername" value=""/>
+  <property category="runtime.0" name="appserver.vmparameters" value=""/>
+  <property category="runtime.0" name="enabled.services" value="jsp;naming"/>
+  <property category="runtime.0" name="jsp.portno" value="80"/>
+  <property category="runtime.0" name="jsp.searchport" value="0"/>
+  <property category="runtime.0" name="jsprunner.portno" value="80"/>
+  <property category="runtime.0" name="server.arguments" value=""/>
+  <property category="runtime.0" name="server.disableServerClassTracing" value="0"/>
+  <property category="runtime.0" name="server.instance.name" value=""/>
+  <property category="runtime.0" name="server.name" value="Tomcat 4.0"/>
+  <property category="runtime.0" name="server.vmparameters" value=""/>
+  <property category="serverservices" name="disabled.services" value="connector;jdatastore;sqlj"/>
+  <property category="serverservices" name="single.server.name" value="Tomcat 4.0"/>
+  <property category="sys" name="AuthorLabel" value="@author"/>
+  <property category="sys" name="BackupPath" value="bak"/>
+  <property category="sys" name="CheckStable" value="1"/>
+  <property category="sys" name="Company" value="Sunhoo Co.,Ltd."/>
+  <property category="sys" name="CompanyLabel" value="Company:"/>
+  <property category="sys" name="Copyright" value="Copyright (c) 2003 "/>
+  <property category="sys" name="CopyrightLabel" value="Copyright:"/>
+  <property category="sys" name="DefaultPath" value="src"/>
+  <property category="sys" name="Description" value="\u676d\u5dde\u5e02\u89c4\u5212\u6863\u6848\u7efc\u5408\u7ba1\u7406\u7cfb\u7edf"/>
+  <property category="sys" name="DescriptionLabel" value="Description:"/>
+  <property category="sys" name="DocPath" value="../1.%u6e90%u4ee3%u7801"/>
+  <property category="sys" name="ExcludeClassEnabled" value="0"/>
+  <property category="sys" name="IncludeTestPath" value="1"/>
+  <property category="sys" name="InstanceVisibility" value="2"/>
+  <property category="sys" name="JDK" value="java version 1.4.1_02-b06"/>
+  <property category="sys" name="JvmVersion" value="1.2"/>
+  <property category="sys" name="LastTag" value="0"/>
+  <property category="sys" name="Libraries" value="Oracle9i;iBatis;Servlet;sunflow;STRUTS1.1"/>
+  <property category="sys" name="MakeStable" value="0"/>
+  <property category="sys" name="OutPath" value="classes"/>
+  <property category="sys" name="SourcePath" value="src;test"/>
+  <property category="sys" name="TestPath" value="test"/>
+  <property category="sys" name="Title" value="HGAM"/>
+  <property category="sys" name="TitleLabel" value="Title:"/>
+  <property category="sys" name="Version" value="1.0"/>
+  <property category="sys" name="VersionLabel" value="@version"/>
+  <property category="sys" name="WorkingDirectory" value="."/>
+  <property category="sys" name="empty.packages.1" value="com.sunyard.hgam.persistence.dao.iface"/>
+  <property category="team" name="ignorePath.0" value="Tomcat"/>
+  <property category="team" name="ignorePath.1" value="hgam.jpx.local"/>
+  <property category="team" name="ignorePath.10" value="temp"/>
+  <property category="team" name="ignorePath.2" value="hgam.jpx.local~"/>
+  <property category="team" name="ignorePath.3" value="hgam.jpx~"/>
+  <property category="team" name="ignorePath.4" value="hgam.war~"/>
+  <property category="team" name="ignorePath.5" value="bak"/>
+  <property category="team" name="ignorePath.6" value="classes"/>
+  <property category="team" name="ignorePath.7" value="temp"/>
+  <property category="team" name="ignorePath.8" value="bak"/>
+  <property category="team" name="ignorePath.9" value="classes"/>
+  <node name="" type="WebContext">
+    <property category="archiving" name="archiverClass" value="com.borland.jbuilder.wizard.webapp.WarArchiver"/>
+    <property category="archiving" name="buildWithProject" value="0"/>
+    <property category="archiving" name="contentRules.1" value="I:**/*.*"/>
+    <property category="archiving" name="defaultLibraryState" value="3"/>
+    <property category="archiving" name="libraryStates.1" value="0:Servlet"/>
+    <property category="archiving" name="libraryStates.2" value="0:Tomcat 4.0 Servlet"/>
+    <property category="archiving" name="targetPath" value="hgam.war"/>
+    <property category="archiving" name="usingRules" value="1"/>
+    <property category="kit.struts" name="struts-config.1" value="WEB-INF/struts-config.xml"/>
+    <property category="kit.struts" name="struts-config.2" value="WEB-INF/config/struts-config-adc.xml"/>
+    <property category="kit.struts" name="struts-config.3" value="WEB-INF/config/struts-config-adc-scan.xml"/>
+    <property category="kit.struts" name="struts-config.4" value="WEB-INF/config/struts-config-arm.xml"/>
+    <property category="kit.struts" name="struts-config.5" value="WEB-INF/config/struts-config-aum.xml"/>
+    <property category="kit.struts" name="struts-config.6" value="WEB-INF/config/struts-config-rcv.xml"/>
+    <property category="kit.struts" name="struts-config.7" value="WEB-INF/config/struts-config-smm.xml"/>
+    <property category="kit.struts" name="struts-config.8" value="WEB-INF/config/struts-config-pub.xml"/>
+    <property category="webapp" name="docroot" value="webapp"/>
+    <property category="webapp" name="kit.1" value="struts"/>
+    <property category="webapp" name="kitlib.1" value="STRUTS1.1"/>
+    <property category="webapp" name="launch.uri" value="/"/>
+    <property category="webapp" name="webinf.include" value="1"/>
+    <property category="webapp" name="webinf.subdir.1" value="tld"/>
+  </node>
+</project>

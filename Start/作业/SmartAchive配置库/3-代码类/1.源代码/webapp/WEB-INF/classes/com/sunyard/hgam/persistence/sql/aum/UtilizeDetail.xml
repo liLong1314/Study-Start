@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="UtilizeDetail">
+  <result-map name="utilizeDetail" class="com.sunyard.hgam.persistence.dao.beans.aum.UtilizeDetail">
+    <property name="apply_id" column="APPLY_ID" />
+    <property name="charge_id" column="CHARGE_ID" />
+    <property name="file_id" column="FILE_ID" />
+    <property name="page_id" column="PAGE_ID" />
+    <property name="remark" column="REMARK" />
+    <property name="charge_money" column="CHARGE_MONEY" />
+    <property name="archives_id" column="ARCHIVES_ID" />
+    <property name="archives_name" column="ARCHIVES_NAME" />
+    <property name="archives_num" column="ARCHIVES_NUM" />
+    <property name="file_name" column="FILE_NAME" />
+    <property name="entry_id" column="ENTRY_ID" />
+    <property name="entry_name" column="ENTRY_NAME" />
+    <property name="page_count" column="PAGE_COUNT" />
+    <property name="page_size" column="PAGE_SIZE" />
+  </result-map>
+
+  <result-map name="utilizeDetailForDisplay" class="com.sunyard.hgam.persistence.dao.beans.aum.UtilizeDetail">
+    <property name="archives_num" column="ARCHIVES_NUM" />
+    <property name="archives_name" column="ARCHIVES_NAME" />
+    <property name="file_id" column="FILE_ID" />
+    <property name="file_name" column="FILE_NAME" />
+    <property name="page_count" column="PAGE_COUNT" />
+    <property name="charge_money" column="CHARGE_MONEY" />
+  </result-map>
+
+  <result-map name="utilizeDetail1" class="com.sunyard.hgam.persistence.dao.beans.aum.UtilizeDetail">
+    <property name="apply_id" column="APPLY_ID" />
+    <property name="archives_num" column="ARCHIVES_NUM" />
+    <property name="archives_name" column="ARCHIVES_NAME" />
+    <property name="file_id" column="FILE_ID" />
+    <property name="file_name" column="FILE_NAME" />
+    <property name="page_count" column="PAGE_COUNT" />
+    <property name="charge_money" column="CHARGE_MONEY" />
+  </result-map>
+
+  <result-map name="utilizeDetailForUrge" class="com.sunyard.hgam.persistence.dao.beans.aum.UtilizeDetail">
+    <property name="apply_id" column="APPLY_ID" />
+    <property name="archives_id" column="ARCHIVES_ID" />
+    <property name="archives_name" column="ARCHIVES_NAME" />
+    <property name="archives_num" column="ARCHIVES_NUM" />
+    <property name="file_name" column="FILE_NAME" />
+  </result-map>
+
+  <result-map name="archivesPageCharge" class="com.sunyard.hgam.persistence.dao.beans.aum.UtilizeDetail">
+    <property name="archives_id" column="ARCHIVES_ID" />
+    <property name="file_id" column="FILE_ID" />
+    <property name="page_id" column="PAGE_ID" />
+    <property name="page_size" column="PAGE_SIZE" />
+    <property name="charge_id" column="CHARGE_ID" />
+    <property name="charge_money" column="CHARGE_MONEY" />
+    <property name="entry_id" column="ENTRY_ID" />
+  </result-map>
+
+  <result-map name="utilizeDetail11" class="com.sunyard.hgam.persistence.dao.beans.aum.UtilizeDetail">
+    <property name="file_id" column="FILE_ID" />
+  </result-map>
+
+  <result-map name="utilizeDetailForOAUrge" class="com.sunyard.hgam.persistence.dao.beans.aum.UrgeInfoForOA">
+    <property name="urge_id" column="APPLY_ID" />
+    <property name="archives_num" column="ARCHIVES_NUM" />
+    <property name="archives_name" column="ARCHIVES_NAME" />
+    <property name="page_amount" column="PAGE_AMOUNT" />
+    <property name="borrow_person" column="BORROW_PERSON" />
+    <property name="must_return_date" column="MUST_RETURN_DATE" />
+    <property name="is_return" column="IS_RETURN" />
+    <property name="remark" column="REMARK" />
+  </result-map>
+
+   <!-- 增加 -->
+   <mapped-statement name="insertUD">
+   <![CDATA[
+   INSERT INTO UTILIZE_DETAIL(
+       APPLY_ID, CHARGE_ID, FILE_ID, PAGE_ID, REMARK)
+     VALUES(
+       #apply_id#, #charge_id#, #file_id#, #page_id#, #remark#)
+   ]]>
+   </mapped-statement>
+
+   <!-- delete by applyID -->
+   <mapped-statement name="deleteByApplyID">
+   <![CDATA[
+   DELETE FROM UTILIZE_DETAIL
+   WHERE APPLY_ID = #value#
+   ]]>
+   </mapped-statement>
+
+   <!-- delete by fileID -->
+   <mapped-statement name="deleteByFileID">
+   <![CDATA[
+   DELETE FROM UTILIZE_DETAIL
+   WHERE FILE_ID = #value#
+   ]]>
+   </mapped-statement>
+
+   <!-- delete by pageID -->
+   <mapped-statement name="deleteByPageID">
+   <![CDATA[
+   DELETE FROM UTILIZE_DETAIL
+   WHERE PAGE_ID = #value#
+   ]]>
+   </mapped-statement>
+
+   <!-- 查询档案利用明细 -->
+   <mapped-statement name="queryUtilizeDetailByApplyID" result-map="utilizeDetailForDisplay">
+        SELECT MM.ARCHIVES_NUM,MM.ARCHIVES_NAME,MM.FILE_ID,MM.FILE_TITLE AS FILE_NAME,
+               MM.PAGE_COUNT,SUM(NVL(CHARGE_MONEY,0)) AS CHARGE_MONEY
+        FROM (
+             SELECT
+               A.ARCHIVES_NUM,A.ARCHIVES_NAME,B.FILE_ID,B.FILE_NUM,B.FILE_TITLE,
+               (SELECT COUNT(*) FROM UTILIZE_DETAIL M WHERE B.FILE_ID=M.FILE_ID) AS PAGE_COUNT
+               FROM ARCHIVES A,ARCHIVES_FILE B
+               WHERE A.ARCHIVES_ID=B.ARCHIVES_ID
+               AND B.FILE_ID IN (SELECT FILE_ID FROM UTILIZE_DETAIL WHERE APPLY_ID=#applyID#)
+               ) MM,
+             (
+             SELECT
+               DISTINCT A.FILE_ID,NVL(B.CHARGE_MONEY,0) AS CHARGE_MONEY
+             FROM UTILIZE_DETAIL A,CHARGE_STANDARD B
+             WHERE A.CHARGE_ID=B.CHARGE_ID
+              AND A.FILE_ID IN (SELECT FILE_ID FROM UTILIZE_DETAIL WHERE APPLY_ID=#applyID#)
+             ) GG
+        WHERE MM.FILE_ID=GG.FILE_ID(+)
+        GROUP BY MM.ARCHIVES_NUM,MM.ARCHIVES_NAME,MM.FILE_ID,MM.FILE_NUM,MM.FILE_TITLE,MM.PAGE_COUNT
+   </mapped-statement>
+
+   <!-- 出入库档案利用明细查询 -->
+   <dynamic-mapped-statement name="queryUtilizeDetailByCondition" result-map="utilizeDetailForDisplay">
+        SELECT MM.ARCHIVES_NUM,MM.ARCHIVES_NAME,MM.FILE_ID,MM.FILE_TITLE AS FILE_NAME,
+               MM.PAGE_COUNT,SUM(NVL(CHARGE_MONEY,0)) AS CHARGE_MONEY
+        FROM (
+               SELECT
+                 A.ARCHIVES_NUM,A.ARCHIVES_NAME,B.FILE_ID,B.FILE_NUM,B.FILE_TITLE,
+                 (SELECT COUNT(*) FROM UTILIZE_DETAIL M WHERE B.FILE_ID=M.FILE_ID) AS PAGE_COUNT
+               FROM ARCHIVES A,ARCHIVES_FILE B
+               WHERE A.ARCHIVES_ID=B.ARCHIVES_ID
+               AND B.FILE_ID IN (SELECT FILE_ID
+                                 FROM UTILIZE_DETAIL C,UTILIZE_APPLY D
+                                 WHERE C.APPLY_ID=D.APPLY_ID
+                                       <dynamic>
+                                        <isNotEmpty prepend="" property="status">
+                                         <isEqual prepend="AND" property="status" compareValue="1">
+                                           (D.UTILIZE_STATUS='REGCONFIRMED' OR
+                                           D.UTILIZE_STATUS='URGED' OR
+                                           D.UTILIZE_STATUS='RENEWED' OR
+                                           D.UTILIZE_STATUS='CONFIRMEDBYCO' OR
+                                           D.UTILIZE_STATUS='UNRESCONFIRMED')
+                                         </isEqual>
+                                         <isEqual prepend="AND" property="status" compareValue="2">
+                                           (D.UTILIZE_STATUS='RESCONFIRMED' OR
+                                           D.UTILIZE_STATUS='TRANSACTED' OR
+                                           D.UTILIZE_STATUS='RESTORED')
+                                         </isEqual>
+                                       </isNotEmpty>
+                                       <isNotEmpty prepend="AND" property="modeID">
+                                         D.MODE_ID=#modeID#
+                                       </isNotEmpty>
+                                       <isNotEmpty prepend="AND" property="beginDate">
+                                        <![CDATA[
+                                         TO_DATE(#beginDate#,'YYYY-MM-DD')<D.BEGIN_DATE
+                                        ]]>
+                                       </isNotEmpty>
+                                       <isNotEmpty prepend="AND" property="endDate">
+                                        <![CDATA[
+                                         TO_DATE(#endDate#,'YYYY-MM-DD')>D.BEGIN_DATE
+                                        ]]>
+                                       </isNotEmpty>
+                                      </dynamic>
+                                  )
+             ) MM,
+             (
+               SELECT
+                 DISTINCT A.FILE_ID,NVL(B.CHARGE_MONEY,0) AS CHARGE_MONEY
+               FROM UTILIZE_DETAIL A,CHARGE_STANDARD B
+               WHERE A.CHARGE_ID=B.CHARGE_ID
+               AND A.FILE_ID IN (SELECT FILE_ID
+                                 FROM UTILIZE_DETAIL C,UTILIZE_APPLY D
+                                 WHERE C.APPLY_ID=D.APPLY_ID
+                                   <dynamic>
+                                       <isNotEmpty prepend="" property="status">
+                                         <isEqual prepend="AND" property="status" compareValue="1">
+                                           (D.UTILIZE_STATUS='REGCONFIRMED' OR
+                                           D.UTILIZE_STATUS='URGED' OR
+                                           D.UTILIZE_STATUS='RENEWED' OR
+                                           D.UTILIZE_STATUS='CONFIRMEDBYCO' OR
+                                           D.UTILIZE_STATUS='UNRESCONFIRMED')
+                                         </isEqual>
+                                         <isEqual prepend="AND" property="status" compareValue="2">
+                                           (D.UTILIZE_STATUS='RESCONFIRMED' OR
+                                           D.UTILIZE_STATUS='TRANSACTED' OR
+                                           D.UTILIZE_STATUS='RESTORED')
+                                         </isEqual>
+                                       </isNotEmpty>
+                                       <isNotEmpty prepend="AND" property="modeID">
+                                         D.MODE_ID=#modeID#
+                                       </isNotEmpty>
+                                       <isNotEmpty prepend="AND" property="beginDate">
+                                        <![CDATA[
+                                         TO_DATE(#beginDate#,'YYYY-MM-DD')<D.BEGIN_DATE
+                                        ]]>
+                                       </isNotEmpty>
+                                       <isNotEmpty prepend="AND" property="endDate">
+                                        <![CDATA[
+                                         TO_DATE(#endDate#,'YYYY-MM-DD')>D.BEGIN_DATE
+                                        ]]>
+                                       </isNotEmpty>
+                                   </dynamic>
+                                  )
+             ) GG
+        WHERE MM.FILE_ID=GG.FILE_ID(+)
+        GROUP BY MM.ARCHIVES_NUM,MM.ARCHIVES_NAME,MM.FILE_ID,MM.FILE_NUM,MM.FILE_TITLE,MM.PAGE_COUNT
+   </dynamic-mapped-statement>
+
+   <mapped-statement name="queryPageChargeByFileID" result-map="archivesPageCharge">
+   <![CDATA[
+    SELECT B.ARCHIVES_ID, C.FILE_ID, C.PAGE_ID, C.PAGE_SIZE, D.CHARGE_ID, D.CHARGE_MONEY, A.ENTRY_ID
+    FROM ARCHIVES A, ARCHIVES_FILE B, ARCHIVES_PAGE C, CHARGE_STANDARD D
+    WHERE A.ARCHIVES_ID= B.ARCHIVES_ID AND B.FILE_ID= C.FILE_ID
+      AND A.ENTRY_ID= D.SENTRYID AND C.PAGE_SIZE= D.CHARGE_MODE
+      AND B.FILE_ID= #value#
+    ORDER BY C.PAGE_ID
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="queryPageChargeByPageID" result-map="archivesPageCharge">
+   <![CDATA[
+    SELECT B.ARCHIVES_ID, C.FILE_ID, C.PAGE_ID, C.PAGE_SIZE, D.CHARGE_ID, D.CHARGE_MONEY, A.ENTRY_ID
+    FROM ARCHIVES A, ARCHIVES_FILE B, ARCHIVES_PAGE C, CHARGE_STANDARD D
+    WHERE A.ARCHIVES_ID= B.ARCHIVES_ID AND B.FILE_ID= C.FILE_ID
+      AND A.ENTRY_ID= D.SENTRYID AND C.PAGE_SIZE= D.CHARGE_MODE
+      AND C.PAGE_ID= #value#
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="queryOverdueArchByApplyID" result-map="utilizeDetailForUrge">
+   <![CDATA[
+    SELECT
+    DISTINCT
+      A.APPLY_ID,C.ARCHIVES_ID,C.ARCHIVES_NAME,C.ARCHIVES_NUM,
+      B.FILE_TITLE AS FILE_NAME
+    FROM
+      UTILIZE_DETAIL A,ARCHIVES_FILE B,ARCHIVES C
+    WHERE
+      A.APPLY_ID=#value# AND
+      A.FILE_ID=B.FILE_ID AND
+      B.ARCHIVES_ID=C.ARCHIVES_ID
+    ORDER BY ARCHIVES_ID
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="insertUrgeInfoForOA">
+   <![CDATA[
+   INSERT INTO OA_BORROW_URGE(URGE_ID,ARCHIVES_NUM,ARCHIVES_NAME,PAGE_AMOUNT,
+                              BORROW_PERSON,MUST_RETURN_DATE,IS_RETURN,REMARK)
+   VALUES ((SELECT NVL(MAX(NVL(URGE_ID,0)),0)+1 FROM OA_BORROW_URGE),
+         #archives_num#,#archives_name#,#page_amount#,#borrow_person#,
+         TO_DATE(#must_return_date#,'YYYY-MM-DD'),#is_return#,#remark#)
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="updateUrgeStatusForOA">
+   <![CDATA[
+       UPDATE OA_BORROW_URGE
+       SET IS_RETURN=#is_return#
+       WHERE ARCHIVES_NUM=#archives_num#
+   ]]>
+   </mapped-statement>
+
+</sql-map>

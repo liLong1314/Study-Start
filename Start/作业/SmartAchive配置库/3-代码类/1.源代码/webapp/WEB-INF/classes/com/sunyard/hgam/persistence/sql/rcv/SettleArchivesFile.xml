@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="SettleArchivesFile">
+   <result-map name="settleArchivesFile" class="com.sunyard.hgam.persistence.dao.beans.adc.ArchivesFile">
+    <property name="file_id" column="FILE_ID"/>
+    <property name="eform_id" column="EFORM_ID"/>
+    <property name="phase_id" column="PHASE_ID"/>
+    <property name="up_phase_id" column="UP_PHASE_ID"/>
+    <property name="parent_file_id" column="PARENT_FILE_ID"/>
+    <property name="archives_id" column="ARCHIVES_ID"/>
+    <property name="secret_id" column="SECRET_ID"/>
+    <property name="proj_id" column="PROJ_ID"/>
+    <property name="proj_name" column="PROJ_NAME"/>
+    <property name="file_num" column="FILE_NUM"/>
+    <property name="file_title" column="FILE_TITLE"/>
+    <property name="file_duty" column="FILE_DUTY"/>
+    <property name="file_date" column="FILE_DATE"/>
+    <property name="file_page_amount" column="FILE_PAGE_AMOUNT"/>
+    <property name="file_type" column="FILE_TYPE"/>
+    <property name="file_keywords" column="FILE_KEYWORDS"/>
+    <property name="file_seq" column="FILE_SEQ"/>
+    <property name="file_store_term" column="FILE_STORE_TERM"/>
+    <property name="is_identify" column="IS_IDENTIFY"/>
+    <property name="identify_result" column="IDENTIFY_RESULT"/>
+    <property name="is_borrow" column="IS_BORROW"/>
+    <property name="is_destroy" column="IS_DESTROY"/>
+    <property name="file_status" column="FILE_STATUS"/>
+    <property name="file_pathName" column="FILE_PATHNAME"/>
+    <property name="remark" column="REMARK"/>
+
+    <property name="file_page_seq" column="FILE_PAGE_SEQ"/>
+    <property name="file_spec" column="FILE_SPEC"/>
+    <property name="media_type" column="MEDIA_TYPE"/>
+    <property name="file_count" column="FILE_COUNT"/>
+    <property name="file_get_date" column="FILE_GET_DATE"/>
+    <property name="file_get_forward" column="FILE_GET_FORWARD"/>
+    <property name="file_get_person" column="FILE_GET_PERSON"/>
+    <property name="file_to_unit" column="FILE_TO_UNIT"/>
+    <property name="file_to_forward" column="FILE_TO_FORWARD"/>
+    <property name="file_to_createby" column="FILE_TO_CREATEBY"/>
+    <property name="file_to_signby" column="FILE_TO_SIGNBY"/>
+    <property name="is_private" column="IS_PRIVATE"/>
+   </result-map>
+
+   <dynamic-mapped-statement name="querySettleArchivesFileList" result-map="settleArchivesFile" >
+	SELECT
+	  *
+	FROM ARCHIVES_FILE
+	WHERE ARCHIVES_ID IS NULL
+          AND (FILE_STATUS = '2' OR FILE_STATUS = '4')
+    <dynamic>
+      <isNotEmpty prepend="AND" property="file_num">
+         FILE_NUM LIKE '%' || #file_num# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="file_title">
+         FILE_TITLE LIKE '%' || #file_title# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="proj_id">
+         PROJ_ID LIKE '%' || #proj_id# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="proj_name">
+         PROJ_NAME LIKE '%' || #proj_name# || '%'
+      </isNotEmpty>
+    </dynamic>
+    	ORDER BY
+      	FILE_ID DESC
+  </dynamic-mapped-statement>
+</sql-map>

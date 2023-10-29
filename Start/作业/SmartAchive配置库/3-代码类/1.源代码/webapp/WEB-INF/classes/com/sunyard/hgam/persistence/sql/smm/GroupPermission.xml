@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="GroupPermission">
+
+  <result-map name="groupPermission" class="com.sunyard.hgam.persistence.dao.beans.smm.GroupPermission">
+    <property name="groupID" column="GROUP_ID"/>
+    <property name="permID" column="PERMISSION_ID"/>
+    <property name="permType" column="PERMISSION_TYPE"/>
+  </result-map>
+
+  <mapped-statement name="getPermissionBygroupID" result-map="groupPermission">
+	select A.GROUP_ID,A.PERMISSION_ID,A.PERMISSION_TYPE
+    	from GROUP_PERMISSION A,PERMISSION B
+    	where A.PERMISSION_ID=B.PERMISSION_ID
+		AND A.GROUP_ID=#value#
+	order by B.PERMISSION_CODE
+  </mapped-statement>
+
+  <mapped-statement name="insertGP">
+    insert into GROUP_PERMISSION (GROUP_ID,PERMISSION_ID,PERMISSION_TYPE) values(#groupID#,#permID#,#permType#)
+  </mapped-statement>
+
+  <mapped-statement name="deleteOneGP">
+    delete from GROUP_PERMISSION where GROUP_ID=#groupID# and PERMISSION_ID=#permID#
+  </mapped-statement>
+
+  <dynamic-mapped-statement name="deleteAllGP">
+    delete from GROUP_PERMISSION
+    <dynamic prepend="WHERE">
+        <isNotEmpty prepend="and" property="groupID">
+           GROUP_ID=#groupID#
+        </isNotEmpty>
+        <isNotEmpty prepend="and" property="permType">
+           PERMISSION_TYPE=#permType#
+        </isNotEmpty>
+	</dynamic>
+  </dynamic-mapped-statement>
+
+</sql-map>

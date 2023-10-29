@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+<sql-map name="Contain">
+  <result-map name="contain" class="com.sunyard.hgam.persistence.dao.beans.arm.Contain">
+    <property name="containId" column="CONTAINER_ID"/>
+    <property name="containType" column="CONTAINER_TYPE"/>
+    <property name="roomCode" column="ROOM_CODE"/>
+    <property name="containCode" column="CONTAINER_CODE"/>
+    <property name="containRow" column="CONTAINER_ROW"/>
+    <property name="containSide" column="CONTAINER_SIDE"/>
+    <property name="containColumn" column="CONTAINER_COLUMN"/>
+    <property name="remark" column="REMARK"/>
+   </result-map>
+
+   <mapped-statement name="getAllContain" result-map="contain">
+   <![CDATA[
+    SELECT
+	CONTAINER_ID,
+	CONTAINER_TYPE,
+	ROOM_CODE,
+	CONTAINER_CODE,
+	CONTAINER_SIDE,
+	CONTAINER_ROW,
+	CONTAINER_COLUMN,
+	REMARK
+    FROM
+	CONTAINER
+    ORDER BY
+	ROOM_CODE,
+	CONTAINER_CODE,
+	CONTAINER_ROW,
+	CONTAINER_COLUMN
+   ]]>
+   </mapped-statement>
+
+   <dynamic-mapped-statement name="searchContain" result-map="contain">
+    SELECT
+	CONTAINER_ID,
+	CONTAINER_TYPE,
+	ROOM_CODE,
+	CONTAINER_CODE,
+	CONTAINER_SIDE,
+	CONTAINER_ROW,
+	CONTAINER_COLUMN,
+	REMARK
+    FROM
+	CONTAINER
+    <dynamic prepend="WHERE">
+      <isNotEmpty prepend="AND" property="containCode">
+      	CONTAINER_CODE=#containCode#
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="containSide">
+      	CONTAINER_SIDE like '%' || #containSide# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="containRow">
+      	CONTAINER_ROW like '%' || #containRow# || '%'
+      </isNotEmpty>
+      <isNotEmpty prepend="AND" property="containColumn">
+      	CONTAINER_COLUMN like '%' || #containColumn# || '%'
+      </isNotEmpty>
+    </dynamic>
+  </dynamic-mapped-statement>
+
+   <mapped-statement name="addContain">
+   <![CDATA[
+    INSERT INTO CONTAINER(
+	CONTAINER_ID,
+	CONTAINER_TYPE,
+	ROOM_CODE,
+	CONTAINER_CODE,
+	CONTAINER_ROW,
+	CONTAINER_SIDE,
+	CONTAINER_COLUMN,
+	REMARK
+	)
+       VALUES (
+	(SELECT NVL(MAX(NVL(CONTAINER_ID,0))+1,1) FROM CONTAINER),
+	#containType#,
+	#roomCode#,
+	#containCode#,
+	#containRow#,
+	#containSide#,
+	#containColumn#,
+	#remark#
+	)
+   ]]>
+   </mapped-statement>
+
+   <mapped-statement name="getContainByID" result-map="contain">
+   <![CDATA[
+    SELECT
+	CONTAINER_ID,
+	CONTAINER_TYPE,
+	ROOM_CODE,
+	CONTAINER_CODE,
+	CONTAINER_ROW,
+	CONTAINER_SIDE,
+	LAW_CONTENT,
+	REMARK
+    FROM
+	CONTAINER
+    WHERE
+	CONTAINER_ID=#value#
+   ]]>
+   </mapped-statement>
+
+  <mapped-statement name="deleteContainByID">
+  <![CDATA[
+    DELETE FROM CONTAINER WHERE CONTAINER_ID=#value#
+   ]]>
+  </mapped-statement>
+
+  <mapped-statement name="updateContain">
+  <![CDATA[
+    UPDATE CONTAINER SET
+      REMARK=#remark#
+      WHERE CONTAINER_ID=#containId#
+   ]]>
+  </mapped-statement>
+</sql-map>
